@@ -21,11 +21,12 @@ RUN composer install \
     --no-dev \
     --no-scripts \
     --no-autoloader \
-    --prefer-dist
+    --prefer-dist \
+    --ignore-platform-req=ext-intl
 
 COPY . .
 
-RUN composer dump-autoload --optimize --no-dev
+RUN composer dump-autoload --optimize --no-dev --ignore-platform-req=ext-intl
 
 FROM php:8.3-fpm-bookworm
 
