@@ -39,12 +39,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libfreetype6-dev \
     libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j"$(nproc)" \
+    && docker-php-ext-install -j2 \
         bcmath \
         gd \
         intl \
-        opcache \
-        pdo_sqlite \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
