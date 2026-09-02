@@ -28,7 +28,7 @@ COPY . .
 
 RUN composer dump-autoload --optimize --no-dev --ignore-platform-req=ext-intl
 
-FROM php:8.3-fpm-bookworm
+FROM php:8.4-fpm-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nginx \
