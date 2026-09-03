@@ -75,21 +75,9 @@
                             </div>
                         </div>
 
-                        <div class="grid gap-6 sm:grid-cols-2">
-                            <div>
-                                <label for="guests" class="mb-2 block text-sm font-medium text-white">{{ site_t('contact.guests') }}</label>
-                                <input type="number" name="guests" id="guests" value="{{ old('guests') }}" min="1" class="w-full rounded-lg border border-white/10 bg-surface px-4 py-3 text-white focus:border-cyan/50 focus:outline-none focus:ring-1 focus:ring-cyan/50">
-                            </div>
-                            <div>
-                                <label for="budget" class="mb-2 block text-sm font-medium text-white">{{ site_t('contact.budget') }}</label>
-                                <select name="budget" id="budget" class="w-full rounded-lg border border-white/10 bg-surface px-4 py-3 text-white focus:border-cyan/50 focus:outline-none focus:ring-1 focus:ring-cyan/50">
-                                    <option value="">{{ site_t('contact.select_budget') }}</option>
-                                    <option value="{{ site_t('budget_options.1000_2000') }}" @selected(old('budget') === site_t('budget_options.1000_2000'))>{{ site_t('budget_options.1000_2000') }}</option>
-                                    <option value="{{ site_t('budget_options.2000_3000') }}" @selected(old('budget') === site_t('budget_options.2000_3000'))>{{ site_t('budget_options.2000_3000') }}</option>
-                                    <option value="{{ site_t('budget_options.3000_4000') }}" @selected(old('budget') === site_t('budget_options.3000_4000'))>{{ site_t('budget_options.3000_4000') }}</option>
-                                    <option value="{{ site_t('budget_options.4000_plus') }}" @selected(old('budget') === site_t('budget_options.4000_plus'))>{{ site_t('budget_options.4000_plus') }}</option>
-                                </select>
-                            </div>
+                        <div>
+                            <label for="guests" class="mb-2 block text-sm font-medium text-white">{{ site_t('contact.guests') }}</label>
+                            <input type="number" name="guests" id="guests" value="{{ old('guests') }}" min="1" class="w-full rounded-lg border border-white/10 bg-surface px-4 py-3 text-white focus:border-cyan/50 focus:outline-none focus:ring-1 focus:ring-cyan/50 sm:max-w-xs">
                         </div>
 
                         <div>

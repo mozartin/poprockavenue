@@ -9,8 +9,7 @@ A new booking inquiry has been submitted.
 **Event type:** {{ $booking->event_type }}  
 **Event date:** {{ $booking->event_date?->format('d M Y') ?: '—' }}  
 **Location:** {{ $booking->location ?: '—' }}  
-**Guests:** {{ $booking->guests ?: '—' }}  
-**Budget:** {{ $booking->budget ?: '—' }}
+**Guests:** {{ $booking->guests ?: '—' }}
 
 @if ($booking->message)
 **Message:**

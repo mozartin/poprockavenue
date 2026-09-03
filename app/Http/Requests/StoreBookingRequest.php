@@ -22,7 +22,6 @@ class StoreBookingRequest extends FormRequest
             'event_date' => ['nullable', 'date', 'after_or_equal:today'],
             'location' => ['nullable', 'string', 'max:255'],
             'guests' => ['nullable', 'integer', 'min:1', 'max:50000'],
-            'budget' => ['nullable', 'string', 'max:100'],
             'message' => ['nullable', 'string', 'max:5000'],
             'website' => ['nullable', 'max:0'],
         ];

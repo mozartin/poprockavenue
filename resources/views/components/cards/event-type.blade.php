@@ -8,18 +8,8 @@
     };
 @endphp
 
-@php
-    $routeMap = [
-        'weddings' => 'weddings',
-        'corporate-events' => 'corporate',
-        'private-parties' => 'private-parties',
-        'christmas-new-year' => 'christmas',
-    ];
-    $eventRoute = $routeMap[$event->slug] ?? 'home';
-@endphp
-
 <a
-    href="{{ localized_route($eventRoute) }}"
+    href="{{ localized_route('contact', ['event_type' => $event->name]) }}#event_type"
     class="group relative flex overflow-hidden rounded-2xl {{ $sizeClasses }}"
 >
     <x-ui.parallax-image

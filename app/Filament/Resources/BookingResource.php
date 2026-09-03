@@ -38,7 +38,6 @@ class BookingResource extends Resource
                         Forms\Components\DatePicker::make('event_date'),
                         Forms\Components\TextInput::make('location')->maxLength(255),
                         Forms\Components\TextInput::make('guests')->numeric()->minValue(1),
-                        Forms\Components\TextInput::make('budget')->maxLength(100),
                         Forms\Components\Textarea::make('message')->rows(4)->columnSpanFull(),
                     ])->columns(2),
 
