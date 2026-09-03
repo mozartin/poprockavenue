@@ -3,7 +3,7 @@
 @endphp
 
 <x-layout.app
-    :title="$event->meta_title ?? $event->title . ' — Pop Rock Avenue'"
+    :title="$event->meta_title ?? $event->title . ' — POP/ROCK AVENUE'"
     :description="$event->meta_description ?? $event->description"
 >
     <x-sections.page-hero

@@ -49,7 +49,7 @@ return [
         'festivals' => 'Festivals',
         'private_parties' => 'Privéfeesten',
         'christmas' => 'Kerst & Oud & Nieuw',
-        'brand' => 'Pop Rock Avenue',
+        'brand' => 'POP/ROCK AVENUE',
         'live_band' => 'Live Coverband',
         'netherlands' => 'Nederland',
         'weddings' => 'Bruiloften',
@@ -161,6 +161,6 @@ return [
 
     'emails' => [
         'notification_subject' => 'Nieuwe Boekingsaanvraag — :name',
-        'confirmation_subject' => 'We hebben je boekingsaanvraag ontvangen — Pop Rock Avenue',
+        'confirmation_subject' => 'We hebben je boekingsaanvraag ontvangen — POP/ROCK AVENUE',
     ],
 ];

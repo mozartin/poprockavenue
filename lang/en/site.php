@@ -49,7 +49,7 @@ return [
         'festivals' => 'Festivals',
         'private_parties' => 'Private Parties',
         'christmas' => 'Christmas & New Year',
-        'brand' => 'Pop Rock Avenue',
+        'brand' => 'POP/ROCK AVENUE',
         'live_band' => 'Live Cover Band',
         'netherlands' => 'Netherlands',
         'weddings' => 'Weddings',
@@ -161,6 +161,6 @@ return [
 
     'emails' => [
         'notification_subject' => 'New Booking Request — :name',
-        'confirmation_subject' => 'We received your booking request — Pop Rock Avenue',
+        'confirmation_subject' => 'We received your booking request — POP/ROCK AVENUE',
     ],
 ];

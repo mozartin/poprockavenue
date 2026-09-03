@@ -60,7 +60,7 @@
         </div>
 
         <div class="mt-12 flex flex-col gap-4 border-t border-white/5 pt-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-            <p>&copy; {{ date('Y') }} Pop Rock Avenue. {{ site_t('footer.rights') }}</p>
+            <p>&copy; {{ date('Y') }} POP/ROCK AVENUE. {{ site_t('footer.rights') }}</p>
         </div>
     </div>
 </footer>

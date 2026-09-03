@@ -49,7 +49,7 @@ return [
         'festivals' => 'Фестивалі',
         'private_parties' => 'Приватні вечірки',
         'christmas' => 'Різдво та Новий рік',
-        'brand' => 'Pop Rock Avenue',
+        'brand' => 'POP/ROCK AVENUE',
         'live_band' => 'Live Cover Band',
         'netherlands' => 'Нідерланди',
         'weddings' => 'Весілля',
@@ -161,6 +161,6 @@ return [
 
     'emails' => [
         'notification_subject' => 'Новий запит на бронювання — :name',
-        'confirmation_subject' => 'Ми отримали ваш запит — Pop Rock Avenue',
+        'confirmation_subject' => 'Ми отримали ваш запит — POP/ROCK AVENUE',
     ],
 ];

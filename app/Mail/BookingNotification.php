@@ -25,7 +25,7 @@ class BookingNotification extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.booking-notification',
+            html: 'emails.booking-notification',
         );
     }
 }
