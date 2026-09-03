@@ -88,12 +88,12 @@
         padding: 0;
         pointer-events: none;
         user-select: none;
-        font-size: var(--note-size, 11px);
+        font-size: var(--note-size, 14px);
         line-height: 1;
         color: var(--note-color, #22D3EE);
         text-shadow:
-            0 0 5px var(--note-color, #22D3EE),
-            0 0 10px color-mix(in srgb, var(--note-color, #22D3EE) 55%, transparent);
+            0 0 6px var(--note-color, #22D3EE),
+            0 0 12px color-mix(in srgb, var(--note-color, #22D3EE) 60%, transparent);
         transform: translate3d(
                 calc(-50% + var(--note-x, 0px)),
                 calc(-50% + var(--note-y, 0px)),
