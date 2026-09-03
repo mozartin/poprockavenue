@@ -14,9 +14,14 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    protected function t(string $en, string $nl, string $uk): array
+    protected function t(string $en, string $nl, string $uk, ?string $ru = null): array
     {
-        return compact('en', 'nl', 'uk');
+        return [
+            'en' => $en,
+            'nl' => $nl,
+            'uk' => $uk,
+            'ru' => $ru ?? $uk,
+        ];
     }
 
     public function run(): void
@@ -40,7 +45,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'booking_email', 'value' => 'booking@poprockavenue.nl', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'email', 'value' => 'booking@poprockavenue.nl', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'phone', 'value' => '+31 6 12 345 678', 'type' => 'text', 'group' => 'contact'],
-            ['key' => 'location', 'value' => json_encode($this->t('Netherlands', 'Nederland', 'Нідерланди')), 'type' => 'translatable', 'group' => 'contact'],
+            ['key' => 'location', 'value' => json_encode($this->t('Netherlands', 'Nederland', 'Нідерланди', 'Нидерланды')), 'type' => 'translatable', 'group' => 'contact'],
             ['key' => 'instagram_url', 'value' => 'https://instagram.com/poprockavenue', 'type' => 'text', 'group' => 'social'],
             ['key' => 'facebook_url', 'value' => 'https://facebook.com/poprockavenue', 'type' => 'text', 'group' => 'social'],
             ['key' => 'youtube_url', 'value' => 'https://youtube.com/@poprockavenue', 'type' => 'text', 'group' => 'social'],

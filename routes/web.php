@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/en');
 
 Route::prefix('{locale}')
-    ->where(['locale' => 'en|nl|uk'])
+    ->where(['locale' => 'en|nl|uk|ru'])
     ->middleware('set.locale')
     ->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -18,6 +18,7 @@ Route::prefix('{locale}')
         Route::get('/private-parties', [PageController::class, 'event'])->defaults('event', 'private-parties')->name('private-parties');
         Route::get('/christmas-new-year', [PageController::class, 'event'])->defaults('event', 'christmas-new-year')->name('christmas');
         Route::get('/repertoire', [PageController::class, 'repertoire'])->name('repertoire');
+        Route::get('/media', [PageController::class, 'media'])->name('media');
         Route::get('/testimonials', [PageController::class, 'testimonials'])->name('testimonials');
         Route::get('/contact', [PageController::class, 'contact'])->name('contact');
         Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');

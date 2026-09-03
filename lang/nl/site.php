@@ -13,11 +13,14 @@ return [
         'testimonials_description' => 'Lees wat klanten zeggen over Pop Rock Avenue — Nederlands toonaangevende 7-koppig live coverband.',
         'contact_title' => 'Contact & Boeking — Pop Rock Avenue',
         'contact_description' => 'Controleer beschikbaarheid voor Pop Rock Avenue. Reactie binnen 24 uur.',
+        'media_title' => 'Live Moments — Pop Rock Avenue',
+        'media_description' => 'Verticale live clips van Pop Rock Avenue — bruiloften, bedrijfsevents en feesten in heel Nederland.',
     ],
 
     'nav' => [
         'about' => 'Over ons',
         'events' => 'Events',
+        'media' => 'Live Moments',
         'repertoire' => 'Repertoire',
         'testimonials' => 'Referenties',
         'contact' => 'Contact',
@@ -31,6 +34,7 @@ return [
         'watch_showreel' => 'Bekijk Showreel',
         'meet_the_band' => 'Ontmoet de Band',
         'view_full_repertoire' => 'Volledig Repertoire',
+        'view_all_moments' => 'Bekijk alle moments',
         'request_custom_setlist' => 'Vraag Setlist op Maat',
     ],
 
@@ -69,6 +73,15 @@ return [
         'subtitle' => 'Zie wat het betekent om Pop Rock Avenue op je podium te hebben.',
         'image_alt' => 'Pop Rock Avenue live optreden',
         'play_label' => 'Bekijk showreel',
+    ],
+
+    'live_moments' => [
+        'eyebrow' => 'Live Moments',
+        'title' => 'Vastgelegd op camera. Gemaakt voor de dansvloer.',
+        'subtitle' => 'Verticale clips van echte shows — de energie, het publiek, de nacht.',
+        'page_title' => 'Live Moments',
+        'page_subtitle' => 'Een galerij met verticale live clips van bruiloften, bedrijfsevents en feesten in heel Nederland.',
+        'empty' => 'Nieuwe moments komen eraan.',
     ],
 
     'about' => [

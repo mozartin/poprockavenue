@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BandMemberResource\Pages;
+use App\Filament\Support\MediaUploads;
 use App\Filament\Support\TranslatableFields;
 use App\Models\BandMember;
 use Filament\Forms;
@@ -32,7 +33,7 @@ class BandMemberResource extends Resource
             Forms\Components\Section::make('General')
                 ->schema([
                     Forms\Components\TextInput::make('name')->maxLength(255),
-                    Forms\Components\TextInput::make('image')->label('Image Path/URL'),
+                    MediaUploads::image('image', 'Photo', 'uploads/band'),
                     Forms\Components\TextInput::make('sort_order')->numeric()->default(0),
                     Forms\Components\Toggle::make('is_active')->default(true),
                 ])->columns(2),

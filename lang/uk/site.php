@@ -13,11 +13,14 @@ return [
         'testimonials_description' => 'Що кажуть клієнти про Pop Rock Avenue — провідний 7-учасний live cover band Нідерландів.',
         'contact_title' => 'Контакт і Бронювання — Pop Rock Avenue',
         'contact_description' => 'Перевірте доступність Pop Rock Avenue. Відповідь протягом 24 годин.',
+        'media_title' => 'Live Moments — Pop Rock Avenue',
+        'media_description' => 'Вертикальні live-кліпи Pop Rock Avenue — весілля, корпоративи та вечірки по всій Нідерланді.',
     ],
 
     'nav' => [
         'about' => 'Про гурт',
         'events' => 'Події',
+        'media' => 'Live Moments',
         'repertoire' => 'Репертуар',
         'testimonials' => 'Відгуки',
         'contact' => 'Контакт',
@@ -31,6 +34,7 @@ return [
         'watch_showreel' => 'Дивитись Showreel',
         'meet_the_band' => 'Познайомитись з гуртом',
         'view_full_repertoire' => 'Повний репертуар',
+        'view_all_moments' => 'Усі моменти',
         'request_custom_setlist' => 'Замовити сетлист',
     ],
 
@@ -69,6 +73,15 @@ return [
         'subtitle' => 'Подивіться, що означає мати Pop Rock Avenue на вашій сцені.',
         'image_alt' => 'Живий виступ Pop Rock Avenue',
         'play_label' => 'Дивитись showreel',
+    ],
+
+    'live_moments' => [
+        'eyebrow' => 'Live Moments',
+        'title' => 'Знято на камеру. Зроблено для танцполу.',
+        'subtitle' => 'Вертикальні кліпи з живих шоу — енергія, натовп, ніч.',
+        'page_title' => 'Live Moments',
+        'page_subtitle' => 'Галерея вертикальних live-кліпів з весіль, корпоративів та вечірок по всій Нідерланді.',
+        'empty' => 'Нові моменти вже скоро.',
     ],
 
     'about' => [

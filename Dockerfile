@@ -49,6 +49,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY docker/nginx.conf /etc/nginx/sites-available/default
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/php-uploads.ini /usr/local/etc/php/conf.d/uploads.ini
 
 RUN chmod +x /usr/local/bin/entrypoint.sh \
     && ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default \

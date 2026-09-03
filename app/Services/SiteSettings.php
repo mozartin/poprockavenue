@@ -73,13 +73,7 @@ class SiteSettings
 
     public static function imageUrl(?string $path, string $default): string
     {
-        $image = $path ?: $default;
-
-        if (str_starts_with($image, 'http://') || str_starts_with($image, 'https://')) {
-            return $image;
-        }
-
-        return asset(ltrim($image, '/'));
+        return \App\Support\MediaPath::url($path, $default);
     }
 
     public static function heroImage(): string

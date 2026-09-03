@@ -8,7 +8,7 @@
     @include('pages.home.sections.live-experience')
     @include('pages.home.sections.about')
     @include('pages.home.sections.events', ['eventTypes' => $eventTypes])
-    @include('pages.home.sections.repertoire', ['repertoireCategories' => $repertoireCategories])
+    @include('pages.home.sections.live-moments', ['mediaMoments' => $mediaMoments])
     @include('pages.home.sections.testimonials', ['testimonials' => $testimonials])
     @include('pages.home.sections.booking-cta')
 </x-layout.app>

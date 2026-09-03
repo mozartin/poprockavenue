@@ -34,6 +34,7 @@
                 <ul class="space-y-3 text-sm text-muted">
                     <li><a href="{{ localized_route('band') }}" class="transition-colors hover:text-white">{{ site_t('nav.about') }}</a></li>
                     <li><a href="{{ localized_route('home') }}#events" class="transition-colors hover:text-white">{{ site_t('nav.events') }}</a></li>
+                    <li><a href="{{ localized_route('media') }}" class="transition-colors hover:text-white">{{ site_t('nav.media') }}</a></li>
                     <li><a href="{{ localized_route('repertoire') }}" class="transition-colors hover:text-white">{{ site_t('nav.repertoire') }}</a></li>
                     <li><a href="{{ localized_route('home') }}#testimonials" class="transition-colors hover:text-white">{{ site_t('nav.testimonials') }}</a></li>
                 </ul>

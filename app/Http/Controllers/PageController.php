@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BandMember;
 use App\Models\EventType;
+use App\Models\MediaMoment;
 use App\Models\RepertoireCategory;
 use App\Models\Testimonial;
 use App\Services\SiteSettings;
@@ -36,6 +37,14 @@ class PageController extends Controller
                 ->ordered()
                 ->with(['songs' => fn ($q) => $q->where('is_active', true)->orderBy('sort_order')])
                 ->get(),
+            'settings' => SiteSettings::all(),
+        ]);
+    }
+
+    public function media()
+    {
+        return view('pages.media', [
+            'mediaMoments' => MediaMoment::active()->ordered()->get(),
             'settings' => SiteSettings::all(),
         ]);
     }

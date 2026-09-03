@@ -2,7 +2,7 @@
     $links = [
         ['label' => site_t('nav.about'), 'route' => 'home', 'anchor' => '#about'],
         ['label' => site_t('nav.events'), 'route' => 'home', 'anchor' => '#events'],
-        ['label' => site_t('nav.repertoire'), 'route' => 'repertoire'],
+        ['label' => site_t('nav.media'), 'route' => 'media'],
         ['label' => site_t('nav.testimonials'), 'route' => 'home', 'anchor' => '#testimonials'],
         ['label' => site_t('nav.contact'), 'route' => 'contact'],
     ];

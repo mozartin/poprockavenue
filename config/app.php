@@ -86,6 +86,7 @@ return [
         'en' => 'EN',
         'nl' => 'NL',
         'uk' => 'UA',
+        'ru' => 'RU',
     ],
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),

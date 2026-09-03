@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EventTypeResource\Pages;
+use App\Filament\Support\MediaUploads;
 use App\Filament\Support\TranslatableFields;
 use App\Models\EventType;
 use Filament\Forms;
@@ -44,8 +45,8 @@ class EventTypeResource extends Resource
                         ->required()
                         ->unique(ignoreRecord: true)
                         ->helperText('Same URL slug for all languages, e.g. weddings'),
-                    Forms\Components\TextInput::make('image')->label('Card Image Path/URL'),
-                    Forms\Components\TextInput::make('hero_image')->label('Hero Image Path/URL'),
+                    MediaUploads::image('image', 'Card image', 'uploads/events'),
+                    MediaUploads::image('hero_image', 'Hero image', 'uploads/events'),
                     Forms\Components\ColorPicker::make('accent_color')->default('#22D3EE'),
                     Forms\Components\Toggle::make('is_featured')->default(true),
                     Forms\Components\TextInput::make('sort_order')->numeric()->default(0),

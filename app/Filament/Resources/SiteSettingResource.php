@@ -32,7 +32,7 @@ class SiteSettingResource extends Resource
             Forms\Components\Select::make('type')
                 ->options([
                     'text' => 'Text (single language)',
-                    'translatable' => 'Text (EN / NL / UA)',
+                    'translatable' => 'Text (EN / NL / UA / RU)',
                     'boolean' => 'Boolean',
                     'integer' => 'Integer',
                     'json' => 'JSON',

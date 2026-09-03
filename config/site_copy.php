@@ -25,6 +25,7 @@ return [
             'fields' => [
                 'about' => ['label' => 'About', 'type' => 'text'],
                 'events' => ['label' => 'Events', 'type' => 'text'],
+                'media' => ['label' => 'Live Moments', 'type' => 'text'],
                 'repertoire' => ['label' => 'Repertoire', 'type' => 'text'],
                 'testimonials' => ['label' => 'Testimonials', 'type' => 'text'],
                 'contact' => ['label' => 'Contact', 'type' => 'text'],
@@ -40,6 +41,7 @@ return [
                 'watch_showreel' => ['label' => 'Watch showreel', 'type' => 'text'],
                 'meet_the_band' => ['label' => 'Meet the band', 'type' => 'text'],
                 'view_full_repertoire' => ['label' => 'View full repertoire', 'type' => 'text'],
+                'view_all_moments' => ['label' => 'View all moments', 'type' => 'text'],
                 'request_custom_setlist' => ['label' => 'Request custom setlist', 'type' => 'text'],
             ],
         ],
@@ -82,6 +84,17 @@ return [
                 'subtitle' => ['label' => 'Subtitle', 'type' => 'textarea'],
                 'image_alt' => ['label' => 'Image alt', 'type' => 'text'],
                 'play_label' => ['label' => 'Play button label', 'type' => 'text'],
+            ],
+        ],
+        'live_moments' => [
+            'label' => 'Live Moments section / page',
+            'fields' => [
+                'eyebrow' => ['label' => 'Eyebrow', 'type' => 'text'],
+                'title' => ['label' => 'Home title', 'type' => 'text'],
+                'subtitle' => ['label' => 'Home subtitle', 'type' => 'textarea'],
+                'page_title' => ['label' => 'Page title', 'type' => 'text'],
+                'page_subtitle' => ['label' => 'Page subtitle', 'type' => 'textarea'],
+                'empty' => ['label' => 'Empty state', 'type' => 'text'],
             ],
         ],
         'about' => [
