@@ -22,9 +22,14 @@ class SiteSetting extends Model
             return $default;
         }
 
-        return Cache::rememberForever("site_setting.{$key}", function () use ($setting, $default) {
-            return static::castValue($setting->value, $setting->type) ?? $default;
-        });
+        // Cache the raw DB value only — never the locale-resolved string,
+        // otherwise the first visitor's language sticks for everyone.
+        $raw = Cache::rememberForever("site_setting.{$key}", fn () => [
+            'value' => $setting->value,
+            'type' => $setting->type,
+        ]);
+
+        return static::castValue($raw['value'], $raw['type']) ?? $default;
     }
 
     public static function set(string $key, mixed $value, string $type = 'text', string $group = 'general'): void
@@ -44,14 +49,23 @@ class SiteSetting extends Model
 
     public static function allCached(): array
     {
-        return Cache::rememberForever('site_settings.all', function () {
+        $raw = Cache::rememberForever('site_settings.all', function () {
             return static::query()
                 ->get()
                 ->mapWithKeys(fn (self $setting) => [
-                    $setting->key => static::castValue($setting->value, $setting->type),
+                    $setting->key => [
+                        'value' => $setting->value,
+                        'type' => $setting->type,
+                    ],
                 ])
                 ->all();
         });
+
+        return collect($raw)
+            ->mapWithKeys(fn (array $item, string $key) => [
+                $key => static::castValue($item['value'], $item['type']),
+            ])
+            ->all();
     }
 
     protected static function castValue(?string $value, string $type): mixed
@@ -78,8 +92,25 @@ class SiteSetting extends Model
         }
 
         $locale = app()->getLocale();
+        $localized = $decoded[$locale] ?? null;
 
-        return $decoded[$locale] ?? $decoded['en'] ?? reset($decoded) ?: null;
+        if (is_string($localized) && $localized !== '') {
+            return $localized;
+        }
+
+        $fallback = $decoded['en'] ?? null;
+
+        if (is_string($fallback) && $fallback !== '') {
+            return $fallback;
+        }
+
+        foreach ($decoded as $candidate) {
+            if (is_string($candidate) && $candidate !== '') {
+                return $candidate;
+            }
+        }
+
+        return null;
     }
 
     protected static function booted(): void
