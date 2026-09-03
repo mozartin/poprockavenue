@@ -34,9 +34,7 @@ class BookingController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        $bookingEmail = SiteSettings::bookingEmail();
-
-        Mail::to($bookingEmail)->send(new BookingNotification($booking));
+        Mail::to(SiteSettings::bookingEmails())->send(new BookingNotification($booking));
         Mail::to($booking->email)->send(new BookingConfirmation($booking));
 
         return redirect()

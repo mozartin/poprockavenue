@@ -16,9 +16,20 @@ class SiteSettings
         return SiteSetting::allCached();
     }
 
+    public static function bookingEmails(): array
+    {
+        $raw = self::get('booking_email', config('mail.booking_to', 'booking@poprockavenue.nl'));
+
+        return collect(preg_split('/[,;]+/', (string) $raw))
+            ->map(fn (string $email) => trim($email))
+            ->filter()
+            ->values()
+            ->all();
+    }
+
     public static function bookingEmail(): string
     {
-        return (string) self::get('booking_email', config('mail.booking_to', 'booking@poprockavenue.nl'));
+        return self::bookingEmails()[0] ?? 'booking@poprockavenue.nl';
     }
 
     public static function phone(): string
