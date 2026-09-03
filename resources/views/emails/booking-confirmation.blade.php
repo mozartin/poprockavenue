@@ -48,7 +48,7 @@
     <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 8px;">
         <tr>
             <td style="border-radius:8px;background:linear-gradient(90deg,#7C3AED,#22D3EE);">
-                <a href="{{ localized_route('home') }}" style="display:inline-block;padding:14px 22px;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;color:#FFFFFF;">
+                <a href="{{ rtrim(config('app.url'), '/') }}/" style="display:inline-block;padding:14px 22px;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;color:#FFFFFF;">
                     Visit the website
                 </a>
             </td>

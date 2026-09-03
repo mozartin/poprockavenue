@@ -14,7 +14,7 @@
                     {{-- Header / logo --}}
                     <tr>
                         <td style="padding:28px 32px 20px;border-bottom:1px solid rgba(255,255,255,0.06);background:linear-gradient(135deg,rgba(124,58,237,0.18),rgba(34,211,238,0.08));">
-                            <a href="{{ url('/') }}" style="text-decoration:none;">
+                            <a href="{{ rtrim(config('app.url'), '/') }}/" style="text-decoration:none;">
                                 <span style="font-size:18px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#F8FAFC;">POP<span style="color:#22D3EE;">/</span>ROCK</span>
                                 <span style="font-size:18px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#22D3EE;margin-left:8px;">AVENUE</span>
                             </a>
@@ -37,7 +37,7 @@
                             </p>
                             <p style="margin:0;font-size:13px;line-height:1.5;color:#94A3B8;">
                                 Live cover band · Netherlands<br>
-                                <a href="{{ url('/') }}" style="color:#A78BFA;text-decoration:none;">poprockavenue.nl</a>
+                                <a href="{{ rtrim(config('app.url'), '/') }}/" style="color:#A78BFA;text-decoration:none;">poprockavenue.nl</a>
                             </p>
                         </td>
                     </tr>
