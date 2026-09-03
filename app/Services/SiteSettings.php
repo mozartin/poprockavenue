@@ -18,11 +18,15 @@ class SiteSettings
 
     public static function bookingEmails(): array
     {
-        $raw = self::get('booking_email', config('mail.booking_to', 'booking@poprockavenue.nl'));
+        // Coolify/env wins when set; otherwise Filament site setting.
+        $raw = config('mail.booking_to')
+            ?: self::get('booking_email')
+            ?: 'booking@poprockavenue.nl';
 
         return collect(preg_split('/[,;]+/', (string) $raw))
             ->map(fn (string $email) => trim($email))
             ->filter()
+            ->unique()
             ->values()
             ->all();
     }
