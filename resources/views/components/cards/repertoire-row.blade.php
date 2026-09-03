@@ -22,7 +22,7 @@
             </span>
         @endforeach
         <a href="{{ localized_route('repertoire') }}#{{ $category->slug }}" class="text-xs font-medium" style="color: {{ $category->accent_color }}">
-            {{ __('site.repertoire_section.more') }}
+            {{ site_t('repertoire_section.more') }}
         </a>
     </div>
 </div>

@@ -9,6 +9,7 @@ use App\Models\RepertoireSong;
 use App\Models\SiteSetting;
 use App\Models\Testimonial;
 use App\Models\User;
+use App\Support\SiteCopy;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->seedSiteSettings();
+        SiteCopy::seedFromLang();
         $this->seedEventTypes();
         $this->seedTestimonials();
         $this->seedRepertoire();

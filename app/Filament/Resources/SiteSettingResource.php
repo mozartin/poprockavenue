@@ -46,6 +46,7 @@ class SiteSettingResource extends Resource
                 'social' => 'Social',
                 'media' => 'Media',
                 'content' => 'Content',
+                'copy' => 'Website Texts',
                 'legal' => 'Legal',
             ])->default('general')->required(),
 

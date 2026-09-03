@@ -8,7 +8,7 @@
             <div class="space-y-5">
                 <x-layout.logo />
                 <p class="max-w-xs text-sm leading-relaxed text-muted">
-                    {{ __('site.footer.description') }}
+                    {{ site_t('footer.description') }}
                 </p>
                 <div class="flex items-center gap-3">
                     @if (SiteSettings::instagram())
@@ -30,27 +30,27 @@
             </div>
 
             <div>
-                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ __('site.footer.navigate') }}</h3>
+                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ site_t('footer.navigate') }}</h3>
                 <ul class="space-y-3 text-sm text-muted">
-                    <li><a href="{{ localized_route('band') }}" class="transition-colors hover:text-white">{{ __('site.nav.about') }}</a></li>
-                    <li><a href="{{ localized_route('home') }}#events" class="transition-colors hover:text-white">{{ __('site.nav.events') }}</a></li>
-                    <li><a href="{{ localized_route('repertoire') }}" class="transition-colors hover:text-white">{{ __('site.nav.repertoire') }}</a></li>
-                    <li><a href="{{ localized_route('home') }}#testimonials" class="transition-colors hover:text-white">{{ __('site.nav.testimonials') }}</a></li>
+                    <li><a href="{{ localized_route('band') }}" class="transition-colors hover:text-white">{{ site_t('nav.about') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#events" class="transition-colors hover:text-white">{{ site_t('nav.events') }}</a></li>
+                    <li><a href="{{ localized_route('repertoire') }}" class="transition-colors hover:text-white">{{ site_t('nav.repertoire') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#testimonials" class="transition-colors hover:text-white">{{ site_t('nav.testimonials') }}</a></li>
                 </ul>
             </div>
 
             <div>
-                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ __('site.footer.events') }}</h3>
+                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ site_t('footer.events') }}</h3>
                 <ul class="space-y-3 text-sm text-muted">
-                    <li><a href="{{ localized_route('weddings') }}" class="transition-colors hover:text-white">{{ __('site.marquee.weddings') }}</a></li>
-                    <li><a href="{{ localized_route('corporate') }}" class="transition-colors hover:text-white">{{ __('site.marquee.corporate') }}</a></li>
-                    <li><a href="{{ localized_route('private-parties') }}" class="transition-colors hover:text-white">{{ __('site.marquee.private_parties') }}</a></li>
-                    <li><a href="{{ localized_route('christmas') }}" class="transition-colors hover:text-white">{{ __('site.footer.christmas_short') }}</a></li>
+                    <li><a href="{{ localized_route('weddings') }}" class="transition-colors hover:text-white">{{ site_t('marquee.weddings') }}</a></li>
+                    <li><a href="{{ localized_route('corporate') }}" class="transition-colors hover:text-white">{{ site_t('marquee.corporate') }}</a></li>
+                    <li><a href="{{ localized_route('private-parties') }}" class="transition-colors hover:text-white">{{ site_t('marquee.private_parties') }}</a></li>
+                    <li><a href="{{ localized_route('christmas') }}" class="transition-colors hover:text-white">{{ site_t('footer.christmas_short') }}</a></li>
                 </ul>
             </div>
 
             <div>
-                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ __('site.footer.contact') }}</h3>
+                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ site_t('footer.contact') }}</h3>
                 <ul class="space-y-3 text-sm text-muted">
                     <li><a href="mailto:{{ SiteSettings::email() }}" class="transition-colors hover:text-white">{{ SiteSettings::email() }}</a></li>
                     <li><a href="{{ SiteSettings::phoneLink() }}" class="transition-colors hover:text-white">{{ SiteSettings::phone() }}</a></li>
@@ -60,8 +60,8 @@
         </div>
 
         <div class="mt-12 flex flex-col gap-4 border-t border-white/5 pt-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-            <p>&copy; {{ date('Y') }} Pop Rock Avenue. {{ __('site.footer.rights') }}</p>
-            <p>KvK: {{ SiteSettings::get('kvk', '12345678') }} · {{ __('site.footer.based_in') }}</p>
+            <p>&copy; {{ date('Y') }} Pop Rock Avenue. {{ site_t('footer.rights') }}</p>
+            <p>KvK: {{ SiteSettings::get('kvk', '12345678') }} · {{ site_t('footer.based_in') }}</p>
         </div>
     </div>
 </footer>

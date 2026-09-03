@@ -12,16 +12,16 @@
                 <div class="absolute -bottom-3 -right-3 h-4 w-4 rounded-full bg-cyan shadow-[0_0_20px_rgba(34,211,238,0.6)]"></div>
                 <x-ui.parallax-image
                     :src="SiteSettings::aboutImage()"
-                    :alt="__('site.about.image_alt')"
+                    :alt="site_t('about.image_alt')"
                     class="relative aspect-[4/5] w-full rounded-2xl"
                     speed="subtle"
                 />
             </div>
 
             <div>
-                <p class="section-eyebrow text-purple">{{ __('site.about.eyebrow') }}</p>
+                <p class="section-eyebrow text-purple">{{ site_t('about.eyebrow') }}</p>
                 <h2 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                    {{ __('site.about.title') }}
+                    {{ site_t('about.title') }}
                 </h2>
 
                 <div class="mt-6 space-y-4 text-base leading-relaxed text-white/80">
@@ -44,7 +44,7 @@
 
                 <div class="mt-10">
                     <x-ui.button href="{{ localized_route('band') }}" variant="outline">
-                        {{ __('site.buttons.meet_the_band') }}
+                        {{ site_t('buttons.meet_the_band') }}
                     </x-ui.button>
                 </div>
             </div>

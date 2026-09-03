@@ -1,12 +1,12 @@
 <x-layout.app
-    :title="__('site.meta.testimonials_title')"
-    :description="__('site.meta.testimonials_description')"
+    :title="site_t('meta.testimonials_title')"
+    :description="site_t('meta.testimonials_description')"
 >
     <x-sections.page-hero
-        :eyebrow="__('site.testimonials_section.eyebrow')"
+        :eyebrow="site_t('testimonials_section.eyebrow')"
         eyebrowColor="text-cyan"
-        :title="__('site.testimonials_section.title')"
-        :subtitle="__('site.testimonials_section.page_subtitle')"
+        :title="site_t('testimonials_section.title')"
+        :subtitle="site_t('testimonials_section.page_subtitle')"
     />
 
     <section class="pb-20 sm:pb-28">

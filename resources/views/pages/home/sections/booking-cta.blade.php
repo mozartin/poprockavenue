@@ -17,20 +17,20 @@
     </div>
 
     <div class="container-site relative text-center">
-        <p class="section-eyebrow text-pink">{{ __('site.booking_cta.eyebrow') }}</p>
+        <p class="section-eyebrow text-pink">{{ site_t('booking_cta.eyebrow') }}</p>
 
         <h2 class="mx-auto mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            <span class="text-white">{{ __('site.booking_cta.title_1') }} </span>
-            <span class="text-gradient-cta">{{ __('site.booking_cta.title_2') }}</span>
+            <span class="text-white">{{ site_t('booking_cta.title_1') }} </span>
+            <span class="text-gradient-cta">{{ site_t('booking_cta.title_2') }}</span>
         </h2>
 
         <p class="mx-auto mt-6 max-w-xl text-base text-muted">
-            {{ __('site.booking_cta.subtitle') }}
+            {{ site_t('booking_cta.subtitle') }}
         </p>
 
         <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <x-ui.button href="{{ localized_route('contact') }}" class="glow-purple">
-                {{ __('site.buttons.check_availability') }}
+                {{ site_t('buttons.check_availability') }}
             </x-ui.button>
             <x-ui.button href="{{ SiteSettings::phoneLink() }}" variant="outline">
                 {{ SiteSettings::phone() }}
@@ -38,7 +38,7 @@
         </div>
 
         <p class="mt-10 text-sm text-muted">
-            {{ __('site.booking_cta.footer') }}
+            {{ site_t('booking_cta.footer') }}
         </p>
     </div>
 </section>

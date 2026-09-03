@@ -1,10 +1,10 @@
 @php
     $links = [
-        ['label' => __('site.nav.about'), 'route' => 'home', 'anchor' => '#about'],
-        ['label' => __('site.nav.events'), 'route' => 'home', 'anchor' => '#events'],
-        ['label' => __('site.nav.repertoire'), 'route' => 'repertoire'],
-        ['label' => __('site.nav.testimonials'), 'route' => 'home', 'anchor' => '#testimonials'],
-        ['label' => __('site.nav.contact'), 'route' => 'contact'],
+        ['label' => site_t('nav.about'), 'route' => 'home', 'anchor' => '#about'],
+        ['label' => site_t('nav.events'), 'route' => 'home', 'anchor' => '#events'],
+        ['label' => site_t('nav.repertoire'), 'route' => 'repertoire'],
+        ['label' => site_t('nav.testimonials'), 'route' => 'home', 'anchor' => '#testimonials'],
+        ['label' => site_t('nav.contact'), 'route' => 'contact'],
     ];
 @endphp
 
@@ -29,7 +29,7 @@
         <div class="hidden items-center gap-4 lg:flex">
             <x-layout.language-switcher />
             <a href="{{ localized_route('contact') }}" class="btn-gradient px-5 py-2.5 text-xs">
-                {{ __('site.nav.check_availability') }}
+                {{ site_t('nav.check_availability') }}
             </a>
         </div>
 
@@ -38,7 +38,7 @@
             class="inline-flex items-center justify-center rounded-md p-2 text-muted hover:text-white lg:hidden"
             @click="open = !open"
             :aria-expanded="open"
-            aria-label="{{ __('site.nav.toggle_menu') }}"
+            aria-label="{{ site_t('nav.toggle_menu') }}"
         >
             <svg x-show="!open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
@@ -69,7 +69,7 @@
                 <x-layout.language-switcher />
             </div>
             <a href="{{ localized_route('contact') }}" class="btn-gradient mt-3 text-center text-xs" @click="open = false">
-                {{ __('site.nav.check_availability') }}
+                {{ site_t('nav.check_availability') }}
             </a>
         </nav>
     </div>

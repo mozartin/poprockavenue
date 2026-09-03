@@ -1,9 +1,9 @@
 <x-layout.app
-    :title="__('site.meta.home_title')"
-    :description="__('site.meta.default_description')"
+    :title="site_t('meta.home_title')"
+    :description="site_t('meta.default_description')"
 >
     @include('pages.home.sections.hero')
-    <x-ui.marquee :items="array_values(__('site.marquee'))" />
+    <x-ui.marquee :items="array_values(\App\Support\SiteCopy::section('marquee'))" />
     <x-sections.stats :stats="$stats" />
     @include('pages.home.sections.live-experience')
     @include('pages.home.sections.about')

@@ -22,10 +22,6 @@ class SiteSetting extends Model
             return $default;
         }
 
-        if ($setting->type === 'translatable') {
-            return static::resolveTranslatable($setting->value);
-        }
-
         return Cache::rememberForever("site_setting.{$key}", function () use ($setting, $default) {
             return static::castValue($setting->value, $setting->type) ?? $default;
         });
@@ -88,7 +84,13 @@ class SiteSetting extends Model
 
     protected static function booted(): void
     {
-        static::saved(fn () => Cache::forget('site_settings.all'));
-        static::deleted(fn () => Cache::forget('site_settings.all'));
+        static::saved(function (self $setting): void {
+            Cache::forget('site_settings.all');
+            Cache::forget("site_setting.{$setting->key}");
+        });
+        static::deleted(function (self $setting): void {
+            Cache::forget('site_settings.all');
+            Cache::forget("site_setting.{$setting->key}");
+        });
     }
 }

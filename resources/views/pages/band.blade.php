@@ -3,13 +3,13 @@
 @endphp
 
 <x-layout.app
-    :title="__('site.meta.band_title')"
-    :description="__('site.meta.band_description')"
+    :title="site_t('meta.band_title')"
+    :description="site_t('meta.band_description')"
 >
     <x-sections.page-hero
-        :eyebrow="__('site.about.eyebrow')"
-        :title="__('site.about.page_title')"
-        :subtitle="__('site.about.page_subtitle')"
+        :eyebrow="site_t('about.eyebrow')"
+        :title="site_t('about.page_title')"
+        :subtitle="site_t('about.page_subtitle')"
         :image="SiteSettings::aboutImage()"
     />
 
@@ -44,7 +44,7 @@
             </div>
 
             <div class="mt-16 text-center">
-                <x-ui.button href="{{ localized_route('contact') }}">{{ __('site.buttons.check_availability') }}</x-ui.button>
+                <x-ui.button href="{{ localized_route('contact') }}">{{ site_t('buttons.check_availability') }}</x-ui.button>
             </div>
         </div>
     </section>

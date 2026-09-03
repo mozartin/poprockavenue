@@ -90,10 +90,10 @@ class SiteSettings
     public static function stats(): array
     {
         return [
-            ['value' => '7', 'label' => __('site.stats.musicians')],
-            ['value' => '500+', 'label' => __('site.stats.events')],
-            ['value' => '15+', 'label' => __('site.stats.experience')],
-            ['value' => '100%', 'label' => __('site.stats.guarantee')],
+            ['value' => site_t('stats_values.musicians', [], '7'), 'label' => site_t('stats.musicians')],
+            ['value' => site_t('stats_values.events', [], '500+'), 'label' => site_t('stats.events')],
+            ['value' => site_t('stats_values.experience', [], '15+'), 'label' => site_t('stats.experience')],
+            ['value' => site_t('stats_values.guarantee', [], '100%'), 'label' => site_t('stats.guarantee')],
         ];
     }
 }

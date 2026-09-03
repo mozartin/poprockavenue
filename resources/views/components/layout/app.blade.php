@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? __('site.meta.default_title') }}</title>
-    <meta name="description" content="{{ $description ?? __('site.meta.default_description') }}">
+    <title>{{ $title ?? site_t('meta.default_title') }}</title>
+    <meta name="description" content="{{ $description ?? site_t('meta.default_description') }}">
 
-    <meta property="og:title" content="{{ $title ?? __('site.meta.default_title') }}">
-    <meta property="og:description" content="{{ $description ?? __('site.meta.default_description') }}">
+    <meta property="og:title" content="{{ $title ?? site_t('meta.default_title') }}">
+    <meta property="og:description" content="{{ $description ?? site_t('meta.default_description') }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ asset('images/hero.jpg') }}">

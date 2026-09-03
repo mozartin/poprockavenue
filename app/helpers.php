@@ -31,3 +31,14 @@ if (! function_exists('switch_locale_url')) {
         return route($route->getName(), $parameters);
     }
 }
+
+if (! function_exists('site_t')) {
+    /**
+     * Editable site copy (DB) with fallback to lang/site.php.
+     * Example: site_t('hero.line_1') or site_t('event_page.cta_text', ['event' => 'wedding'])
+     */
+    function site_t(string $key, array $replace = [], ?string $default = null): string
+    {
+        return \App\Support\SiteCopy::get($key, $replace, $default);
+    }
+}

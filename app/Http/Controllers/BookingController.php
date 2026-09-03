@@ -41,6 +41,6 @@ class BookingController extends Controller
 
         return redirect()
             ->to(localized_route('contact'))
-            ->with('success', __('site.contact.success'));
+            ->with('success', site_t('contact.success'));
     }
 }

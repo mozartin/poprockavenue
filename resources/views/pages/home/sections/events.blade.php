@@ -1,9 +1,9 @@
 <section id="events" class="py-20 sm:py-28">
     <div class="container-site space-y-12">
         <x-ui.section-header
-            :eyebrow="__('site.events_section.eyebrow')"
+            :eyebrow="site_t('events_section.eyebrow')"
             eyebrowColor="text-cyan"
-            :title="__('site.events_section.title')"
+            :title="site_t('events_section.title')"
         />
 
         @php

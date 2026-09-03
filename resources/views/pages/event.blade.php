@@ -30,13 +30,13 @@
             </div>
 
             <div class="mt-16 rounded-2xl bg-surface p-8 text-center sm:p-12">
-                <h2 class="text-2xl font-bold text-white sm:text-3xl">{{ __('site.event_page.cta_title') }}</h2>
+                <h2 class="text-2xl font-bold text-white sm:text-3xl">{{ site_t('event_page.cta_title') }}</h2>
                 <p class="mx-auto mt-4 max-w-xl text-muted">
-                    {{ __('site.event_page.cta_text', ['event' => strtolower($event->name)]) }}
+                    {{ site_t('event_page.cta_text', ['event' => strtolower($event->name)]) }}
                 </p>
                 <div class="mt-8">
                     <x-ui.button :href="localized_route('contact', ['event_type' => $event->name])">
-                        {{ __('site.buttons.check_availability') }}
+                        {{ site_t('buttons.check_availability') }}
                     </x-ui.button>
                 </div>
             </div>
