@@ -61,7 +61,6 @@
 
         <div class="mt-12 flex flex-col gap-4 border-t border-white/5 pt-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
             <p>&copy; {{ date('Y') }} Pop Rock Avenue. {{ site_t('footer.rights') }}</p>
-            <p>KvK: {{ SiteSettings::get('kvk', '12345678') }} · {{ site_t('footer.based_in') }}</p>
         </div>
     </div>
 </footer>
