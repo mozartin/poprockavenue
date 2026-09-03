@@ -1,5 +1,5 @@
 const NOTES = ['♪', '♫', '♩', '♬'];
-const COLORS = ['#22D3EE', '#7C3AED', '#F43F5E', '#F8FAFC'];
+const COLORS = ['#22D3EE', '#A78BFA', '#FB7185', '#F8FAFC'];
 
 function canUseNotesCursor() {
     if (typeof window === 'undefined') {
@@ -19,12 +19,12 @@ function spawnNote(x, y) {
     note.textContent = NOTES[Math.floor(Math.random() * NOTES.length)];
     note.setAttribute('aria-hidden', 'true');
 
-    const offsetX = (Math.random() - 0.5) * 28;
-    const offsetY = (Math.random() - 0.5) * 18;
-    const driftX = (Math.random() - 0.5) * 40;
-    const driftY = -20 - Math.random() * 36;
-    const rotate = (Math.random() - 0.5) * 50;
-    const size = 10 + Math.random() * 8;
+    const offsetX = (Math.random() - 0.5) * 36;
+    const offsetY = (Math.random() - 0.5) * 24;
+    const driftX = (Math.random() - 0.5) * 56;
+    const driftY = -28 - Math.random() * 48;
+    const rotate = (Math.random() - 0.5) * 60;
+    const size = 16 + Math.random() * 10;
 
     note.style.setProperty('--note-x', `${offsetX}px`);
     note.style.setProperty('--note-y', `${offsetY}px`);
@@ -49,7 +49,7 @@ export function initCursorNotes() {
     document.documentElement.classList.add('has-cursor-notes');
 
     let lastSpawn = 0;
-    const throttleMs = 55;
+    const throttleMs = 40;
 
     const onMove = (event) => {
         const now = performance.now();
