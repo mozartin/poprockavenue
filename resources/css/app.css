@@ -42,11 +42,27 @@
     }
 
     .btn-gradient {
-        @apply inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple to-cyan px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 hover:shadow-[0_0_30px_rgba(124,58,237,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50;
+        @apply inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple to-cyan px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50;
+        box-shadow: 0 0 0 0 transparent;
+    }
+
+    .btn-gradient:hover {
+        box-shadow:
+            0 0 18px rgba(124, 58, 237, 0.75),
+            0 0 36px rgba(34, 211, 238, 0.55),
+            0 0 64px rgba(124, 58, 237, 0.4);
     }
 
     .btn-outline {
-        @apply inline-flex items-center justify-center gap-2 rounded-md border border-white/20 px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors duration-300 hover:border-white/40 hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30;
+        @apply inline-flex items-center justify-center gap-2 rounded-md border border-white/20 px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30;
+        box-shadow: 0 0 0 0 transparent;
+    }
+
+    .btn-outline:hover {
+        @apply border-cyan/50 bg-white/5;
+        box-shadow:
+            0 0 16px rgba(34, 211, 238, 0.45),
+            0 0 32px rgba(124, 58, 237, 0.35);
     }
 
     .section-eyebrow {
@@ -58,11 +74,18 @@
     }
 
     .glow-purple {
-        box-shadow: 0 0 60px rgba(124, 58, 237, 0.15);
+        box-shadow: 0 0 60px rgba(124, 58, 237, 0.22);
+    }
+
+    .glow-purple:hover {
+        box-shadow:
+            0 0 22px rgba(124, 58, 237, 0.8),
+            0 0 42px rgba(34, 211, 238, 0.55),
+            0 0 72px rgba(124, 58, 237, 0.45);
     }
 
     .glow-cyan {
-        box-shadow: 0 0 60px rgba(34, 211, 238, 0.12);
+        box-shadow: 0 0 60px rgba(34, 211, 238, 0.18);
     }
 
     [data-parallax-target] {
