@@ -102,67 +102,53 @@
     animation: marquee 40s linear infinite;
 }
 
+/* Neon cursor follower */
 @media (hover: hover) and (pointer: fine) {
-    .has-cursor-notes .cursor-note {
+    body { cursor: none; }
+
+    #neon-cursor {
         position: fixed;
         z-index: 99999;
-        display: block;
-        margin: 0;
-        padding: 0;
+        top: 0;
+        left: 0;
         pointer-events: none;
-        user-select: none;
-        font-size: var(--note-size, 14px);
-        line-height: 1;
-        color: var(--note-color, #22D3EE);
-        text-shadow:
-            0 0 6px var(--note-color, #22D3EE),
-            0 0 12px color-mix(in srgb, var(--note-color, #22D3EE) 60%, transparent);
-        transform: translate3d(
-                calc(-50% + var(--note-x, 0px)),
-                calc(-50% + var(--note-y, 0px)),
-                0
-            )
-            rotate(var(--note-rotate, 0deg));
-        animation: cursor-note-sparkle 850ms ease-out forwards;
-        will-change: transform, opacity;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #22D3EE;
+        box-shadow:
+            0 0 6px  2px rgba(34, 211, 238, 0.9),
+            0 0 18px 4px rgba(34, 211, 238, 0.5),
+            0 0 36px 8px rgba(124, 58, 237, 0.35);
+        transform: translate(-50%, -50%);
+        will-change: transform;
     }
 
-    @keyframes cursor-note-sparkle {
-        0% {
-            opacity: 0;
-            transform: translate3d(
-                    calc(-50% + var(--note-x, 0px)),
-                    calc(-50% + var(--note-y, 0px)),
-                    0
-                )
-                rotate(var(--note-rotate, 0deg))
-                scale(0.35);
-        }
-        12% {
-            opacity: 1;
-            transform: translate3d(
-                    calc(-50% + var(--note-x, 0px)),
-                    calc(-50% + var(--note-y, 0px)),
-                    0
-                )
-                rotate(var(--note-rotate, 0deg))
-                scale(1);
-        }
-        100% {
-            opacity: 0;
-            transform: translate3d(
-                    calc(-50% + var(--note-x, 0px) + var(--note-drift-x, 0px)),
-                    calc(-50% + var(--note-y, 0px) + var(--note-drift-y, -36px)),
-                    0
-                )
-                rotate(calc(var(--note-rotate, 0deg) + 28deg))
-                scale(0.7);
-        }
+    #neon-cursor-ring {
+        position: fixed;
+        z-index: 99998;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid rgba(34, 211, 238, 0.35);
+        box-shadow:
+            0 0 10px 2px rgba(34, 211, 238, 0.15),
+            inset 0 0 8px 1px rgba(124, 58, 237, 0.1);
+        transform: translate(-50%, -50%);
+        will-change: transform;
+        transition: width 180ms ease, height 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
-}
 
-@media (prefers-reduced-motion: reduce) {
-    .cursor-note {
-        display: none !important;
+    body:has(a:hover) #neon-cursor-ring,
+    body:has(button:hover) #neon-cursor-ring {
+        width: 52px;
+        height: 52px;
+        border-color: rgba(124, 58, 237, 0.6);
+        box-shadow:
+            0 0 14px 4px rgba(124, 58, 237, 0.3),
+            inset 0 0 12px 2px rgba(34, 211, 238, 0.15);
     }
 }

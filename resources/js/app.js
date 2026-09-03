@@ -1,9 +1,9 @@
 import { initParallax } from './parallax';
-import { initCursorNotes } from './cursor-notes';
+import { initNeonCursor } from './cursor-neon';
 
 function boot() {
     initParallax();
-    initCursorNotes();
+    initNeonCursor();
 }
 
 if (document.readyState === 'loading') {
