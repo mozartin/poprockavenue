@@ -22,12 +22,17 @@ class SiteSetting extends Model
             return $default;
         }
 
-        // Cache the raw DB value only — never the locale-resolved string,
-        // otherwise the first visitor's language sticks for everyone.
-        $raw = Cache::rememberForever("site_setting.{$key}", fn () => [
-            'value' => $setting->value,
-            'type' => $setting->type,
-        ]);
+        $cacheKey = "site_setting.{$key}";
+        $raw = Cache::get($cacheKey);
+
+        // Old cache entries stored a locale-resolved scalar — rebuild if invalid.
+        if (! is_array($raw) || ! array_key_exists('value', $raw) || ! array_key_exists('type', $raw)) {
+            $raw = [
+                'value' => $setting->value,
+                'type' => $setting->type,
+            ];
+            Cache::forever($cacheKey, $raw);
+        }
 
         return static::castValue($raw['value'], $raw['type']) ?? $default;
     }
@@ -49,8 +54,15 @@ class SiteSetting extends Model
 
     public static function allCached(): array
     {
-        $raw = Cache::rememberForever('site_settings.all', function () {
-            return static::query()
+        $raw = Cache::get('site_settings.all');
+
+        $isValid = is_array($raw)
+            && collect($raw)->every(fn ($item) => is_array($item)
+                && array_key_exists('value', $item)
+                && array_key_exists('type', $item));
+
+        if (! $isValid) {
+            $raw = static::query()
                 ->get()
                 ->mapWithKeys(fn (self $setting) => [
                     $setting->key => [
@@ -59,7 +71,9 @@ class SiteSetting extends Model
                     ],
                 ])
                 ->all();
-        });
+
+            Cache::forever('site_settings.all', $raw);
+        }
 
         return collect($raw)
             ->mapWithKeys(fn (array $item, string $key) => [
