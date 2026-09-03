@@ -19,12 +19,12 @@ function spawnNote(x, y) {
     note.textContent = NOTES[Math.floor(Math.random() * NOTES.length)];
     note.setAttribute('aria-hidden', 'true');
 
-    const offsetX = (Math.random() - 0.5) * 36;
-    const offsetY = (Math.random() - 0.5) * 24;
-    const driftX = (Math.random() - 0.5) * 56;
-    const driftY = -28 - Math.random() * 48;
-    const rotate = (Math.random() - 0.5) * 60;
-    const size = 16 + Math.random() * 10;
+    const offsetX = (Math.random() - 0.5) * 24;
+    const offsetY = (Math.random() - 0.5) * 16;
+    const driftX = (Math.random() - 0.5) * 36;
+    const driftY = -16 - Math.random() * 28;
+    const rotate = (Math.random() - 0.5) * 40;
+    const size = 9 + Math.random() * 5;
 
     note.style.setProperty('--note-x', `${offsetX}px`);
     note.style.setProperty('--note-y', `${offsetY}px`);

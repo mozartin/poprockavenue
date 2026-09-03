@@ -88,19 +88,19 @@
         padding: 0;
         pointer-events: none;
         user-select: none;
-        font-size: var(--note-size, 18px);
+        font-size: var(--note-size, 11px);
         line-height: 1;
         color: var(--note-color, #22D3EE);
         text-shadow:
-            0 0 8px var(--note-color, #22D3EE),
-            0 0 18px color-mix(in srgb, var(--note-color, #22D3EE) 70%, transparent);
+            0 0 5px var(--note-color, #22D3EE),
+            0 0 10px color-mix(in srgb, var(--note-color, #22D3EE) 55%, transparent);
         transform: translate3d(
                 calc(-50% + var(--note-x, 0px)),
                 calc(-50% + var(--note-y, 0px)),
                 0
             )
             rotate(var(--note-rotate, 0deg));
-        animation: cursor-note-sparkle 1100ms ease-out forwards;
+        animation: cursor-note-sparkle 850ms ease-out forwards;
         will-change: transform, opacity;
     }
 
@@ -123,7 +123,7 @@
                     0
                 )
                 rotate(var(--note-rotate, 0deg))
-                scale(1.15);
+                scale(1);
         }
         100% {
             opacity: 0;
