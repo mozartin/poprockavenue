@@ -1,0 +1,26 @@
+# POP/ROCK AVENUE
+> Live cover band for weddings, corporate events and parties across the Netherlands.
+
+## Site
+- Homepage: https://poprockavenue.nl/en
+- Contact / booking: https://poprockavenue.nl/en/contact
+- Live Moments: https://poprockavenue.nl/en/media
+- The Band: https://poprockavenue.nl/en/the-band
+- Repertoire: https://poprockavenue.nl/en/repertoire
+
+## Languages
+- English: /en
+- Dutch: /nl
+- Ukrainian: /uk
+- Russian: /ru
+
+## Contact
+- Website booking form: https://poprockavenue.nl/en/contact
+- Email: booking@poprockavenue.nl
+- Based in: Netherlands
+
+## About
+Pop Rock Avenue is a live cover band performing pop, rock, dance and classics for events across the Netherlands.
+
+## Sitemap
+https://poprockavenue.nl/sitemap.xml

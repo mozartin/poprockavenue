@@ -17,6 +17,8 @@ if [ ! -e public/storage ]; then
     php artisan storage:link --no-interaction
 fi
 
+php artisan sitemap:generate --no-interaction
+
 php artisan config:cache --no-interaction
 php artisan route:cache --no-interaction
 php artisan view:cache --no-interaction

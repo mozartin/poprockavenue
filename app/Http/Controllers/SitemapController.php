@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EventType;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -14,35 +15,47 @@ class SitemapController extends Controller
         $pages = [
             ['route' => 'home', 'changefreq' => 'weekly', 'priority' => '1.0'],
             ['route' => 'band', 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['route' => 'weddings', 'changefreq' => 'monthly', 'priority' => '0.9'],
-            ['route' => 'corporate', 'changefreq' => 'monthly', 'priority' => '0.9'],
-            ['route' => 'private-parties', 'changefreq' => 'monthly', 'priority' => '0.9'],
-            ['route' => 'christmas', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['route' => 'media', 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['route' => 'repertoire', 'changefreq' => 'monthly', 'priority' => '0.7'],
-            ['route' => 'testimonials', 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['route' => 'contact', 'changefreq' => 'monthly', 'priority' => '0.9'],
         ];
 
         $urls = [];
 
         foreach ($pages as $page) {
-            $alternates = [];
+            $urls = [...$urls, ...$this->urlEntries(
+                collect($locales)->mapWithKeys(fn (string $locale) => [
+                    $locale => localized_route($page['route'], [], $locale),
+                ])->all(),
+                $locales,
+                $defaultLocale,
+                $page['changefreq'],
+                $page['priority'],
+            )];
+        }
 
-            foreach ($locales as $locale) {
-                $alternates[$locale] = localized_route($page['route'], [], $locale);
+        foreach (EventType::query()->where('is_active', true)->orderBy('sort_order')->get() as $event) {
+            $routeName = match ($event->slug) {
+                'weddings' => 'weddings',
+                'corporate-events' => 'corporate',
+                'private-parties' => 'private-parties',
+                'christmas-new-year' => 'christmas',
+                default => null,
+            };
+
+            if (! $routeName) {
+                continue;
             }
 
-            $alternates['x-default'] = $alternates[$defaultLocale] ?? reset($alternates);
-
-            foreach ($locales as $locale) {
-                $urls[] = [
-                    'loc' => $alternates[$locale],
-                    'changefreq' => $page['changefreq'],
-                    'priority' => $page['priority'],
-                    'alternates' => $alternates,
-                ];
-            }
+            $urls = [...$urls, ...$this->urlEntries(
+                collect($locales)->mapWithKeys(fn (string $locale) => [
+                    $locale => localized_route($routeName, [], $locale),
+                ])->all(),
+                $locales,
+                $defaultLocale,
+                'monthly',
+                '0.8',
+            )];
         }
 
         return response()
@@ -51,5 +64,34 @@ class SitemapController extends Controller
                 'lastmod' => now()->toAtomString(),
             ])
             ->header('Content-Type', 'application/xml; charset=UTF-8');
+    }
+
+    /**
+     * @param  array<string, string>  $alternatesByLocale
+     * @param  list<string>  $locales
+     * @return list<array{loc: string, changefreq: string, priority: string, alternates: array<string, string>}>
+     */
+    private function urlEntries(
+        array $alternatesByLocale,
+        array $locales,
+        string $defaultLocale,
+        string $changefreq,
+        string $priority,
+    ): array {
+        $alternates = $alternatesByLocale;
+        $alternates['x-default'] = $alternates[$defaultLocale] ?? reset($alternates);
+
+        $entries = [];
+
+        foreach ($locales as $locale) {
+            $entries[] = [
+                'loc' => $alternates[$locale],
+                'changefreq' => $changefreq,
+                'priority' => $priority,
+                'alternates' => $alternates,
+            ];
+        }
+
+        return $entries;
     }
 }

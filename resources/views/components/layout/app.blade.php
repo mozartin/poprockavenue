@@ -1,23 +1,80 @@
+@php
+    $pageTitle = $title ?? site_t('meta.default_title');
+    $pageDescription = $description ?? site_t('meta.default_description');
+    $canonicalUrl = url()->current();
+    $ogImage = \App\Services\SiteSettings::heroImage();
+    $ogImageUrl = str_starts_with($ogImage, 'http') ? $ogImage : url($ogImage);
+    $locale = app()->getLocale();
+    $ogLocale = match ($locale) {
+        'nl' => 'nl_NL',
+        'uk' => 'uk_UA',
+        'ru' => 'ru_RU',
+        default => 'en_GB',
+    };
+    $sameAs = array_values(array_filter([
+        \App\Services\SiteSettings::instagram(),
+        \App\Services\SiteSettings::facebook(),
+        \App\Services\SiteSettings::youtube(),
+    ]));
+    $jsonLd = [
+        '@context' => 'https://schema.org',
+        '@type' => 'MusicGroup',
+        'name' => 'POP/ROCK AVENUE',
+        'alternateName' => 'Pop Rock Avenue',
+        'url' => rtrim(config('app.url'), '/'),
+        'image' => $ogImageUrl,
+        'description' => $pageDescription,
+        'email' => \App\Services\SiteSettings::email(),
+        'telephone' => \App\Services\SiteSettings::phone(),
+        'areaServed' => [
+            '@type' => 'Country',
+            'name' => 'Netherlands',
+        ],
+        'genre' => ['Pop', 'Rock', 'Dance', 'Cover'],
+        'sameAs' => $sameAs,
+    ];
+@endphp
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', $locale) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? site_t('meta.default_title') }}</title>
-    <meta name="description" content="{{ $description ?? site_t('meta.default_description') }}">
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $pageDescription }}">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
 
-    <meta property="og:title" content="{{ $title ?? site_t('meta.default_title') }}">
-    <meta property="og:description" content="{{ $description ?? site_t('meta.default_description') }}">
+    <meta property="og:site_name" content="POP/ROCK AVENUE">
+    <meta property="og:title" content="{{ $pageTitle }}">
+    <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ asset('images/hero.jpg') }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:image" content="{{ $ogImageUrl }}">
+    <meta property="og:locale" content="{{ $ogLocale }}">
+    @foreach (supported_locales() as $code => $label)
+        @if ($code !== $locale)
+            <meta property="og:locale:alternate" content="{{ match ($code) {
+                'nl' => 'nl_NL',
+                'uk' => 'uk_UA',
+                'ru' => 'ru_RU',
+                default => 'en_GB',
+            } }}">
+        @endif
+    @endforeach
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $pageTitle }}">
+    <meta name="twitter:description" content="{{ $pageDescription }}">
+    <meta name="twitter:image" content="{{ $ogImageUrl }}">
 
     @foreach (supported_locales() as $code => $label)
-        <link rel="alternate" hreflang="{{ $code === 'uk' ? 'uk' : $code }}" href="{{ switch_locale_url($code) }}">
+        <link rel="alternate" hreflang="{{ $code }}" href="{{ switch_locale_url($code) }}">
     @endforeach
     <link rel="alternate" hreflang="x-default" href="{{ switch_locale_url('en') }}">
+
+    <script type="application/ld+json">{!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP) !!}</script>
 
     <link rel="icon" href="/favicon.ico" sizes="any">
 
