@@ -2,15 +2,15 @@
 
 return [
     'meta' => [
-        'default_title' => 'Pop Rock Avenue — 7-участный Live Cover Band',
-        'default_description' => '7-участный live cover band для свадеб, корпоративов и вечеринок в Нидерландах. Премиальное живое шоу, которое заполняет танцпол.',
-        'home_title' => 'Pop Rock Avenue — 7-участный Live Cover Band Нидерланды',
+        'default_title' => 'Pop Rock Avenue — 8-участный Live Cover Band',
+        'default_description' => '8-участный live cover band для свадеб, корпоративов и вечеринок в Нидерландах. Премиальное живое шоу, которое заполняет танцпол.',
+        'home_title' => 'Pop Rock Avenue — 8-участный Live Cover Band Нидерланды',
         'band_title' => 'Группа — Pop Rock Avenue',
         'band_description' => 'Познакомьтесь с семью музыкантами Pop Rock Avenue — ведущего live cover band Нидерландов для свадеб, корпоративов и вечеринок.',
         'repertoire_title' => 'Репертуар — Pop Rock Avenue',
         'repertoire_description' => '200+ песен за шесть десятилетий. Поп, рок, дэнс, 80-е, 90-е и классика — сет-листы под ваше мероприятие.',
         'testimonials_title' => 'Отзывы — Pop Rock Avenue',
-        'testimonials_description' => 'Что говорят клиенты о Pop Rock Avenue — ведущем 7-участном live cover band Нидерландов.',
+        'testimonials_description' => 'Что говорят клиенты о Pop Rock Avenue — ведущем 8-участном live cover band Нидерландов.',
         'contact_title' => 'Контакт и Бронирование — Pop Rock Avenue',
         'contact_description' => 'Проверьте доступность Pop Rock Avenue. Ответ в течение 24 часов.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
@@ -19,7 +19,8 @@ return [
 
     'nav' => [
         'about' => 'О группе',
-        'events' => 'События',
+        'services' => 'Услуги',
+        'events' => 'Афиша',
         'media' => 'Live Moments',
         'repertoire' => 'Репертуар',
         'testimonials' => 'Отзывы',
@@ -39,12 +40,12 @@ return [
     ],
 
     'hero' => [
-        'badge' => '7-участный Live Cover Band · Нидерланды',
+        'badge' => '8-участный Live Cover Band · Нидерланды',
         'line_1' => 'Мы превращаем',
         'line_2' => 'события в',
         'line_3' => 'незабываемые',
         'line_4' => 'вечера.',
-        'subtitle' => '7-участный live cover band для свадеб, корпоративов и вечеринок в Нидерландах.',
+        'subtitle' => '8-участный live cover band для свадеб, корпоративов и вечеринок в Нидерландах.',
         'scroll' => 'Дальше',
         'image_alt' => 'Живое выступление Pop Rock Avenue',
     ],
@@ -86,15 +87,25 @@ return [
 
     'about' => [
         'eyebrow' => 'О группе',
-        'title' => 'Семь музыкантов. Одна неудержимая сила.',
+        'title' => 'Восемь музыкантов. Одна неудержимая сила.',
         'image_alt' => 'Pop Rock Avenue на сцене',
-        'page_title' => 'Семь музыкантов. Одна неудержимая сила.',
+        'page_title' => 'Восемь музыкантов. Одна неудержимая сила.',
         'page_subtitle' => 'Более 15 лет Pop Rock Avenue заполняет танцполы по всей Нидерландам незабываемыми живыми выступлениями.',
+        'members_empty' => 'Состав группы появится скоро.',
     ],
 
     'events_section' => [
-        'eyebrow' => 'Где мы выступаем',
+        'eyebrow' => 'Афиша',
+        'title' => 'Смотрите нас вживую.',
+        'subtitle' => 'Концерты и фестивали, где Pop Rock Avenue выходит на сцену.',
+        'cta' => 'Подробнее',
+        'empty' => 'Новые даты появятся скоро.',
+    ],
+
+    'services_section' => [
+        'eyebrow' => 'Услуги',
         'title' => 'Каждый повод заслуживает незабываемый вечер.',
+        'empty' => 'Пакеты услуг появятся скоро.',
     ],
 
     'repertoire_section' => [
@@ -104,12 +115,14 @@ return [
         'more' => '+ ещё',
         'custom_title' => 'Нужен индивидуальный сет-лист?',
         'custom_text' => 'Мы подстраиваем репертуар под ваше мероприятие. Расскажите о must-play песнях — и мы всё организуем.',
+        'empty' => 'Сет-лист появится скоро.',
     ],
 
     'testimonials_section' => [
         'eyebrow' => 'Что говорят',
         'title' => 'Не верьте нам на слово.',
         'page_subtitle' => 'Настоящие отзывы со свадеб, корпоративов и частных вечеринок по всей Нидерландам.',
+        'empty' => 'Отзывы появятся скоро.',
     ],
 
     'booking_cta' => [
@@ -157,9 +170,10 @@ return [
     ],
 
     'footer' => [
-        'description' => '7-участный live cover band с незабываемыми выступлениями на свадьбах, корпоративах и вечеринках по всей Нидерландам.',
+        'description' => '8-участный live cover band с незабываемыми выступлениями на свадьбах, корпоративах и вечеринках по всей Нидерландам.',
         'navigate' => 'Навигация',
-        'events' => 'События',
+        'events' => 'Афиша',
+        'services' => 'Услуги',
         'contact' => 'Контакт',
         'christmas_short' => 'Рождество и Новый год',
         'rights' => 'Все права защищены.',

@@ -1,11 +1,26 @@
 @php
+    $hasTestimonials = \App\Models\Testimonial::query()->where('is_active', true)->exists();
+    $hasMediaMoments = \App\Models\MediaMoment::query()->where('is_active', true)->exists();
+
     $links = [
         ['label' => site_t('nav.about'), 'route' => 'home', 'anchor' => '#about'],
         ['label' => site_t('nav.events'), 'route' => 'home', 'anchor' => '#events'],
-        ['label' => site_t('nav.media'), 'route' => 'media'],
-        ['label' => site_t('nav.testimonials'), 'route' => 'home', 'anchor' => '#testimonials'],
-        ['label' => site_t('nav.contact'), 'route' => 'contact'],
+        ['label' => site_t('nav.services'), 'route' => 'home', 'anchor' => '#services'],
     ];
+
+    if ($hasMediaMoments) {
+        $links[] = ['label' => site_t('nav.media'), 'route' => 'media'];
+    }
+
+    if ($hasTestimonials) {
+        $links[] = [
+            'label' => site_t('nav.testimonials'),
+            'route' => 'home',
+            'anchor' => '#testimonials',
+        ];
+    }
+
+    $links[] = ['label' => site_t('nav.contact'), 'route' => 'contact'];
 @endphp
 
 <header

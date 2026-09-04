@@ -50,11 +50,15 @@ class SiteCopy
         return config('site_copy.sections', []);
     }
 
-    public static function seedFromLang(): void
+    public static function seedFromLang(array $exceptSections = []): void
     {
         $locales = array_keys(config('app.supported_locales', ['en' => 'EN']));
 
         foreach (self::sections() as $section => $config) {
+            if (in_array($section, $exceptSections, true)) {
+                continue;
+            }
+
             foreach (array_keys($config['fields'] ?? []) as $field) {
                 $translations = [];
 

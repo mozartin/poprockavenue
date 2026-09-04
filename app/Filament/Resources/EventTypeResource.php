@@ -21,7 +21,13 @@ class EventTypeResource extends Resource
 
     protected static ?string $navigationGroup = 'Content';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationLabel = 'Occasion types';
+
+    protected static ?string $modelLabel = 'Occasion type';
+
+    protected static ?string $pluralModelLabel = 'Occasion types';
+
+    protected static ?int $navigationSort = 4;
 
     public static function getTranslatableAttributes(): array
     {

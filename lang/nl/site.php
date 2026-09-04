@@ -2,15 +2,15 @@
 
 return [
     'meta' => [
-        'default_title' => 'Pop Rock Avenue — 7-koppig Live Coverband',
-        'default_description' => '7-koppig live coverband voor bruiloften, bedrijfsevents en feesten in heel Nederland. Premium live entertainment dat de dansvloer vult.',
-        'home_title' => 'Pop Rock Avenue — 7-koppig Live Coverband Nederland',
+        'default_title' => 'Pop Rock Avenue — 8-koppig Live Coverband',
+        'default_description' => '8-koppig live coverband voor bruiloften, bedrijfsevents en feesten in heel Nederland. Premium live entertainment dat de dansvloer vult.',
+        'home_title' => 'Pop Rock Avenue — 8-koppig Live Coverband Nederland',
         'band_title' => 'De Band — Pop Rock Avenue',
-        'band_description' => 'Maak kennis met de zeven muzikanten van Pop Rock Avenue — Nederlands toonaangevende live coverband voor bruiloften, bedrijfsevents en feesten.',
+        'band_description' => 'Maak kennis met de acht muzikanten van Pop Rock Avenue — Nederlands toonaangevende live coverband voor bruiloften, bedrijfsevents en feesten.',
         'repertoire_title' => 'Repertoire — Pop Rock Avenue',
         'repertoire_description' => '200+ nummers uit zes decennia. Pop, rock, dance, jaren 80, jaren 90 en klassiekers — setlists op maat voor jouw event.',
         'testimonials_title' => 'Referenties — Pop Rock Avenue',
-        'testimonials_description' => 'Lees wat klanten zeggen over Pop Rock Avenue — Nederlands toonaangevende 7-koppig live coverband.',
+        'testimonials_description' => 'Lees wat klanten zeggen over Pop Rock Avenue — Nederlands toonaangevende 8-koppig live coverband.',
         'contact_title' => 'Contact & Boeking — Pop Rock Avenue',
         'contact_description' => 'Controleer beschikbaarheid voor Pop Rock Avenue. Reactie binnen 24 uur.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
@@ -19,6 +19,7 @@ return [
 
     'nav' => [
         'about' => 'Over ons',
+        'services' => 'Diensten',
         'events' => 'Events',
         'media' => 'Live Moments',
         'repertoire' => 'Repertoire',
@@ -39,12 +40,12 @@ return [
     ],
 
     'hero' => [
-        'badge' => '7-koppig Live Coverband · Nederland',
+        'badge' => '8-koppig Live Coverband · Nederland',
         'line_1' => 'Wij maken van events',
         'line_2' => '',
         'line_3' => 'onvergetelijke',
         'line_4' => 'avonden.',
-        'subtitle' => '7-koppig live coverband voor bruiloften, bedrijfsevents & feesten in heel Nederland.',
+        'subtitle' => '8-koppig live coverband voor bruiloften, bedrijfsevents & feesten in heel Nederland.',
         'scroll' => 'Scroll',
         'image_alt' => 'Live optreden van Pop Rock Avenue',
     ],
@@ -86,15 +87,25 @@ return [
 
     'about' => [
         'eyebrow' => 'Over de Band',
-        'title' => 'Zeven muzikanten. Eén onstuitbare kracht.',
+        'title' => 'Acht muzikanten. Eén onstuitbare kracht.',
         'image_alt' => 'Pop Rock Avenue live optreden',
-        'page_title' => 'Zeven muzikanten. Eén onstuitbare kracht.',
+        'page_title' => 'Acht muzikanten. Eén onstuitbare kracht.',
         'page_subtitle' => 'Al meer dan 15 jaar vult Pop Rock Avenue dansvloeren in heel Nederland met onvergetelijke live optredens.',
+        'members_empty' => 'Line-up volgt binnenkort.',
     ],
 
     'events_section' => [
-        'eyebrow' => 'Waar Wij Optreden',
+        'eyebrow' => 'Agenda',
+        'title' => 'Zie ons live.',
+        'subtitle' => 'Shows en festivals waar Pop Rock Avenue het podium neemt.',
+        'cta' => 'Meer info',
+        'empty' => 'Nieuwe data volgen binnenkort.',
+    ],
+
+    'services_section' => [
+        'eyebrow' => 'Diensten',
         'title' => 'Elke gelegenheid verdient een onvergetelijke avond.',
+        'empty' => 'Pakketten volgen binnenkort.',
     ],
 
     'repertoire_section' => [
@@ -104,12 +115,14 @@ return [
         'more' => '+ meer',
         'custom_title' => 'Setlist op maat nodig?',
         'custom_text' => 'Wij stemmen ons repertoire af op jouw event. Vertel ons je must-play nummers en wij regelen het.',
+        'empty' => 'Setlist volgt binnenkort.',
     ],
 
     'testimonials_section' => [
         'eyebrow' => 'Wat Ze Zeggen',
         'title' => 'Geloof ons niet op ons woord.',
         'page_subtitle' => 'Echte reviews van bruiloften, bedrijfsevents en privéfeesten in heel Nederland.',
+        'empty' => 'Reviews volgen binnenkort.',
     ],
 
     'booking_cta' => [
@@ -157,9 +170,10 @@ return [
     ],
 
     'footer' => [
-        'description' => '7-koppig live coverband dat onvergetelijke optredens levert op bruiloften, bedrijfsevents en feesten in heel Nederland.',
+        'description' => '8-koppig live coverband dat onvergetelijke optredens levert op bruiloften, bedrijfsevents en feesten in heel Nederland.',
         'navigate' => 'Navigatie',
         'events' => 'Events',
+        'services' => 'Diensten',
         'contact' => 'Contact',
         'christmas_short' => 'Kerst & Oud & Nieuw',
         'rights' => 'Alle rechten voorbehouden.',

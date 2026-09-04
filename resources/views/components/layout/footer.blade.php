@@ -34,19 +34,24 @@
                 <ul class="space-y-3 text-sm text-muted">
                     <li><a href="{{ localized_route('band') }}" class="transition-colors hover:text-white">{{ site_t('nav.about') }}</a></li>
                     <li><a href="{{ localized_route('home') }}#events" class="transition-colors hover:text-white">{{ site_t('nav.events') }}</a></li>
-                    <li><a href="{{ localized_route('media') }}" class="transition-colors hover:text-white">{{ site_t('nav.media') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="transition-colors hover:text-white">{{ site_t('nav.services') }}</a></li>
+                    @if (\App\Models\MediaMoment::query()->where('is_active', true)->exists())
+                        <li><a href="{{ localized_route('media') }}" class="transition-colors hover:text-white">{{ site_t('nav.media') }}</a></li>
+                    @endif
                     <li><a href="{{ localized_route('repertoire') }}" class="transition-colors hover:text-white">{{ site_t('nav.repertoire') }}</a></li>
-                    <li><a href="{{ localized_route('home') }}#testimonials" class="transition-colors hover:text-white">{{ site_t('nav.testimonials') }}</a></li>
+                    @if (\App\Models\Testimonial::query()->where('is_active', true)->exists())
+                        <li><a href="{{ localized_route('home') }}#testimonials" class="transition-colors hover:text-white">{{ site_t('nav.testimonials') }}</a></li>
+                    @endif
                 </ul>
             </div>
 
             <div>
-                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ site_t('footer.events') }}</h3>
+                <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ site_t('footer.services') }}</h3>
                 <ul class="space-y-3 text-sm text-muted">
-                    <li><a href="{{ localized_route('weddings') }}" class="transition-colors hover:text-white">{{ site_t('marquee.weddings') }}</a></li>
-                    <li><a href="{{ localized_route('corporate') }}" class="transition-colors hover:text-white">{{ site_t('marquee.corporate') }}</a></li>
-                    <li><a href="{{ localized_route('private-parties') }}" class="transition-colors hover:text-white">{{ site_t('marquee.private_parties') }}</a></li>
-                    <li><a href="{{ localized_route('christmas') }}" class="transition-colors hover:text-white">{{ site_t('footer.christmas_short') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="transition-colors hover:text-white">{{ site_t('marquee.weddings') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="transition-colors hover:text-white">{{ site_t('marquee.corporate') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="transition-colors hover:text-white">{{ site_t('marquee.private_parties') }}</a></li>
+                    <li><a href="{{ localized_route('home') }}#services" class="transition-colors hover:text-white">{{ site_t('footer.christmas_short') }}</a></li>
                 </ul>
             </div>
 

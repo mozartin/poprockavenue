@@ -11,11 +11,15 @@
 
     <section class="pb-20 sm:pb-28">
         <div class="container-site">
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                @foreach ($testimonials as $testimonial)
-                    <x-cards.testimonial :testimonial="$testimonial" />
-                @endforeach
-            </div>
+            @if ($testimonials->isEmpty())
+                <p class="text-center text-sm text-muted">{{ site_t('testimonials_section.empty') }}</p>
+            @else
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    @foreach ($testimonials as $testimonial)
+                        <x-cards.testimonial :testimonial="$testimonial" />
+                    @endforeach
+                </div>
+            @endif
         </div>
     </section>
 </x-layout.app>

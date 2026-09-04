@@ -4,11 +4,18 @@
 >
     @include('pages.home.sections.hero')
     <x-ui.marquee :items="array_values(\App\Support\SiteCopy::section('marquee'))" />
-    <x-sections.stats :stats="$stats" />
+    @if (count($stats) > 0)
+        <x-sections.stats :stats="$stats" />
+    @endif
+    @include('pages.home.sections.events', ['liveEvents' => $liveEvents])
     @include('pages.home.sections.live-experience')
     @include('pages.home.sections.about')
-    @include('pages.home.sections.events', ['eventTypes' => $eventTypes])
-    @include('pages.home.sections.live-moments', ['mediaMoments' => $mediaMoments])
-    @include('pages.home.sections.testimonials', ['testimonials' => $testimonials])
+    @include('pages.home.sections.services', ['eventTypes' => $eventTypes])
+    @if ($mediaMoments->isNotEmpty())
+        @include('pages.home.sections.live-moments', ['mediaMoments' => $mediaMoments])
+    @endif
+    @if ($testimonials->isNotEmpty())
+        @include('pages.home.sections.testimonials', ['testimonials' => $testimonials])
+    @endif
     @include('pages.home.sections.booking-cta')
 </x-layout.app>

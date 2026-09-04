@@ -2,23 +2,24 @@
 
 return [
     'meta' => [
-        'default_title' => 'Pop Rock Avenue — 7-Piece Live Cover Band',
-        'default_description' => '7-piece live cover band for weddings, corporate events and parties across the Netherlands. Premium live entertainment that fills the dance floor.',
-        'home_title' => 'Pop Rock Avenue — 7-Piece Live Cover Band Netherlands',
+        'default_title' => 'Pop Rock Avenue — 8-Piece Live Cover Band',
+        'default_description' => '8-piece live cover band for weddings, corporate events and parties across the Netherlands. Premium live entertainment that fills the dance floor.',
+        'home_title' => 'Pop Rock Avenue — 8-Piece Live Cover Band Netherlands',
         'band_title' => 'The Band — Pop Rock Avenue',
-        'band_description' => 'Meet the seven musicians behind Pop Rock Avenue — the Netherlands\' premier live cover band for weddings, corporate events and parties.',
+        'band_description' => 'Meet the eight musicians behind Pop Rock Avenue — the Netherlands\' premier live cover band for weddings, corporate events and parties.',
         'repertoire_title' => 'Repertoire — Pop Rock Avenue',
         'repertoire_description' => '200+ songs spanning six decades. Pop, rock, dance, 80s, 90s and classics — custom setlists tailored to your event.',
         'testimonials_title' => 'Testimonials — Pop Rock Avenue',
-        'testimonials_description' => 'Read what clients say about Pop Rock Avenue — the Netherlands\' premier 7-piece live cover band.',
+        'testimonials_description' => 'Read what clients say about Pop Rock Avenue — the Netherlands\' premier 8-piece live cover band.',
         'contact_title' => 'Contact & Booking — Pop Rock Avenue',
-        'contact_description' => 'Check availability for Pop Rock Avenue — the Netherlands\' premier 7-piece live cover band. Response within 24 hours.',
+        'contact_description' => 'Check availability for Pop Rock Avenue — the Netherlands\' premier 8-piece live cover band. Response within 24 hours.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
         'media_description' => 'Vertical live clips from Pop Rock Avenue shows — weddings, corporate events and parties across the Netherlands.',
     ],
 
     'nav' => [
         'about' => 'About',
+        'services' => 'Services',
         'events' => 'Events',
         'media' => 'Live Moments',
         'repertoire' => 'Repertoire',
@@ -39,12 +40,12 @@ return [
     ],
 
     'hero' => [
-        'badge' => '7-Piece Live Cover Band · Netherlands',
+        'badge' => '8-Piece Live Cover Band · Netherlands',
         'line_1' => 'We turn events',
         'line_2' => 'into',
         'line_3' => 'unforgettable',
         'line_4' => 'nights.',
-        'subtitle' => '7-piece live cover band for weddings, corporate events & parties across the Netherlands.',
+        'subtitle' => '8-piece live cover band for weddings, corporate events & parties across the Netherlands.',
         'scroll' => 'Scroll',
         'image_alt' => 'Live performance by Pop Rock Avenue',
     ],
@@ -86,15 +87,25 @@ return [
 
     'about' => [
         'eyebrow' => 'About the Band',
-        'title' => 'Seven musicians. One unstoppable force.',
+        'title' => 'Eight musicians. One unstoppable force.',
         'image_alt' => 'Pop Rock Avenue performing live',
-        'page_title' => 'Seven musicians. One unstoppable force.',
+        'page_title' => 'Eight musicians. One unstoppable force.',
         'page_subtitle' => 'For over 15 years, Pop Rock Avenue has been filling dance floors across the Netherlands with unforgettable live performances.',
+        'members_empty' => 'Line-up details coming soon.',
     ],
 
     'events_section' => [
-        'eyebrow' => 'Where We Perform',
+        'eyebrow' => 'Upcoming',
+        'title' => 'Catch us live.',
+        'subtitle' => 'Shows and festivals where Pop Rock Avenue takes the stage.',
+        'cta' => 'More info',
+        'empty' => 'New dates coming soon.',
+    ],
+
+    'services_section' => [
+        'eyebrow' => 'Services',
         'title' => 'Every occasion deserves a night to remember.',
+        'empty' => 'Service packages coming soon.',
     ],
 
     'repertoire_section' => [
@@ -104,12 +115,14 @@ return [
         'more' => '+ more',
         'custom_title' => 'Need a custom setlist?',
         'custom_text' => 'We tailor our repertoire to your event. Tell us your must-play songs and we\'ll make it happen.',
+        'empty' => 'Setlist coming soon.',
     ],
 
     'testimonials_section' => [
         'eyebrow' => 'What They Say',
         'title' => 'Don\'t take our word for it.',
         'page_subtitle' => 'Real reviews from weddings, corporate events and private parties across the Netherlands.',
+        'empty' => 'Reviews coming soon.',
     ],
 
     'booking_cta' => [
@@ -157,9 +170,10 @@ return [
     ],
 
     'footer' => [
-        'description' => '7-piece live cover band delivering unforgettable performances at weddings, corporate events and parties across the Netherlands.',
+        'description' => '8-piece live cover band delivering unforgettable performances at weddings, corporate events and parties across the Netherlands.',
         'navigate' => 'Navigate',
         'events' => 'Events',
+        'services' => 'Services',
         'contact' => 'Contact',
         'christmas_short' => 'Christmas & NYE',
         'rights' => 'All rights reserved.',

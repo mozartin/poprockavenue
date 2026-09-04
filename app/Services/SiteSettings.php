@@ -98,11 +98,28 @@ class SiteSettings
 
     public static function stats(): array
     {
-        return [
-            ['value' => site_t('stats_values.musicians', [], '7'), 'label' => site_t('stats.musicians')],
-            ['value' => site_t('stats_values.events', [], '500+'), 'label' => site_t('stats.events')],
-            ['value' => site_t('stats_values.experience', [], '15+'), 'label' => site_t('stats.experience')],
-            ['value' => site_t('stats_values.guarantee', [], '100%'), 'label' => site_t('stats.guarantee')],
+        $items = [
+            'musicians' => [
+                'value' => site_t('stats_values.musicians', [], '8'),
+                'label' => site_t('stats.musicians'),
+            ],
+            'events' => [
+                'value' => site_t('stats_values.events', [], '500+'),
+                'label' => site_t('stats.events'),
+            ],
+            'experience' => [
+                'value' => site_t('stats_values.experience', [], '15+'),
+                'label' => site_t('stats.experience'),
+            ],
+            'guarantee' => [
+                'value' => site_t('stats_values.guarantee', [], '100%'),
+                'label' => site_t('stats.guarantee'),
+            ],
         ];
+
+        return collect($items)
+            ->filter(fn (array $stat, string $key) => (bool) SiteSetting::get("stats_active.{$key}", true))
+            ->values()
+            ->all();
     }
 }
