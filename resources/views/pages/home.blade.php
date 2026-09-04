@@ -8,8 +8,8 @@
         <x-sections.stats :stats="$stats" />
     @endif
     @include('pages.home.sections.events', ['liveEvents' => $liveEvents])
-    @include('pages.home.sections.live-experience')
     @include('pages.home.sections.about')
+    @include('pages.home.sections.live-experience')
     @include('pages.home.sections.services', ['eventTypes' => $eventTypes])
     @if ($mediaMoments->isNotEmpty())
         @include('pages.home.sections.live-moments', ['mediaMoments' => $mediaMoments])
