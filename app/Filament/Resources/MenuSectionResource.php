@@ -68,10 +68,14 @@ class MenuSectionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('location')
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => $state === 'header' ? 'Header' : 'Footer')
-                    ->color(fn (string $state): string => $state === 'header' ? 'info' : 'success'),
-                Tables\Columns\TextColumn::make('title')->searchable(),
-                Tables\Columns\TextColumn::make('items_count')->counts('items')->label('Items'),
+                    ->formatStateUsing(fn (?string $state): string => $state === 'header' ? 'Header' : 'Footer')
+                    ->color(fn (?string $state): string => $state === 'header' ? 'info' : 'success'),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Title')
+                    ->formatStateUsing(fn ($state): string => is_string($state) ? $state : ''),
+                Tables\Columns\TextColumn::make('items_count')
+                    ->counts('items')
+                    ->label('Items'),
                 Tables\Columns\IconColumn::make('show_title')->boolean()->label('Show title'),
                 Tables\Columns\IconColumn::make('is_active')->boolean(),
                 Tables\Columns\TextColumn::make('sort_order')->sortable(),

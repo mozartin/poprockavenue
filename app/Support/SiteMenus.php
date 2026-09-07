@@ -3,9 +3,10 @@
 namespace App\Support;
 
 use App\Models\MenuSection;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Throwable;
@@ -80,29 +81,145 @@ class SiteMenus
     {
         static $attempted = false;
 
-        if ($attempted || self::tablesReady()) {
+        if ($attempted) {
             return;
         }
 
         $attempted = true;
 
         try {
-            foreach ([
-                'database/migrations/2026_09_07_203000_create_menus_and_swap_facebook_for_tiktok.php',
-                'database/migrations/2026_09_07_204500_ensure_menu_tables_exist.php',
-            ] as $path) {
-                if (! is_file(base_path($path))) {
-                    continue;
-                }
+            if (! Schema::hasTable('menu_sections')) {
+                Schema::create('menu_sections', function (Blueprint $table) {
+                    $table->id();
+                    $table->string('location');
+                    $table->json('title')->nullable();
+                    $table->boolean('show_title')->default(true);
+                    $table->unsignedInteger('sort_order')->default(0);
+                    $table->boolean('is_active')->default(true);
+                    $table->timestamps();
+                });
+            }
 
-                Artisan::call('migrate', [
-                    '--force' => true,
-                    '--no-interaction' => true,
-                    '--path' => $path,
-                ]);
+            if (! Schema::hasTable('menu_items')) {
+                Schema::create('menu_items', function (Blueprint $table) {
+                    $table->id();
+                    $table->foreignId('menu_section_id')->constrained()->cascadeOnDelete();
+                    $table->json('label');
+                    $table->string('link_type')->default('route');
+                    $table->string('link_value');
+                    $table->string('anchor')->nullable();
+                    $table->boolean('open_in_new_tab')->default(false);
+                    $table->unsignedInteger('sort_order')->default(0);
+                    $table->boolean('is_active')->default(true);
+                    $table->timestamps();
+                });
+            }
+
+            if (Schema::hasTable('menu_sections') && DB::table('menu_sections')->count() === 0) {
+                self::seedDefaults();
             }
         } catch (Throwable $e) {
             Log::warning('SiteMenus ensureReady failed', ['message' => $e->getMessage()]);
+        }
+    }
+
+    protected static function seedDefaults(): void
+    {
+        $t = fn (string $en, string $nl, string $uk, string $ru) => json_encode([
+            'en' => $en,
+            'nl' => $nl,
+            'uk' => $uk,
+            'ru' => $ru,
+        ], JSON_UNESCAPED_UNICODE);
+
+        $headerId = DB::table('menu_sections')->insertGetId([
+            'location' => 'header',
+            'title' => $t('Main menu', 'Hoofdmenu', 'Головне меню', 'Главное меню'),
+            'show_title' => false,
+            'sort_order' => 0,
+            'is_active' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        foreach ([
+            [0, $t('About Us', 'Over ons', 'Про нас', 'О нас'), 'about', null],
+            [1, $t('Events', 'Events', 'Афіша', 'Афиша'), 'home', '#events'],
+            [2, $t('Live Moments', 'Live Moments', 'Live Moments', 'Live Moments'), 'media', null],
+            [3, $t('Contact', 'Contact', 'Контакт', 'Контакт'), 'contact', null],
+        ] as [$sort, $label, $value, $anchor]) {
+            DB::table('menu_items')->insert([
+                'menu_section_id' => $headerId,
+                'label' => $label,
+                'link_type' => 'route',
+                'link_value' => $value,
+                'anchor' => $anchor,
+                'open_in_new_tab' => false,
+                'sort_order' => $sort,
+                'is_active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $navigateId = DB::table('menu_sections')->insertGetId([
+            'location' => 'footer',
+            'title' => $t('Navigate', 'Navigatie', 'Навігація', 'Навигация'),
+            'show_title' => true,
+            'sort_order' => 0,
+            'is_active' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        foreach ([
+            [0, $t('About Us', 'Over ons', 'Про нас', 'О нас'), 'about', null],
+            [1, $t('Events', 'Events', 'Афіша', 'Афиша'), 'home', '#events'],
+            [2, $t('Live Moments', 'Live Moments', 'Live Moments', 'Live Moments'), 'media', null],
+            [3, $t('Repertoire', 'Repertoire', 'Репертуар', 'Репертуар'), 'repertoire', null],
+        ] as [$sort, $label, $value, $anchor]) {
+            DB::table('menu_items')->insert([
+                'menu_section_id' => $navigateId,
+                'label' => $label,
+                'link_type' => 'route',
+                'link_value' => $value,
+                'anchor' => $anchor,
+                'open_in_new_tab' => false,
+                'sort_order' => $sort,
+                'is_active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        $servicesId = DB::table('menu_sections')->insertGetId([
+            'location' => 'footer',
+            'title' => $t('Services', 'Diensten', 'Послуги', 'Услуги'),
+            'show_title' => true,
+            'sort_order' => 1,
+            'is_active' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        foreach ([
+            [0, $t('Weddings', 'Bruiloften', 'Весілля', 'Свадьбы')],
+            [1, $t('Corporate', 'Zakelijk', 'Корпоративи', 'Корпоративы')],
+            [2, $t('Private parties', 'Privéfeesten', 'Приватні вечірки', 'Частные вечеринки')],
+            [3, $t('Christmas & NY', 'Kerst & NY', 'Різдво & НР', 'Рождество & НГ')],
+        ] as [$sort, $label]) {
+            DB::table('menu_items')->insert([
+                'menu_section_id' => $servicesId,
+                'label' => $label,
+                'link_type' => 'route',
+                'link_value' => 'home',
+                'anchor' => '#services',
+                'open_in_new_tab' => false,
+                'sort_order' => $sort,
+                'is_active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
     }
 }
