@@ -2,8 +2,9 @@
     $pageTitle = $title ?? site_t('meta.default_title');
     $pageDescription = $description ?? site_t('meta.default_description');
     $canonicalUrl = url()->current();
-    $ogImage = \App\Services\SiteSettings::heroImage();
+    $ogImage = \App\Services\SiteSettings::ogImage();
     $ogImageUrl = str_starts_with($ogImage, 'http') ? $ogImage : url($ogImage);
+    $ogSiteName = \App\Services\SiteSettings::ogSiteName();
     $locale = app()->getLocale();
     $ogLocale = match ($locale) {
         'nl' => 'nl_NL',
@@ -13,13 +14,13 @@
     };
     $sameAs = array_values(array_filter([
         \App\Services\SiteSettings::instagram(),
-        \App\Services\SiteSettings::facebook(),
+        \App\Services\SiteSettings::tiktok(),
         \App\Services\SiteSettings::youtube(),
     ]));
     $jsonLd = [
         '@context' => 'https://schema.org',
         '@type' => 'MusicGroup',
-        'name' => 'POP/ROCK AVENUE',
+        'name' => $ogSiteName,
         'alternateName' => 'Pop Rock Avenue',
         'url' => rtrim(config('app.url'), '/'),
         'image' => $ogImageUrl,
@@ -46,7 +47,7 @@
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="{{ $canonicalUrl }}">
 
-    <meta property="og:site_name" content="POP/ROCK AVENUE">
+    <meta property="og:site_name" content="{{ $ogSiteName }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:type" content="website">

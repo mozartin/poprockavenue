@@ -27,7 +27,7 @@ class ManageAboutUs extends Page implements HasForms
 
     protected static ?string $title = 'About Us — block settings';
 
-    protected static ?string $navigationDescription = 'Homepage About section + /about-us page: image, texts, SEO';
+    protected static ?string $navigationDescription = 'Homepage About section + /about-us page: image and texts';
 
     protected static ?int $navigationSort = 1;
 

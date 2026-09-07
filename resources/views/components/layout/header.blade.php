@@ -1,25 +1,7 @@
 @php
-    $hasTestimonials = \App\Models\Testimonial::query()->where('is_active', true)->exists();
-    $hasMediaMoments = \App\Models\MediaMoment::query()->where('is_active', true)->exists();
+    use App\Support\SiteMenus;
 
-    $links = [
-        ['label' => site_t('nav.about'), 'route' => 'about'],
-        ['label' => site_t('nav.events'), 'route' => 'home', 'anchor' => '#events'],
-    ];
-
-    if ($hasMediaMoments) {
-        $links[] = ['label' => site_t('nav.media'), 'route' => 'media'];
-    }
-
-    if ($hasTestimonials) {
-        $links[] = [
-            'label' => site_t('nav.testimonials'),
-            'route' => 'home',
-            'anchor' => '#testimonials',
-        ];
-    }
-
-    $links[] = ['label' => site_t('nav.contact'), 'route' => 'contact'];
+    $links = SiteMenus::headerItems();
 @endphp
 
 <header
@@ -32,10 +14,11 @@
         <nav class="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
             @foreach ($links as $link)
                 <a
-                    href="{{ request()->routeIs($link['route']) && isset($link['anchor']) ? $link['anchor'] : localized_route($link['route']) . ($link['anchor'] ?? '') }}"
+                    href="{{ $link->href() }}"
+                    @if ($link->open_in_new_tab) target="_blank" rel="noopener noreferrer" @endif
                     class="text-xs font-medium uppercase tracking-[0.15em] text-muted transition-colors hover:text-white"
                 >
-                    {{ $link['label'] }}
+                    {{ $link->label }}
                 </a>
             @endforeach
         </nav>
@@ -72,11 +55,12 @@
         <nav class="container-site flex flex-col gap-1 py-4" aria-label="Mobile navigation">
             @foreach ($links as $link)
                 <a
-                    href="{{ localized_route($link['route']) }}{{ $link['anchor'] ?? '' }}"
+                    href="{{ $link->href() }}"
+                    @if ($link->open_in_new_tab) target="_blank" rel="noopener noreferrer" @endif
                     class="rounded-md px-3 py-3 text-sm font-medium uppercase tracking-wider text-muted transition-colors hover:bg-white/5 hover:text-white"
                     @click="open = false"
                 >
-                    {{ $link['label'] }}
+                    {{ $link->label }}
                 </a>
             @endforeach
             <div class="px-3 py-3">

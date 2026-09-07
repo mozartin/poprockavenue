@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'phone', 'value' => '+31 6 12 345 678', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'location', 'value' => json_encode($this->t('Netherlands', 'Nederland', 'Нідерланди', 'Нидерланды')), 'type' => 'translatable', 'group' => 'contact'],
             ['key' => 'instagram_url', 'value' => 'https://instagram.com/poprockavenue', 'type' => 'text', 'group' => 'social'],
-            ['key' => 'facebook_url', 'value' => 'https://facebook.com/poprockavenue', 'type' => 'text', 'group' => 'social'],
+            ['key' => 'tiktok_url', 'value' => 'https://www.tiktok.com/@poprockavenue', 'type' => 'text', 'group' => 'social'],
             ['key' => 'youtube_url', 'value' => 'https://youtube.com/@poprockavenue', 'type' => 'text', 'group' => 'social'],
             ['key' => 'showreel_url', 'value' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'type' => 'text', 'group' => 'media'],
             ['key' => 'hero_image', 'value' => '/images/hero.jpg', 'type' => 'text', 'group' => 'media'],

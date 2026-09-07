@@ -56,9 +56,9 @@ class SiteSettings
         return self::get('instagram_url');
     }
 
-    public static function facebook(): ?string
+    public static function tiktok(): ?string
     {
-        return self::get('facebook_url');
+        return self::get('tiktok_url');
     }
 
     public static function youtube(): ?string
@@ -79,6 +79,27 @@ class SiteSettings
     public static function heroImage(): string
     {
         return self::imageUrl(self::get('hero_image'), 'images/hero.jpg');
+    }
+
+    /**
+     * Image used for Open Graph / Twitter / messengers when sharing a link.
+     */
+    public static function ogImage(): string
+    {
+        $og = self::get('og_image');
+
+        if (filled($og)) {
+            return self::imageUrl($og, 'images/hero.jpg');
+        }
+
+        return self::heroImage();
+    }
+
+    public static function ogSiteName(): string
+    {
+        $name = self::get('og_site_name');
+
+        return filled($name) ? (string) $name : 'POP/ROCK AVENUE';
     }
 
     public static function aboutImage(): string

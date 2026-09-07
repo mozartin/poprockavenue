@@ -221,7 +221,12 @@ return [
             'description' => 'Footer text and column headings.',
             'admin' => ['layout' => 'items'],
             'fields' => [
-                'description' => ['label' => 'Band blurb', 'input_label' => 'Text', 'type' => 'textarea'],
+                'description' => [
+                    'label' => 'Band blurb',
+                    'input_label' => 'Text',
+                    'type' => 'textarea',
+                    'admin' => ['hidden' => true], // Edited on Website → SEO & site basics
+                ],
                 'navigate' => ['label' => 'Navigate column heading', 'input_label' => 'Heading', 'type' => 'text'],
                 'events' => ['label' => 'Events column heading', 'input_label' => 'Heading', 'type' => 'text'],
                 'services' => ['label' => 'Services column heading', 'input_label' => 'Heading', 'type' => 'text'],
@@ -233,6 +238,7 @@ return [
         ],
         'meta' => [
             'label' => 'SEO / page titles',
+            'admin' => ['hidden' => true], // Edited on Website → SEO & site basics (+ About Us for band_*)
             'fields' => [
                 'default_title' => ['label' => 'Default title', 'type' => 'text'],
                 'default_description' => ['label' => 'Default description', 'type' => 'textarea'],
@@ -240,15 +246,17 @@ return [
                 'band_title' => [
                     'label' => 'About Us page title',
                     'type' => 'text',
-                    'admin' => ['hidden' => true], // Edited on Website → About Us
+                    'admin' => ['hidden' => true],
                 ],
                 'band_description' => [
                     'label' => 'About Us page description',
                     'type' => 'textarea',
-                    'admin' => ['hidden' => true], // Edited on Website → About Us
+                    'admin' => ['hidden' => true],
                 ],
                 'repertoire_title' => ['label' => 'Repertoire title', 'type' => 'text'],
                 'repertoire_description' => ['label' => 'Repertoire description', 'type' => 'textarea'],
+                'media_title' => ['label' => 'Live Moments title', 'type' => 'text'],
+                'media_description' => ['label' => 'Live Moments description', 'type' => 'textarea'],
                 'testimonials_title' => ['label' => 'Testimonials title', 'type' => 'text'],
                 'testimonials_description' => ['label' => 'Testimonials description', 'type' => 'textarea'],
                 'contact_title' => ['label' => 'Contact title', 'type' => 'text'],
