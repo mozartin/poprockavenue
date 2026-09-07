@@ -29,16 +29,6 @@ class MenuSectionResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    public static function canAccess(): bool
-    {
-        return SiteMenus::tablesReady();
-    }
-
-    public static function shouldRegisterNavigation(): bool
-    {
-        return SiteMenus::tablesReady();
-    }
-
     public static function getTranslatableAttributes(): array
     {
         return ['title'];

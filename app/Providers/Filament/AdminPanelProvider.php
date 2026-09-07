@@ -63,6 +63,9 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->bootUsing(function () {
+                \App\Support\SiteMenus::ensureReady();
             ]);
     }
 }
