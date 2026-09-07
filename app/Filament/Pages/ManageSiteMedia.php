@@ -18,13 +18,15 @@ class ManageSiteMedia extends Page implements HasForms
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static ?string $navigationGroup = 'Website';
 
-    protected static ?string $navigationLabel = 'Site Images';
+    protected static ?string $navigationLabel = 'Other images';
 
-    protected static ?string $title = 'Site Images';
+    protected static ?string $title = 'Other site images';
 
-    protected static ?int $navigationSort = 0;
+    protected static ?string $navigationDescription = 'Hero, live experience, booking CTA and showreel';
+
+    protected static ?int $navigationSort = 2;
 
     protected static string $view = 'filament.pages.manage-site-media';
 
@@ -34,7 +36,6 @@ class ManageSiteMedia extends Page implements HasForms
     {
         $this->form->fill([
             'hero_image' => $this->uploadablePath(SiteSetting::get('hero_image')),
-            'about_image' => $this->uploadablePath(SiteSetting::get('about_image')),
             'live_video_image' => $this->uploadablePath(SiteSetting::get('live_video_image')),
             'cta_background_image' => $this->uploadablePath(SiteSetting::get('cta_background_image')),
             'showreel_url' => SiteSetting::get('showreel_url'),
@@ -65,10 +66,9 @@ class ManageSiteMedia extends Page implements HasForms
         return $form
             ->schema([
                 Forms\Components\Section::make('Homepage images')
-                    ->description('Upload images used across the homepage blocks.')
+                    ->description('About Us image is edited under Website → About Us.')
                     ->schema([
                         MediaUploads::image('hero_image', 'Hero image', 'uploads/site'),
-                        MediaUploads::image('about_image', 'About / band image', 'uploads/site'),
                         MediaUploads::image('live_video_image', 'Live experience poster', 'uploads/site'),
                         MediaUploads::image('cta_background_image', 'Booking CTA background', 'uploads/site'),
                     ])->columns(2),
@@ -88,7 +88,7 @@ class ManageSiteMedia extends Page implements HasForms
     {
         $state = $this->form->getState();
 
-        foreach (['hero_image', 'about_image', 'live_video_image', 'cta_background_image'] as $key) {
+        foreach (['hero_image', 'live_video_image', 'cta_background_image'] as $key) {
             if (filled($state[$key] ?? null)) {
                 SiteSetting::set($key, $state[$key], 'text', 'media');
             }

@@ -25,8 +25,8 @@ return [
             'description' => 'Labels for header and footer links — one item per menu entry.',
             'admin' => ['layout' => 'items'],
             'fields' => [
-                'about' => ['label' => 'About', 'input_label' => 'Menu label', 'type' => 'text'],
-                'services' => ['label' => 'Services', 'input_label' => 'Menu label', 'type' => 'text'],
+                'about' => ['label' => 'About Us', 'input_label' => 'Menu label', 'type' => 'text'],
+                'services' => ['label' => 'Services (legacy)', 'input_label' => 'Menu label', 'type' => 'text'],
                 'events' => ['label' => 'Events', 'input_label' => 'Menu label', 'type' => 'text'],
                 'media' => ['label' => 'Live Moments', 'input_label' => 'Menu label', 'type' => 'text'],
                 'repertoire' => ['label' => 'Repertoire', 'input_label' => 'Menu label', 'type' => 'text'],
@@ -44,7 +44,12 @@ return [
                 'check_availability' => ['label' => 'Check availability', 'input_label' => 'Button text', 'type' => 'text'],
                 'watch_live' => ['label' => 'Watch live', 'input_label' => 'Button text', 'type' => 'text'],
                 'watch_showreel' => ['label' => 'Watch showreel', 'input_label' => 'Button text', 'type' => 'text'],
-                'meet_the_band' => ['label' => 'Meet the band', 'input_label' => 'Button text', 'type' => 'text'],
+                'meet_the_band' => [
+                    'label' => 'Meet the band',
+                    'input_label' => 'Button text',
+                    'type' => 'text',
+                    'admin' => ['hidden' => true], // Edited on Website → About Us
+                ],
                 'view_full_repertoire' => ['label' => 'View full repertoire', 'input_label' => 'Button text', 'type' => 'text'],
                 'view_all_moments' => ['label' => 'View all moments', 'input_label' => 'Button text', 'type' => 'text'],
                 'request_custom_setlist' => ['label' => 'Request custom setlist', 'input_label' => 'Button text', 'type' => 'text'],
@@ -107,13 +112,14 @@ return [
             ],
         ],
         'about' => [
-            'label' => 'About section / band page',
+            'label' => 'About Us',
+            'admin' => ['hidden' => true], // Edited on Website → About Us
             'fields' => [
                 'eyebrow' => ['label' => 'Eyebrow', 'type' => 'text'],
                 'title' => ['label' => 'Home title', 'type' => 'text'],
                 'image_alt' => ['label' => 'Image alt', 'type' => 'text'],
-                'page_title' => ['label' => 'Band page title', 'type' => 'text'],
-                'page_subtitle' => ['label' => 'Band page subtitle', 'type' => 'textarea'],
+                'page_title' => ['label' => 'About Us page title', 'type' => 'text'],
+                'page_subtitle' => ['label' => 'About Us page subtitle', 'type' => 'textarea'],
                 'members_empty' => ['label' => 'Members empty state', 'type' => 'text'],
             ],
         ],
@@ -231,8 +237,16 @@ return [
                 'default_title' => ['label' => 'Default title', 'type' => 'text'],
                 'default_description' => ['label' => 'Default description', 'type' => 'textarea'],
                 'home_title' => ['label' => 'Home title', 'type' => 'text'],
-                'band_title' => ['label' => 'Band title', 'type' => 'text'],
-                'band_description' => ['label' => 'Band description', 'type' => 'textarea'],
+                'band_title' => [
+                    'label' => 'About Us page title',
+                    'type' => 'text',
+                    'admin' => ['hidden' => true], // Edited on Website → About Us
+                ],
+                'band_description' => [
+                    'label' => 'About Us page description',
+                    'type' => 'textarea',
+                    'admin' => ['hidden' => true], // Edited on Website → About Us
+                ],
                 'repertoire_title' => ['label' => 'Repertoire title', 'type' => 'text'],
                 'repertoire_description' => ['label' => 'Repertoire description', 'type' => 'textarea'],
                 'testimonials_title' => ['label' => 'Testimonials title', 'type' => 'text'],

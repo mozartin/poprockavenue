@@ -13,7 +13,7 @@ class SitemapController extends Controller
 
         $pages = [
             ['route' => 'home', 'changefreq' => 'weekly', 'priority' => '1.0'],
-            ['route' => 'band', 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['route' => 'about', 'changefreq' => 'monthly', 'priority' => '0.8'],
             ['route' => 'media', 'changefreq' => 'weekly', 'priority' => '0.8'],
             ['route' => 'repertoire', 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['route' => 'contact', 'changefreq' => 'monthly', 'priority' => '0.9'],

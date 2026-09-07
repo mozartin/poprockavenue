@@ -20,7 +20,8 @@ Route::prefix('{locale}')
     ->middleware('set.locale')
     ->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
-        Route::get('/the-band', [PageController::class, 'band'])->name('band');
+        Route::get('/about-us', [PageController::class, 'band'])->name('about');
+        Route::permanentRedirect('/the-band', '/{locale}/about-us');
         Route::get('/weddings', [PageController::class, 'event'])->defaults('event', 'weddings')->name('weddings');
         Route::get('/corporate-events', [PageController::class, 'event'])->defaults('event', 'corporate-events')->name('corporate');
         Route::get('/private-parties', [PageController::class, 'event'])->defaults('event', 'private-parties')->name('private-parties');

@@ -3,9 +3,8 @@
     $hasMediaMoments = \App\Models\MediaMoment::query()->where('is_active', true)->exists();
 
     $links = [
-        ['label' => site_t('nav.about'), 'route' => 'home', 'anchor' => '#about'],
+        ['label' => site_t('nav.about'), 'route' => 'about'],
         ['label' => site_t('nav.events'), 'route' => 'home', 'anchor' => '#events'],
-        ['label' => site_t('nav.services'), 'route' => 'home', 'anchor' => '#services'],
     ];
 
     if ($hasMediaMoments) {

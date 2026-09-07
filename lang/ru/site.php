@@ -5,7 +5,7 @@ return [
         'default_title' => 'Pop Rock Avenue — 8-участный Live Cover Band',
         'default_description' => '8-участный live cover band для свадеб, корпоративов и вечеринок в Нидерландах. Премиальное живое шоу, которое заполняет танцпол.',
         'home_title' => 'Pop Rock Avenue — 8-участный Live Cover Band Нидерланды',
-        'band_title' => 'Группа — Pop Rock Avenue',
+        'band_title' => 'О нас — Pop Rock Avenue',
         'band_description' => 'Познакомьтесь с семью музыкантами Pop Rock Avenue — ведущего live cover band Нидерландов для свадеб, корпоративов и вечеринок.',
         'repertoire_title' => 'Репертуар — Pop Rock Avenue',
         'repertoire_description' => '200+ песен за шесть десятилетий. Поп, рок, дэнс, 80-е, 90-е и классика — сет-листы под ваше мероприятие.',
@@ -18,7 +18,7 @@ return [
     ],
 
     'nav' => [
-        'about' => 'О группе',
+        'about' => 'О нас',
         'services' => 'Услуги',
         'events' => 'Афиша',
         'media' => 'Live Moments',

@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="mt-10">
-                    <x-ui.button href="{{ localized_route('band') }}" variant="outline">
+                    <x-ui.button href="{{ localized_route('about') }}" variant="outline">
                         {{ site_t('buttons.meet_the_band') }}
                     </x-ui.button>
                 </div>

@@ -5,7 +5,7 @@ return [
         'default_title' => 'Pop Rock Avenue — 8-Piece Live Cover Band',
         'default_description' => '8-piece live cover band for weddings, corporate events and parties across the Netherlands. Premium live entertainment that fills the dance floor.',
         'home_title' => 'Pop Rock Avenue — 8-Piece Live Cover Band Netherlands',
-        'band_title' => 'The Band — Pop Rock Avenue',
+        'band_title' => 'About Us — Pop Rock Avenue',
         'band_description' => 'Meet the eight musicians behind Pop Rock Avenue — the Netherlands\' premier live cover band for weddings, corporate events and parties.',
         'repertoire_title' => 'Repertoire — Pop Rock Avenue',
         'repertoire_description' => '200+ songs spanning six decades. Pop, rock, dance, 80s, 90s and classics — custom setlists tailored to your event.',
@@ -18,7 +18,7 @@ return [
     ],
 
     'nav' => [
-        'about' => 'About',
+        'about' => 'About Us',
         'services' => 'Services',
         'events' => 'Events',
         'media' => 'Live Moments',

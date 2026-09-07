@@ -32,9 +32,8 @@
             <div>
                 <h3 class="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-white">{{ site_t('footer.navigate') }}</h3>
                 <ul class="space-y-3 text-sm text-muted">
-                    <li><a href="{{ localized_route('band') }}" class="transition-colors hover:text-white">{{ site_t('nav.about') }}</a></li>
+                    <li><a href="{{ localized_route('about') }}" class="transition-colors hover:text-white">{{ site_t('nav.about') }}</a></li>
                     <li><a href="{{ localized_route('home') }}#events" class="transition-colors hover:text-white">{{ site_t('nav.events') }}</a></li>
-                    <li><a href="{{ localized_route('home') }}#services" class="transition-colors hover:text-white">{{ site_t('nav.services') }}</a></li>
                     @if (\App\Models\MediaMoment::query()->where('is_active', true)->exists())
                         <li><a href="{{ localized_route('media') }}" class="transition-colors hover:text-white">{{ site_t('nav.media') }}</a></li>
                     @endif

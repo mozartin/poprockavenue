@@ -5,7 +5,7 @@ return [
         'default_title' => 'Pop Rock Avenue — 8-koppig Live Coverband',
         'default_description' => '8-koppig live coverband voor bruiloften, bedrijfsevents en feesten in heel Nederland. Premium live entertainment dat de dansvloer vult.',
         'home_title' => 'Pop Rock Avenue — 8-koppig Live Coverband Nederland',
-        'band_title' => 'De Band — Pop Rock Avenue',
+        'band_title' => 'Over ons — Pop Rock Avenue',
         'band_description' => 'Maak kennis met de acht muzikanten van Pop Rock Avenue — Nederlands toonaangevende live coverband voor bruiloften, bedrijfsevents en feesten.',
         'repertoire_title' => 'Repertoire — Pop Rock Avenue',
         'repertoire_description' => '200+ nummers uit zes decennia. Pop, rock, dance, jaren 80, jaren 90 en klassiekers — setlists op maat voor jouw event.',

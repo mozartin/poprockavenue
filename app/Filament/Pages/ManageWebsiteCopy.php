@@ -21,13 +21,13 @@ class ManageWebsiteCopy extends Page implements HasForms
 
     protected static ?string $navigationGroup = 'Website';
 
-    protected static ?string $navigationLabel = 'Texts & labels';
+    protected static ?string $navigationLabel = 'Other texts';
 
-    protected static ?string $title = 'Texts & labels';
+    protected static ?string $title = 'Other texts & labels';
 
-    protected static ?string $navigationDescription = 'Menu, stats, section titles and other site copy';
+    protected static ?string $navigationDescription = 'Nav, hero, stats, footer, SEO and remaining section copy';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
 
     protected static string $view = 'filament.pages.manage-website-copy';
 
@@ -51,6 +51,10 @@ class ManageWebsiteCopy extends Page implements HasForms
 
         foreach (SiteCopy::sections() as $section => $config) {
             foreach (array_keys($config['fields'] ?? []) as $field) {
+                if (self::fieldHidden($config, $field)) {
+                    continue;
+                }
+
                 $translations = [];
 
                 foreach (TranslatableFields::locales() as $locale) {
@@ -92,6 +96,10 @@ class ManageWebsiteCopy extends Page implements HasForms
 
         foreach (SiteCopy::sections() as $section => $config) {
             foreach (array_keys($config['fields'] ?? []) as $field) {
+                if (self::fieldHidden($config, $field)) {
+                    continue;
+                }
+
                 $setting = SiteSetting::query()
                     ->where('key', SiteCopy::settingKey($section, $field))
                     ->first();
@@ -249,6 +257,10 @@ class ManageWebsiteCopy extends Page implements HasForms
             $items = [];
 
             foreach ($config['fields'] as $field => $meta) {
+                if (! empty($meta['admin']['hidden'])) {
+                    continue;
+                }
+
                 $items[] = $this->buildItemCard([
                     'label' => $meta['label'] ?? $field,
                     'parts' => [[
@@ -270,6 +282,10 @@ class ManageWebsiteCopy extends Page implements HasForms
         $fields = [];
 
         foreach ($config['fields'] as $field => $meta) {
+            if (! empty($meta['admin']['hidden'])) {
+                continue;
+            }
+
             $label = $meta['label'] ?? $field;
             $type = $meta['type'] ?? 'text';
             $base = "{$section}__{$field}";
@@ -288,5 +304,13 @@ class ManageWebsiteCopy extends Page implements HasForms
             ->schema($fields)
             ->collapsed($section !== 'hero')
             ->collapsible();
+    }
+
+    /**
+     * @param  array<string, mixed>  $config
+     */
+    protected static function fieldHidden(array $config, string $field): bool
+    {
+        return ! empty($config['fields'][$field]['admin']['hidden']);
     }
 }

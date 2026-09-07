@@ -5,7 +5,7 @@
 - Homepage: https://poprockavenue.nl/en
 - Contact / booking: https://poprockavenue.nl/en/contact
 - Live Moments: https://poprockavenue.nl/en/media
-- The Band: https://poprockavenue.nl/en/the-band
+- About Us: https://poprockavenue.nl/en/about-us
 - Repertoire: https://poprockavenue.nl/en/repertoire
 
 ## Languages
