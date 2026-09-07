@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaPath;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
 
@@ -35,5 +36,14 @@ class BandMember extends Model
     public function scopeOrdered($query)
     {
         return $query->orderBy('sort_order');
+    }
+
+    public function imageUrl(): ?string
+    {
+        if (! filled($this->image)) {
+            return null;
+        }
+
+        return MediaPath::url($this->image);
     }
 }

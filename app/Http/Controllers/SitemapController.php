@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EventType;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
@@ -31,30 +30,6 @@ class SitemapController extends Controller
                 $defaultLocale,
                 $page['changefreq'],
                 $page['priority'],
-            )];
-        }
-
-        foreach (EventType::query()->where('is_active', true)->orderBy('sort_order')->get() as $event) {
-            $routeName = match ($event->slug) {
-                'weddings' => 'weddings',
-                'corporate-events' => 'corporate',
-                'private-parties' => 'private-parties',
-                'christmas-new-year' => 'christmas',
-                default => null,
-            };
-
-            if (! $routeName) {
-                continue;
-            }
-
-            $urls = [...$urls, ...$this->urlEntries(
-                collect($locales)->mapWithKeys(fn (string $locale) => [
-                    $locale => localized_route($routeName, [], $locale),
-                ])->all(),
-                $locales,
-                $defaultLocale,
-                'monthly',
-                '0.8',
             )];
         }
 

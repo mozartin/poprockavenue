@@ -19,9 +19,13 @@ class PageController extends Controller
         ]);
     }
 
-    public function event(string $event)
+    public function event()
     {
-        $event = EventType::query()->where('slug', $event)->firstOrFail();
+        // Do not type-hint $event: {locale} would be injected into it and look up slug "en".
+        $slug = request()->route()->defaults['event'] ?? null;
+        abort_unless(is_string($slug) && $slug !== '', 404);
+
+        $event = EventType::query()->where('slug', $slug)->firstOrFail();
         abort_unless($event->is_active, 404);
 
         return view('pages.event', [

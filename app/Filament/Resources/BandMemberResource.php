@@ -51,6 +51,11 @@ class BandMemberResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Photo')
+                    ->disk('public')
+                    ->circular()
+                    ->defaultImageUrl(null),
                 Tables\Columns\TextColumn::make('role')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\IconColumn::make('is_active')->boolean(),

@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\EventType;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
@@ -25,14 +24,6 @@ class GenerateSitemap extends Command
             ['path' => '/repertoire', 'changefreq' => 'monthly', 'priority' => '0.7'],
             ['path' => '/contact', 'changefreq' => 'monthly', 'priority' => '0.9'],
         ];
-
-        foreach (EventType::query()->where('is_active', true)->orderBy('sort_order')->get(['slug']) as $event) {
-            $pages[] = [
-                'path' => '/'.$event->slug,
-                'changefreq' => 'monthly',
-                'priority' => '0.8',
-            ];
-        }
 
         $lastmod = now()->toAtomString();
         $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
