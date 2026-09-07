@@ -29,6 +29,16 @@ class MenuSectionResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    public static function canAccess(): bool
+    {
+        return SiteMenus::tablesReady();
+    }
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return SiteMenus::tablesReady();
+    }
+
     public static function getTranslatableAttributes(): array
     {
         return ['title'];
@@ -101,10 +111,5 @@ class MenuSectionResource extends Resource
             'create' => Pages\CreateMenuSection::route('/create'),
             'edit' => Pages\EditMenuSection::route('/{record}/edit'),
         ];
-    }
-
-    public static function afterSave(): void
-    {
-        SiteMenus::forgetCache();
     }
 }

@@ -1,7 +1,19 @@
 @php
     use App\Support\SiteMenus;
 
-    $links = SiteMenus::headerItems();
+    $menuItems = SiteMenus::headerItems();
+
+    $links = $menuItems->isNotEmpty()
+        ? $menuItems->map(fn ($item) => [
+            'label' => $item->label,
+            'href' => $item->href(),
+            'new_tab' => $item->open_in_new_tab,
+        ])
+        : collect([
+            ['label' => site_t('nav.about'), 'href' => localized_route('about'), 'new_tab' => false],
+            ['label' => site_t('nav.events'), 'href' => localized_route('home').'#events', 'new_tab' => false],
+            ['label' => site_t('nav.contact'), 'href' => localized_route('contact'), 'new_tab' => false],
+        ]);
 @endphp
 
 <header
@@ -14,11 +26,11 @@
         <nav class="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
             @foreach ($links as $link)
                 <a
-                    href="{{ $link->href() }}"
-                    @if ($link->open_in_new_tab) target="_blank" rel="noopener noreferrer" @endif
+                    href="{{ $link['href'] }}"
+                    @if ($link['new_tab']) target="_blank" rel="noopener noreferrer" @endif
                     class="text-xs font-medium uppercase tracking-[0.15em] text-muted transition-colors hover:text-white"
                 >
-                    {{ $link->label }}
+                    {{ $link['label'] }}
                 </a>
             @endforeach
         </nav>
@@ -55,12 +67,12 @@
         <nav class="container-site flex flex-col gap-1 py-4" aria-label="Mobile navigation">
             @foreach ($links as $link)
                 <a
-                    href="{{ $link->href() }}"
-                    @if ($link->open_in_new_tab) target="_blank" rel="noopener noreferrer" @endif
+                    href="{{ $link['href'] }}"
+                    @if ($link['new_tab']) target="_blank" rel="noopener noreferrer" @endif
                     class="rounded-md px-3 py-3 text-sm font-medium uppercase tracking-wider text-muted transition-colors hover:bg-white/5 hover:text-white"
                     @click="open = false"
                 >
-                    {{ $link->label }}
+                    {{ $link['label'] }}
                 </a>
             @endforeach
             <div class="px-3 py-3">

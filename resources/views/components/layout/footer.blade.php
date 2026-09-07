@@ -3,15 +3,17 @@
     use App\Support\SiteMenus;
 
     $footerSections = SiteMenus::sections('footer');
+    $columnCount = 2 + $footerSections->count(); // brand + contact + menu sections
 @endphp
 
 <footer class="border-t border-white/5 bg-background pt-16 pb-8">
     <div class="container-site">
         <div @class([
             'grid gap-12 md:grid-cols-2',
-            'lg:grid-cols-4' => $footerSections->count() <= 2,
-            'lg:grid-cols-5' => $footerSections->count() === 3,
-            'lg:grid-cols-3 xl:grid-cols-6' => $footerSections->count() > 3,
+            'lg:grid-cols-3' => $columnCount <= 3,
+            'lg:grid-cols-4' => $columnCount === 4,
+            'lg:grid-cols-5' => $columnCount === 5,
+            'lg:grid-cols-3 xl:grid-cols-6' => $columnCount > 5,
         ])>
             <div class="space-y-5">
                 <x-layout.logo />

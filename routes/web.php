@@ -21,7 +21,9 @@ Route::prefix('{locale}')
     ->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');
         Route::get('/about-us', [PageController::class, 'band'])->name('about');
-        Route::permanentRedirect('/the-band', '/{locale}/about-us');
+        Route::get('/the-band', function (string $locale) {
+            return redirect()->route('about', ['locale' => $locale], 301);
+        });
         Route::get('/weddings', [PageController::class, 'event'])->defaults('event', 'weddings')->name('weddings');
         Route::get('/corporate-events', [PageController::class, 'event'])->defaults('event', 'corporate-events')->name('corporate');
         Route::get('/private-parties', [PageController::class, 'event'])->defaults('event', 'private-parties')->name('private-parties');

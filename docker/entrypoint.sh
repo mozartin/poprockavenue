@@ -11,16 +11,23 @@ if [ ! -f database/database.sqlite ]; then
     chown www-data:www-data database/database.sqlite
 fi
 
-php artisan migrate --force --no-interaction
-
-if [ ! -e public/storage ]; then
-    php artisan storage:link --no-interaction
+# Keep the site up even if a migration fails; log and continue.
+if ! php artisan migrate --force --no-interaction; then
+    echo "WARNING: php artisan migrate failed" >&2
 fi
 
-php artisan sitemap:generate --no-interaction
+if [ ! -e public/storage ]; then
+    php artisan storage:link --no-interaction || true
+fi
 
-php artisan config:cache --no-interaction
-php artisan route:cache --no-interaction
-php artisan view:cache --no-interaction
+php artisan sitemap:generate --no-interaction || true
+
+php artisan config:clear --no-interaction || true
+php artisan route:clear --no-interaction || true
+php artisan view:clear --no-interaction || true
+
+php artisan config:cache --no-interaction || true
+php artisan route:cache --no-interaction || true
+php artisan view:cache --no-interaction || true
 
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
