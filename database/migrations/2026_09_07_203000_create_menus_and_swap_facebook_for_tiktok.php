@@ -9,35 +9,68 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('menu_sections', function (Blueprint $table) {
-            $table->id();
-            $table->string('location'); // header | footer
-            $table->json('title')->nullable();
-            $table->boolean('show_title')->default(true);
-            $table->unsignedInteger('sort_order')->default(0);
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-        });
+        if (! Schema::hasTable('menu_sections')) {
+            Schema::create('menu_sections', function (Blueprint $table) {
+                $table->id();
+                $table->string('location'); // header | footer
+                $table->json('title')->nullable();
+                $table->boolean('show_title')->default(true);
+                $table->unsignedInteger('sort_order')->default(0);
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+            });
+        }
 
-        Schema::create('menu_items', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('menu_section_id')->constrained()->cascadeOnDelete();
-            $table->json('label');
-            $table->string('link_type')->default('route'); // route | url
-            $table->string('link_value'); // route name or full URL / path
-            $table->string('anchor')->nullable();
-            $table->boolean('open_in_new_tab')->default(false);
-            $table->unsignedInteger('sort_order')->default(0);
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-        });
+        if (! Schema::hasTable('menu_items')) {
+            Schema::create('menu_items', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('menu_section_id')->constrained()->cascadeOnDelete();
+                $table->json('label');
+                $table->string('link_type')->default('route'); // route | url
+                $table->string('link_value'); // route name or full URL / path
+                $table->string('anchor')->nullable();
+                $table->boolean('open_in_new_tab')->default(false);
+                $table->unsignedInteger('sort_order')->default(0);
+                $table->boolean('is_active')->default(true);
+                $table->timestamps();
+            });
+        }
 
-        // Replace Facebook with TikTok in social settings.
-        DB::table('site_settings')
-            ->where('key', 'facebook_url')
-            ->update(['key' => 'tiktok_url', 'value' => 'https://www.tiktok.com/@poprockavenue']);
+        $this->swapFacebookForTiktok();
 
-        if (! DB::table('site_settings')->where('key', 'tiktok_url')->exists()) {
+        if (DB::table('menu_sections')->count() === 0) {
+            $this->seedDefaultMenus();
+        }
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('menu_items');
+        Schema::dropIfExists('menu_sections');
+    }
+
+    protected function swapFacebookForTiktok(): void
+    {
+        $hasFacebook = DB::table('site_settings')->where('key', 'facebook_url')->exists();
+        $hasTiktok = DB::table('site_settings')->where('key', 'tiktok_url')->exists();
+
+        if ($hasFacebook && ! $hasTiktok) {
+            DB::table('site_settings')
+                ->where('key', 'facebook_url')
+                ->update([
+                    'key' => 'tiktok_url',
+                    'value' => 'https://www.tiktok.com/@poprockavenue',
+                    'updated_at' => now(),
+                ]);
+
+            return;
+        }
+
+        if ($hasFacebook && $hasTiktok) {
+            DB::table('site_settings')->where('key', 'facebook_url')->delete();
+        }
+
+        if (! $hasTiktok) {
             DB::table('site_settings')->insert([
                 'key' => 'tiktok_url',
                 'value' => 'https://www.tiktok.com/@poprockavenue',
@@ -47,14 +80,6 @@ return new class extends Migration
                 'updated_at' => now(),
             ]);
         }
-
-        $this->seedDefaultMenus();
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('menu_items');
-        Schema::dropIfExists('menu_sections');
     }
 
     protected function seedDefaultMenus(): void
