@@ -118,8 +118,74 @@ class SiteMenus
             if (Schema::hasTable('menu_sections') && DB::table('menu_sections')->count() === 0) {
                 self::seedDefaults();
             }
+
+            self::ensureLiveMomentsInMenus();
         } catch (Throwable $e) {
             Log::warning('SiteMenus ensureReady failed', ['message' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Keep Live Moments in header/footer navigate menus if an older seed omitted it.
+     */
+    protected static function ensureLiveMomentsInMenus(): void
+    {
+        if (! self::tablesReady()) {
+            return;
+        }
+
+        $t = fn (string $en, string $nl, string $uk, string $ru) => json_encode([
+            'en' => $en,
+            'nl' => $nl,
+            'uk' => $uk,
+            'ru' => $ru,
+        ], JSON_UNESCAPED_UNICODE);
+
+        $label = $t('Live Moments', 'Live Moments', 'Live Moments', 'Live Moments');
+        $added = false;
+
+        $headerSectionIds = DB::table('menu_sections')
+            ->where('location', 'header')
+            ->where('is_active', true)
+            ->pluck('id');
+
+        foreach ($headerSectionIds as $sectionId) {
+            $exists = DB::table('menu_items')
+                ->where('menu_section_id', $sectionId)
+                ->where('link_type', 'route')
+                ->where('link_value', 'media')
+                ->exists();
+
+            if ($exists) {
+                continue;
+            }
+
+            $contact = DB::table('menu_items')
+                ->where('menu_section_id', $sectionId)
+                ->where('link_value', 'contact')
+                ->first();
+
+            $maxSort = (int) DB::table('menu_items')->where('menu_section_id', $sectionId)->max('sort_order');
+            $sortOrder = $contact ? max(0, ((int) $contact->sort_order) - 1) : ($maxSort + 1);
+
+            DB::table('menu_items')->insert([
+                'menu_section_id' => $sectionId,
+                'label' => $label,
+                'link_type' => 'route',
+                'link_value' => 'media',
+                'anchor' => null,
+                'open_in_new_tab' => false,
+                'sort_order' => $sortOrder,
+                'is_active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            $added = true;
+        }
+
+        if ($added) {
+            self::forgetCache();
         }
     }
 

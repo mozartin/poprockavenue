@@ -12,6 +12,7 @@
         : collect([
             ['label' => site_t('nav.about'), 'href' => localized_route('about'), 'new_tab' => false],
             ['label' => site_t('nav.events'), 'href' => localized_route('home').'#events', 'new_tab' => false],
+            ['label' => site_t('nav.media'), 'href' => localized_route('media'), 'new_tab' => false],
             ['label' => site_t('nav.contact'), 'href' => localized_route('contact'), 'new_tab' => false],
         ]);
 @endphp
