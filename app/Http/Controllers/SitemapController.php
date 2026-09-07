@@ -10,27 +10,36 @@ class SitemapController extends Controller
     {
         $locales = array_keys(config('app.supported_locales', ['en' => 'EN']));
         $defaultLocale = config('app.fallback_locale', 'en');
+        $base = rtrim((string) config('app.url'), '/');
 
+        // Path-based (not route names) so a stale route cache cannot 500 the sitemap.
         $pages = [
-            ['route' => 'home', 'changefreq' => 'weekly', 'priority' => '1.0'],
-            ['route' => 'about', 'changefreq' => 'monthly', 'priority' => '0.8'],
-            ['route' => 'media', 'changefreq' => 'weekly', 'priority' => '0.8'],
-            ['route' => 'repertoire', 'changefreq' => 'monthly', 'priority' => '0.7'],
-            ['route' => 'contact', 'changefreq' => 'monthly', 'priority' => '0.9'],
+            ['path' => '', 'changefreq' => 'weekly', 'priority' => '1.0'],
+            ['path' => '/about-us', 'changefreq' => 'monthly', 'priority' => '0.8'],
+            ['path' => '/media', 'changefreq' => 'weekly', 'priority' => '0.8'],
+            ['path' => '/repertoire', 'changefreq' => 'monthly', 'priority' => '0.7'],
+            ['path' => '/contact', 'changefreq' => 'monthly', 'priority' => '0.9'],
         ];
 
         $urls = [];
 
         foreach ($pages as $page) {
-            $urls = [...$urls, ...$this->urlEntries(
-                collect($locales)->mapWithKeys(fn (string $locale) => [
-                    $locale => localized_route($page['route'], [], $locale),
-                ])->all(),
-                $locales,
-                $defaultLocale,
-                $page['changefreq'],
-                $page['priority'],
-            )];
+            $alternates = [];
+
+            foreach ($locales as $locale) {
+                $alternates[$locale] = $base.'/'.$locale.$page['path'];
+            }
+
+            $alternates['x-default'] = $alternates[$defaultLocale] ?? reset($alternates);
+
+            foreach ($locales as $locale) {
+                $urls[] = [
+                    'loc' => $alternates[$locale],
+                    'changefreq' => $page['changefreq'],
+                    'priority' => $page['priority'],
+                    'alternates' => $alternates,
+                ];
+            }
         }
 
         return response()
@@ -39,34 +48,5 @@ class SitemapController extends Controller
                 'lastmod' => now()->toAtomString(),
             ])
             ->header('Content-Type', 'application/xml; charset=UTF-8');
-    }
-
-    /**
-     * @param  array<string, string>  $alternatesByLocale
-     * @param  list<string>  $locales
-     * @return list<array{loc: string, changefreq: string, priority: string, alternates: array<string, string>}>
-     */
-    private function urlEntries(
-        array $alternatesByLocale,
-        array $locales,
-        string $defaultLocale,
-        string $changefreq,
-        string $priority,
-    ): array {
-        $alternates = $alternatesByLocale;
-        $alternates['x-default'] = $alternates[$defaultLocale] ?? reset($alternates);
-
-        $entries = [];
-
-        foreach ($locales as $locale) {
-            $entries[] = [
-                'loc' => $alternates[$locale],
-                'changefreq' => $changefreq,
-                'priority' => $priority,
-                'alternates' => $alternates,
-            ];
-        }
-
-        return $entries;
     }
 }

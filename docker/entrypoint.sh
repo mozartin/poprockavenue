@@ -20,6 +20,8 @@ if [ ! -e public/storage ]; then
     php artisan storage:link --no-interaction || true
 fi
 
+# Remove any volume-persisted stale sitemap, then regenerate as a fallback artifact.
+rm -f public/sitemap.xml
 php artisan sitemap:generate --no-interaction || true
 
 php artisan config:clear --no-interaction || true
