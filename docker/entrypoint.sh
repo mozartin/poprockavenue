@@ -27,6 +27,7 @@ php artisan sitemap:generate --no-interaction || true
 php artisan config:clear --no-interaction || true
 php artisan route:clear --no-interaction || true
 php artisan view:clear --no-interaction || true
+php artisan cache:clear --no-interaction || true
 
 php artisan config:cache --no-interaction || true
 php artisan route:cache --no-interaction || true

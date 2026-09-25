@@ -14,9 +14,11 @@ class MediaUploads
             ->disk('public')
             ->directory($directory)
             ->visibility('public')
-            ->imageEditor()
+            // FilePond hangs on "Waiting for size" when it cannot decode
+            // existing files (e.g. PNG saved as .jpg) for the image editor.
+            ->fetchFileInformation(false)
             ->maxSize(10240)
-            ->helperText('Upload an image (max 10MB).');
+            ->helperText('Upload a JPEG or WebP (max 10MB). Prefer ~200–400KB for hero images.');
     }
 
     public static function video(string $name, string $label, string $directory): FileUpload
