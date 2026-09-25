@@ -17,6 +17,18 @@
     </div>
 
     <div class="container-site relative text-center">
+        <div class="mb-8 flex justify-center">
+            <img
+                src="{{ asset('images/logo/logo-mark-v1-transparent.png') }}"
+                alt=""
+                width="72"
+                height="70"
+                class="h-14 w-14 object-contain opacity-90 drop-shadow-[0_0_32px_rgba(34,211,238,0.4)] sm:h-16 sm:w-16"
+                decoding="async"
+                aria-hidden="true"
+            >
+        </div>
+
         <p class="section-eyebrow text-pink">{{ site_t('booking_cta.eyebrow') }}</p>
 
         <h2 class="mx-auto mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">

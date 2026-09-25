@@ -89,7 +89,18 @@
         </div>
 
         <div class="mt-12 flex flex-col gap-4 border-t border-white/5 pt-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
-            <p>&copy; {{ date('Y') }} POP/ROCK AVENUE. {{ site_t('footer.rights') }}</p>
+            <div class="flex items-center gap-3">
+                <img
+                    src="{{ asset('images/logo/logo-mark-v1-transparent.png') }}"
+                    alt=""
+                    width="24"
+                    height="23"
+                    class="h-6 w-6 object-contain opacity-60"
+                    decoding="async"
+                    aria-hidden="true"
+                >
+                <p>&copy; {{ date('Y') }} POP/ROCK AVENUE. {{ site_t('footer.rights') }}</p>
+            </div>
         </div>
     </div>
 </footer>

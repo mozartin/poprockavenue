@@ -5,8 +5,8 @@
 @source '../views/**/*.blade.php';
 
 @theme {
-    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Avenir Next', Avenir, 'Segoe UI', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
     --color-background: #08090D;
     --color-surface: #11131A;
@@ -90,6 +90,16 @@
 
     [data-parallax-target] {
         will-change: transform;
+    }
+
+    .hero-photo {
+        filter: brightness(1.22) contrast(1.1) saturate(1.15);
+    }
+
+    @media (min-width: 640px) {
+        .hero-photo {
+            filter: brightness(1.12) contrast(1.06) saturate(1.1);
+        }
     }
 }
 

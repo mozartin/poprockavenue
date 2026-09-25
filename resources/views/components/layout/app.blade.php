@@ -83,16 +83,12 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="theme-color" content="#0B0B12">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-background text-white">
+<body class="min-h-screen overflow-x-clip bg-background text-white">
     <x-layout.header />
 
-    <main>
+    <main class="min-w-0 overflow-x-clip">
         {{ $slot }}
     </main>
 
