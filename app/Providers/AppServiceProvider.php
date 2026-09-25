@@ -14,19 +14,21 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $appUrl = config('app.url');
-
-        if (is_string($appUrl) && str_starts_with($appUrl, 'https://')) {
-            URL::forceScheme('https');
+        if ($this->app->runningInConsole()) {
+            return;
         }
 
-        // Keep generated asset/storage URLs on the same host the admin is using
-        // (www vs apex), otherwise FilePond/Livewire previews hang.
-        if (! $this->app->runningInConsole() && request()->getHost()) {
-            $root = request()->getSchemeAndHttpHost();
-            if (filled($root)) {
-                URL::forceRootUrl($root);
-            }
+        $root = request()->getSchemeAndHttpHost();
+
+        if (! filled($root)) {
+            return;
         }
+
+        // Filament/FilePond fetches existing files via XHR. If APP_URL is apex
+        // (poprockavenue.nl) but the admin runs on www, that is a cross-origin
+        // request without CORS → eternal "Waiting for size".
+        URL::forceRootUrl($root);
+        URL::forceScheme(str_starts_with($root, 'https://') ? 'https' : 'http');
+        config(['filesystems.disks.public.url' => rtrim($root, '/').'/storage']);
     }
 }

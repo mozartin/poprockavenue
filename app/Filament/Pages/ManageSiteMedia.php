@@ -5,13 +5,13 @@ namespace App\Filament\Pages;
 use App\Filament\Support\MediaUploads;
 use App\Models\SiteSetting;
 use App\Services\SiteSettings;
-use App\Support\MediaPath;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Illuminate\Support\HtmlString;
 
 class ManageSiteMedia extends Page implements HasForms
 {
@@ -35,12 +35,10 @@ class ManageSiteMedia extends Page implements HasForms
 
     public function mount(): void
     {
-        // Never hydrate oversized/broken uploads into FilePond — that causes
-        // permanent "Waiting for size" / Loading spinners in production.
         $this->form->fill([
-            'hero_image' => MediaPath::uploadablePath(SiteSetting::get('hero_image')),
-            'live_video_image' => MediaPath::uploadablePath(SiteSetting::get('live_video_image')),
-            'cta_background_image' => MediaPath::uploadablePath(SiteSetting::get('cta_background_image')),
+            'hero_image' => null,
+            'live_video_image' => null,
+            'cta_background_image' => null,
             'showreel_url' => SiteSetting::get('showreel_url'),
         ]);
     }
@@ -53,11 +51,11 @@ class ManageSiteMedia extends Page implements HasForms
                     ->description('About Us image is edited under Website → About Us. Leave a field empty to keep the current image.')
                     ->schema([
                         MediaUploads::image('hero_image', 'Hero image', 'uploads/site')
-                            ->helperText('Now live: '.SiteSettings::heroImage()),
+                            ->helperText(fn (): HtmlString => $this->currentImageHelper(SiteSettings::heroImage())),
                         MediaUploads::image('live_video_image', 'Live experience poster', 'uploads/site')
-                            ->helperText('Now live: '.SiteSettings::liveVideoImage()),
+                            ->helperText(fn (): HtmlString => $this->currentImageHelper(SiteSettings::liveVideoImage())),
                         MediaUploads::image('cta_background_image', 'Booking CTA background', 'uploads/site')
-                            ->helperText('Now live: '.SiteSettings::ctaBackgroundImage()),
+                            ->helperText(fn (): HtmlString => $this->currentImageHelper(SiteSettings::ctaBackgroundImage())),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Showreel')
@@ -69,6 +67,16 @@ class ManageSiteMedia extends Page implements HasForms
                     ]),
             ])
             ->statePath('data');
+    }
+
+    protected function currentImageHelper(string $url): HtmlString
+    {
+        return new HtmlString(
+            '<span class="block text-sm text-gray-500 dark:text-gray-400">Current — upload a new file to replace. JPEG / WebP, ideally 200–400KB.</span>'.
+            '<a href="'.e($url).'" target="_blank" rel="noopener" class="mt-2 inline-block">'.
+            '<img src="'.e($url).'" alt="" class="h-24 max-w-full rounded-lg object-cover" loading="lazy" />'.
+            '</a>'
+        );
     }
 
     public function save(): void
