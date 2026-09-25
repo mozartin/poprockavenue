@@ -13,9 +13,9 @@
             priority
             img-class="hero-photo object-[center_35%] sm:object-[72%_center]"
         />
-        {{-- Darken left for copy; keep the right side of the photo open and bright --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-background from-[5%] via-background/55 via-[38%] to-transparent to-[72%] max-sm:from-background/80 max-sm:via-background/40 max-sm:via-[55%] max-sm:to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-background/75 via-transparent to-transparent sm:from-background/55"></div>
+        {{-- Darken left for copy; keep the right side of the photo open --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-background from-[8%] via-background/65 via-[40%] to-transparent to-[75%] max-sm:from-background/88 max-sm:via-background/55 max-sm:via-[50%] max-sm:to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent sm:from-background/60"></div>
     </div>
 
     <div class="pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">

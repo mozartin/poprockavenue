@@ -93,12 +93,12 @@
     }
 
     .hero-photo {
-        filter: brightness(1.22) contrast(1.1) saturate(1.15);
+        filter: brightness(1.04) contrast(1.03) saturate(1.04);
     }
 
     @media (min-width: 640px) {
         .hero-photo {
-            filter: brightness(1.12) contrast(1.06) saturate(1.1);
+            filter: brightness(1.02) contrast(1.02) saturate(1.03);
         }
     }
 }
