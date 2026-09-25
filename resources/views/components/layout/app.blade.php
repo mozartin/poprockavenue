@@ -77,11 +77,15 @@
 
     <script type="application/ld+json">{!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP) !!}</script>
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32">
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <meta name="theme-color" content="#0B0B12">
+    {{-- Cache-bust so browsers pick up the new mark favicon --}}
+    <link rel="icon" href="/favicon-32x32.png?v=mark2" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon-16x16.png?v=mark2" type="image/png" sizes="16x16">
+    <link rel="shortcut icon" href="/favicon-32x32.png?v=mark2">
+    <link rel="icon" href="/favicon.svg?v=mark2" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=mark2" sizes="180x180">
+    <link rel="icon" href="/icon-192.png?v=mark2" type="image/png" sizes="192x192">
+    <link rel="icon" href="/icon-512.png?v=mark2" type="image/png" sizes="512x512">
+    <meta name="theme-color" content="#08090D">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

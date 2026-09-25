@@ -1,151 +1,129 @@
 <?php
 
 /**
- * Generate favicon PNG/ICO assets from brand colors.
+ * Generate favicon assets from the brand mark.
  * Run: php scripts/generate-favicons.php
  */
 
 $root = dirname(__DIR__);
 $public = $root.'/public';
-$font = '/System/Library/Fonts/Supplemental/Arial Bold.ttf';
+$source = $public.'/images/logo/logo-mark-v1-transparent.png';
 
-if (! is_file($font)) {
-    fwrite(STDERR, "Font not found: {$font}\n");
+if (! is_file($source)) {
+    fwrite(STDERR, "Mark not found: {$source}\n");
     exit(1);
 }
 
-function hexRgb(string $hex): array
-{
-    $hex = ltrim($hex, '#');
-
-    return [
-        hexdec(substr($hex, 0, 2)),
-        hexdec(substr($hex, 2, 2)),
-        hexdec(substr($hex, 4, 2)),
-    ];
+if (! extension_loaded('gd')) {
+    fwrite(STDERR, "GD extension required.\n");
+    exit(1);
 }
 
-function lerp(float $a, float $b, float $t): float
+function loadMark(string $path): GdImage
 {
-    return $a + ($b - $a) * $t;
-}
-
-function makeIcon(int $size, string $font, bool $rounded = false): Imagick
-{
-    $stops = [
-        [0.0, hexRgb('#7C3AED')],
-        [0.5, hexRgb('#4F46E5')],
-        [1.0, hexRgb('#22D3EE')],
-    ];
-
-    $im = new Imagick;
-    $im->newImage($size, $size, new ImagickPixel('transparent'));
-    $im->setImageFormat('png');
-    $im->setImageColorspace(Imagick::COLORSPACE_SRGB);
-
-    $draw = new ImagickDraw;
-    for ($x = 0; $x < $size; $x++) {
-        $t = $size === 1 ? 0.0 : $x / ($size - 1);
-        $color = $stops[0][1];
-        for ($i = 0; $i < count($stops) - 1; $i++) {
-            [$t0, $c0] = $stops[$i];
-            [$t1, $c1] = $stops[$i + 1];
-            if ($t >= $t0 && $t <= $t1) {
-                $local = ($t1 - $t0) < 0.0001 ? 0.0 : ($t - $t0) / ($t1 - $t0);
-                $color = [
-                    (int) round(lerp($c0[0], $c1[0], $local)),
-                    (int) round(lerp($c0[1], $c1[1], $local)),
-                    (int) round(lerp($c0[2], $c1[2], $local)),
-                ];
-                break;
-            }
-        }
-        $draw->setFillColor(sprintf('rgb(%d,%d,%d)', $color[0], $color[1], $color[2]));
-        $draw->rectangle($x, 0, $x + 1, $size);
-    }
-    $im->drawImage($draw);
-
-    if ($rounded) {
-        $radius = (int) round($size * 0.22);
-        $mask = new Imagick;
-        $mask->newImage($size, $size, new ImagickPixel('transparent'));
-        $mask->setImageFormat('png');
-        $maskDraw = new ImagickDraw;
-        $maskDraw->setFillColor('white');
-        $maskDraw->roundRectangle(0, 0, $size - 1, $size - 1, $radius, $radius);
-        $mask->drawImage($maskDraw);
-        $im->compositeImage($mask, Imagick::COMPOSITE_DSTIN, 0, 0);
-        $mask->clear();
-        $mask->destroy();
-    }
-
-    // Typography: P / R
-    $fontSize = $size <= 16 ? (int) round($size * 0.52) : (int) round($size * 0.48);
-    $text = new ImagickDraw;
-    $text->setFont($font);
-    $text->setFontSize($fontSize);
-    $text->setFillColor('white');
-    $text->setTextAntialias(true);
-
-    $metricsP = $im->queryFontMetrics($text, 'P');
-    $metricsR = $im->queryFontMetrics($text, 'R');
-    $baseline = ($size + $metricsP['ascender'] + $metricsP['descender']) / 2;
-
-    $gap = $size * ($size <= 16 ? 0.10 : 0.08);
-    $slashW = max(1.5, $size * 0.07);
-    $contentW = $metricsP['textWidth'] + $gap + $slashW + $gap + $metricsR['textWidth'];
-    $startX = ($size - $contentW) / 2;
-
-    $im->annotateImage($text, $startX, $baseline, 0, 'P');
-    $im->annotateImage($text, $startX + $metricsP['textWidth'] + $gap + $slashW + $gap, $baseline, 0, 'R');
-
-    $slash = new ImagickDraw;
-    $slash->setFillColor('white');
-    $slash->setStrokeColor('white');
-    $slash->setStrokeWidth(0);
-    $sx = $startX + $metricsP['textWidth'] + $gap + ($slashW / 2);
-    $top = $size * 0.28;
-    $bottom = $size * 0.72;
-    $half = $slashW / 2;
-    $slash->polygon([
-        ['x' => $sx + $half, 'y' => $top],
-        ['x' => $sx + $half + $size * 0.02, 'y' => $top],
-        ['x' => $sx - $half + $size * 0.02, 'y' => $bottom],
-        ['x' => $sx - $half, 'y' => $bottom],
-    ]);
-    $im->drawImage($slash);
+    $im = imagecreatefrompng($path);
+    imagesavealpha($im, true);
 
     return $im;
 }
 
-function writePng(Imagick $im, string $path): void
+function trimMark(GdImage $src): GdImage
 {
-    $im->setImageFormat('png');
-    $im->stripImage();
-    file_put_contents($path, $im->getImageBlob());
-    echo "Wrote {$path} ({$im->getImageWidth()}x{$im->getImageHeight()})\n";
+    $w = imagesx($src);
+    $h = imagesy($src);
+    $minX = $w;
+    $minY = $h;
+    $maxX = 0;
+    $maxY = 0;
+
+    for ($y = 0; $y < $h; $y++) {
+        for ($x = 0; $x < $w; $x++) {
+            $rgba = imagecolorat($src, $x, $y);
+            $alpha = ($rgba & 0x7F000000) >> 24;
+            if ($alpha < 120) {
+                $minX = min($minX, $x);
+                $minY = min($minY, $y);
+                $maxX = max($maxX, $x);
+                $maxY = max($maxY, $y);
+            }
+        }
+    }
+
+    if ($maxX < $minX) {
+        return $src;
+    }
+
+    $tw = $maxX - $minX + 1;
+    $th = $maxY - $minY + 1;
+    $cropped = imagecreatetruecolor($tw, $th);
+    imagealphablending($cropped, false);
+    imagesavealpha($cropped, true);
+    $transparent = imagecolorallocatealpha($cropped, 0, 0, 0, 127);
+    imagefilledrectangle($cropped, 0, 0, $tw, $th, $transparent);
+    imagecopy($cropped, $src, 0, 0, $minX, $minY, $tw, $th);
+
+    return $cropped;
 }
 
-$favicon16 = makeIcon(16, $font, rounded: false);
-$favicon32 = makeIcon(32, $font, rounded: false);
-$apple = makeIcon(180, $font, rounded: true);
-$icon192 = makeIcon(192, $font, rounded: true);
+function fitMark(GdImage $mark, int $size, float $padRatio = 0.04, ?array $bg = null): GdImage
+{
+    $pad = max(1, (int) round($size * $padRatio));
+    $inner = $size - ($pad * 2);
+    $mw = imagesx($mark);
+    $mh = imagesy($mark);
+    $ratio = min($inner / $mw, $inner / $mh);
+    $w = max(1, (int) round($mw * $ratio));
+    $h = max(1, (int) round($mh * $ratio));
+
+    $canvas = imagecreatetruecolor($size, $size);
+    imagealphablending($canvas, false);
+    imagesavealpha($canvas, true);
+
+    if ($bg === null) {
+        $fill = imagecolorallocatealpha($canvas, 0, 0, 0, 127);
+    } else {
+        [$r, $g, $b] = $bg;
+        $fill = imagecolorallocatealpha($canvas, $r, $g, $b, 0);
+    }
+    imagefilledrectangle($canvas, 0, 0, $size, $size, $fill);
+
+    imagealphablending($canvas, true);
+    imagecopyresampled(
+        $canvas,
+        $mark,
+        (int) (($size - $w) / 2),
+        (int) (($size - $h) / 2),
+        0,
+        0,
+        $w,
+        $h,
+        $mw,
+        $mh
+    );
+    imagealphablending($canvas, false);
+    imagesavealpha($canvas, true);
+
+    return $canvas;
+}
+
+function writePng(GdImage $im, string $path): void
+{
+    imagepng($im, $path, 6);
+    echo 'Wrote '.$path.' ('.imagesx($im).'x'.imagesy($im).")\n";
+}
+
+$mark = trimMark(loadMark($source));
+
+$favicon16 = fitMark($mark, 16, 0.02);
+$favicon32 = fitMark($mark, 32, 0.02);
+$apple = fitMark($mark, 180, 0.06, [8, 9, 13]);
+$icon192 = fitMark($mark, 192, 0.05, [8, 9, 13]);
+$icon512 = fitMark($mark, 512, 0.05, [8, 9, 13]);
 
 writePng($favicon16, $public.'/favicon-16x16.png');
 writePng($favicon32, $public.'/favicon-32x32.png');
 writePng($apple, $public.'/apple-touch-icon.png');
 writePng($icon192, $public.'/icon-192.png');
+writePng($icon512, $public.'/icon-512.png');
 
-// Build multi-size ICO (16 + 32)
-$ico = new Imagick;
-$ico->addImage(clone $favicon16);
-$ico->addImage(clone $favicon32);
-$ico->setFormat('ico');
-file_put_contents($public.'/favicon.ico', $ico->getImagesBlob());
-echo "Wrote {$public}/favicon.ico\n";
-
-$favicon16->clear();
-$favicon32->clear();
-$apple->clear();
-$icon192->clear();
-$ico->clear();
+echo "PNG favicons updated. Run Python helper for favicon.ico/svg if needed, or keep existing ICO/SVG from last generation.\n";
