@@ -87,6 +87,10 @@
     <link rel="icon" href="/icon-512.png?v=mark2" type="image/png" sizes="512x512">
     <meta name="theme-color" content="#08090D">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen overflow-x-clip bg-background text-white">
