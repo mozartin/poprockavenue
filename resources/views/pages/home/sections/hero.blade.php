@@ -13,8 +13,8 @@
             priority
             img-class="hero-photo object-[center_35%] sm:object-[72%_center]"
         />
-        {{-- Darken left for copy; keep the right side of the photo open --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-background from-[8%] via-background/65 via-[40%] to-transparent to-[75%] max-sm:from-background/88 max-sm:via-background/55 max-sm:via-[50%] max-sm:to-transparent"></div>
+        {{-- Softer left for copy; slight darkening through the center --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-background/70 from-[0%] via-background/75 via-[42%] to-transparent to-[78%] max-sm:from-background/78 max-sm:via-background/68 max-sm:via-[48%] max-sm:to-transparent"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent sm:from-background/60"></div>
     </div>
 
