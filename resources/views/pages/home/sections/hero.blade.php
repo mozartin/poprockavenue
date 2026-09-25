@@ -13,9 +13,9 @@
             priority
             img-class="hero-photo object-[center_35%] sm:object-[72%_center]"
         />
-        {{-- Softer left for copy; slight darkening through the center --}}
-        <div class="absolute inset-0 bg-gradient-to-r from-background/70 from-[0%] via-background/75 via-[42%] to-transparent to-[78%] max-sm:from-background/78 max-sm:via-background/68 max-sm:via-[48%] max-sm:to-transparent"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent sm:from-background/60"></div>
+        {{-- Softer left for copy on desktop; even wash on mobile --}}
+        <div class="absolute inset-0 bg-gradient-to-r from-background/70 from-[0%] via-background/75 via-[42%] to-transparent to-[78%] max-sm:from-background/72 max-sm:via-background/65 max-sm:via-[55%] max-sm:to-background/45 max-sm:to-[100%]"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent max-sm:from-background/75 max-sm:via-background/20 max-sm:via-[45%] sm:from-background/60"></div>
     </div>
 
     <div class="pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex">
