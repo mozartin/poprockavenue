@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Filament\Support\MediaUploads;
 use App\Filament\Support\TranslatableFields;
 use App\Models\SiteSetting;
+use App\Support\MediaPath;
 use App\Support\SiteCopy;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -13,7 +14,6 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
 
 class ManageSeo extends Page implements HasForms
 {
@@ -166,7 +166,7 @@ class ManageSeo extends Page implements HasForms
     protected function loadFormData(): array
     {
         $data = [
-            'og_image' => $this->uploadablePath(
+            'og_image' => MediaPath::uploadablePath(
                 SiteSetting::query()->where('key', 'og_image')->value('value')
             ),
             'og_site_name' => (string) (SiteSetting::query()->where('key', 'og_site_name')->value('value')
@@ -224,24 +224,5 @@ class ManageSeo extends Page implements HasForms
         }
 
         return $translations;
-    }
-
-    protected function uploadablePath(mixed $path): ?string
-    {
-        if (! is_string($path) || $path === '') {
-            return null;
-        }
-
-        $path = ltrim($path, '/');
-
-        if (
-            str_starts_with($path, 'uploads/')
-            || str_starts_with($path, 'media/')
-            || Storage::disk('public')->exists($path)
-        ) {
-            return $path;
-        }
-
-        return null;
     }
 }

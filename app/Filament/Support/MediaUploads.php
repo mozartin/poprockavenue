@@ -4,8 +4,10 @@ namespace App\Filament\Support;
 
 use App\Support\OptimizeUploadedImage;
 use Filament\Forms\Components\FileUpload;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Throwable;
 
 class MediaUploads
 {
@@ -13,19 +15,28 @@ class MediaUploads
     {
         return FileUpload::make($name)
             ->label($label)
-            ->image()
+            // Do NOT use ->image(): FilePond's image plugin hangs forever on
+            // "Waiting for size" for many production uploads (PNG-as-JPG, large files).
+            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
             ->disk('public')
             ->directory($directory)
             ->visibility('public')
-            // FilePond hangs on "Waiting for size" when it cannot decode
-            // existing files (e.g. PNG saved as .jpg) for the image editor.
             ->fetchFileInformation(false)
+            ->previewable(false)
+            ->openable(false)
+            ->downloadable(false)
             ->maxSize(10240)
-            ->helperText('Upload a JPEG or WebP (max 10MB). Prefer ~200–400KB for hero images.')
+            ->helperText('JPEG / WebP, ideally 200–400KB. Large files are auto-compressed on save.')
             ->saveUploadedFileUsing(function (TemporaryUploadedFile $file) use ($directory): string {
                 $stored = $file->store($directory, 'public');
 
-                return OptimizeUploadedImage::optimize($stored);
+                try {
+                    return OptimizeUploadedImage::optimize($stored);
+                } catch (Throwable $e) {
+                    Log::warning('Image optimize failed: '.$e->getMessage(), ['path' => $stored]);
+
+                    return $stored;
+                }
             })
             ->deleteUploadedFileUsing(function (?string $file): void {
                 if (filled($file) && Storage::disk('public')->exists($file)) {
@@ -36,13 +47,13 @@ class MediaUploads
 
     public static function video(string $name, string $label, string $directory): FileUpload
     {
-        // Do not set acceptedFileTypes — FilePond often rejects valid phone videos
-        // (empty/odd MIME like application/octet-stream) before they even upload.
         return FileUpload::make($name)
             ->label($label)
             ->disk('public')
             ->directory($directory)
             ->visibility('public')
+            ->fetchFileInformation(false)
+            ->previewable(false)
             ->maxSize(1048576)
             ->rules(['file', 'max:1048576'])
             ->helperText('Vertical MP4 / MOV / WebM up to 1GB (~10 min). Large files can take a few minutes.');
