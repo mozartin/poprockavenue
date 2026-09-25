@@ -2,7 +2,10 @@
 
 namespace App\Filament\Support;
 
+use App\Support\OptimizeUploadedImage;
 use Filament\Forms\Components\FileUpload;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class MediaUploads
 {
@@ -18,7 +21,17 @@ class MediaUploads
             // existing files (e.g. PNG saved as .jpg) for the image editor.
             ->fetchFileInformation(false)
             ->maxSize(10240)
-            ->helperText('Upload a JPEG or WebP (max 10MB). Prefer ~200–400KB for hero images.');
+            ->helperText('Upload a JPEG or WebP (max 10MB). Prefer ~200–400KB for hero images.')
+            ->saveUploadedFileUsing(function (TemporaryUploadedFile $file) use ($directory): string {
+                $stored = $file->store($directory, 'public');
+
+                return OptimizeUploadedImage::optimize($stored);
+            })
+            ->deleteUploadedFileUsing(function (?string $file): void {
+                if (filled($file) && Storage::disk('public')->exists($file)) {
+                    Storage::disk('public')->delete($file);
+                }
+            });
     }
 
     public static function video(string $name, string $label, string $directory): FileUpload

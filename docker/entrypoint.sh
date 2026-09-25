@@ -3,7 +3,7 @@ set -e
 
 cd /var/www/html
 
-mkdir -p storage/framework/{cache,sessions,views} storage/logs bootstrap/cache database
+mkdir -p storage/framework/{cache,sessions,views} storage/logs storage/app/livewire-tmp bootstrap/cache database
 chown -R www-data:www-data storage bootstrap/cache database
 
 if [ ! -f database/database.sqlite ]; then
