@@ -16,7 +16,8 @@ $members = [
     ['slug' => 'aleksandr', 'name' => 'Aleksandr', 'role' => 'Drums'],
 ];
 
-$logo = 'https://www.poprockavenue.nl/images/logo/logo-mark-v1-signature.png';
+// Absolute URL + cache-buster — required for mail clients (relative /images/... breaks in Gmail/Mail).
+$logo = 'https://www.poprockavenue.nl/images/logo/logo-mark-v1-signature.png?v=20261005';
 $email = 'avenuepoprock@gmail.com';
 $links = [
     ['Website', 'https://www.poprockavenue.nl/'],
@@ -130,7 +131,8 @@ foreach ($members as $member) {
     }
 }
 
-$toLocal = fn (string $html) => str_replace($logo, '/images/logo/logo-mark-v1-signature.png', $html);
+// Preview must also use absolute logo URLs so a manual select-copy still works in mail.
+$toLocal = fn (string $html) => $html;
 
 $cards = '';
 $jsPayloads = [];
@@ -210,6 +212,7 @@ $preview = <<<HTML
   <div class="intro">
     Band email signatures — pick <strong>Dark</strong> (safer on any theme) or <strong>Light</strong>, then click <strong>Copy</strong> and paste into Gmail / Outlook / Apple Mail.
     Contact email on all cards: <strong>avenuepoprock@gmail.com</strong>.
+    Use the <strong>Copy</strong> button (not select-all) so the logo URL stays absolute — otherwise the image breaks in mail.
   </div>
   <nav class="nav">{$nav}</nav>
   {$cards}
