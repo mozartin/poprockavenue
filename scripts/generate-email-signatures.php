@@ -7,6 +7,13 @@
  */
 
 $members = [
+    [
+        'slug' => 'band',
+        'name' => 'POP/ROCK AVENUE',
+        'role' => 'Live Cover Band',
+        'subtitle' => 'Netherlands',
+        'label' => 'Band',
+    ],
     ['slug' => 'oleg', 'name' => 'Oleg', 'role' => 'Singer'],
     ['slug' => 'maxim', 'name' => 'Maxim', 'role' => 'Lead Guitar'],
     ['slug' => 'yevhen', 'name' => 'Yevhen', 'role' => 'Bass Guitar'],
@@ -61,6 +68,7 @@ function signatureHtml(array $member, string $variant, string $logo, string $ema
 
     $name = htmlspecialchars($member['name'], ENT_QUOTES);
     $role = htmlspecialchars(strtoupper($member['role']), ENT_QUOTES);
+    $subtitle = htmlspecialchars($member['subtitle'] ?? 'POP/ROCK AVENUE · Netherlands', ENT_QUOTES);
     $emailSafe = htmlspecialchars($email, ENT_QUOTES);
     $linksHtml = linksHtml($links, $linkColor, $sepColor);
 
@@ -92,7 +100,7 @@ function signatureHtml(array $member, string $variant, string $logo, string $ema
                                 <td style="vertical-align:middle;padding:0 0 0 14px;">
                                     <p style="margin:0 0 1px;font-size:17px;font-weight:bold;line-height:1.25;letter-spacing:0.02em;color:{$nameColor};">{$name}</p>
                                     <p style="margin:0 0 2px;font-size:11px;font-weight:bold;line-height:1.35;letter-spacing:0.14em;text-transform:uppercase;color:{$roleColor};">{$role}</p>
-                                    <p style="margin:0;font-size:12px;line-height:1.4;color:{$muted};">POP/ROCK AVENUE · Netherlands</p>
+                                    <p style="margin:0;font-size:12px;line-height:1.4;color:{$muted};">{$subtitle}</p>
                                 </td>
                             </tr>
                         </table>
@@ -142,7 +150,8 @@ foreach ($members as $member) {
     $slug = $member['slug'];
     $name = htmlspecialchars($member['name']);
     $role = htmlspecialchars($member['role']);
-    $nav .= '<a href="#'.$slug.'">'.$name.'</a>';
+    $navLabel = htmlspecialchars($member['label'] ?? $member['name']);
+    $nav .= '<a href="#'.$slug.'">'.$navLabel.'</a>';
     $jsPayloads["{$slug}-dark"] = $payloads[$slug]['dark'];
     $jsPayloads["{$slug}-light"] = $payloads[$slug]['light'];
     $darkLocal = $toLocal($payloads[$slug]['dark']);
@@ -154,7 +163,7 @@ foreach ($members as $member) {
     <div class="variants">
       <div class="card">
         <div class="card-head"><span>Dark</span>
-          <button type="button" class="copy-btn" data-key="{$slug}-dark" aria-label="Copy dark signature for {$name}">
+          <button type="button" class="copy-btn" data-key="{$slug}-dark" aria-label="Copy dark signature for {$navLabel}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             <span class="copy-label">Copy</span>
           </button>
@@ -163,7 +172,7 @@ foreach ($members as $member) {
       </div>
       <div class="card">
         <div class="card-head"><span>Light</span>
-          <button type="button" class="copy-btn" data-key="{$slug}-light" aria-label="Copy light signature for {$name}">
+          <button type="button" class="copy-btn" data-key="{$slug}-light" aria-label="Copy light signature for {$navLabel}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             <span class="copy-label">Copy</span>
           </button>
