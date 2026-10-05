@@ -9,7 +9,7 @@
 $members = [
     ['slug' => 'oleg', 'name' => 'Oleg', 'role' => 'Singer'],
     ['slug' => 'maxim', 'name' => 'Maxim', 'role' => 'Lead Guitar'],
-    ['slug' => 'yevgeny', 'name' => 'Yevgeny', 'role' => 'Bass Guitar'],
+    ['slug' => 'yevhen', 'name' => 'Yevhen', 'role' => 'Bass Guitar'],
     ['slug' => 'katerina', 'name' => 'Katerina', 'role' => 'Singer'],
     ['slug' => 'max', 'name' => 'Max', 'role' => 'Singer'],
     ['slug' => 'olena', 'name' => 'Olena', 'role' => 'Rhythm Guitar'],
