@@ -33,7 +33,9 @@ class MediaUploads
             ->afterStateHydrated(function (FileUpload $component, mixed $state): void {
                 $component->state(self::temporaryOnly($state));
             })
-            ->dehydrated(fn (mixed $state): bool => self::hasTemporaryUpload($state))
+            // Filament runs saveUploadedFiles() before dehydrate, so state is
+            // already a stored path string — not TemporaryUploadedFile.
+            ->dehydrated(fn (mixed $state): bool => self::shouldPersistUpload($state))
             ->helperText(function (FileUpload $component): HtmlString|string {
                 $record = $component->getRecord();
                 $path = null;
@@ -86,7 +88,7 @@ class MediaUploads
             ->afterStateHydrated(function (FileUpload $component, mixed $state): void {
                 $component->state(self::temporaryOnly($state));
             })
-            ->dehydrated(fn (mixed $state): bool => self::hasTemporaryUpload($state))
+            ->dehydrated(fn (mixed $state): bool => self::shouldPersistUpload($state))
             ->maxSize(1048576)
             ->rules(['file', 'max:1048576'])
             ->helperText('Vertical MP4 / MOV / WebM up to 1GB (~10 min). Large files can take a few minutes.');
@@ -110,18 +112,30 @@ class MediaUploads
         return $temps === [] ? null : $temps;
     }
 
-    protected static function hasTemporaryUpload(mixed $state): bool
+    /**
+     * Persist when the user uploaded a new file this request.
+     * Empty FilePond (null / []) stays non-dehydrated so the DB path is kept.
+     */
+    protected static function shouldPersistUpload(mixed $state): bool
     {
         if ($state instanceof TemporaryUploadedFile) {
             return true;
         }
 
-        if (! is_array($state)) {
+        if (is_string($state)) {
+            return $state !== '';
+        }
+
+        if (! is_array($state) || $state === []) {
             return false;
         }
 
         foreach ($state as $file) {
             if ($file instanceof TemporaryUploadedFile) {
+                return true;
+            }
+
+            if (is_string($file) && $file !== '') {
                 return true;
             }
         }
