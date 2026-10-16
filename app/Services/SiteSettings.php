@@ -87,7 +87,8 @@ class SiteSettings
      */
     public static function ogImage(): string
     {
-        $default = 'images/logo/logo-stack-v1.png';
+        // Brighter slate share card (black logo stack reads as a void in WhatsApp).
+        $default = 'images/logo/og-share-v1.jpg';
         $og = self::get('og_image');
 
         if (filled($og)) {
