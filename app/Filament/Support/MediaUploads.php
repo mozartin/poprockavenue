@@ -9,6 +9,7 @@ use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
+use Illuminate\Validation\ValidationException;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Throwable;
 
@@ -36,13 +37,14 @@ class MediaUploads
             ->openable(false)
             ->downloadable(false)
             ->maxSize(10240)
-            // Do not feed stored paths into FilePond — show them as helper HTML
-            // instead. Empty FilePond + dehydrated(false) keeps the DB value.
+            // Never put DB paths into FilePond (it hangs on size fetch). Show the
+            // current file via helperText instead. Empty FilePond + dehydrated(false)
+            // keeps the existing DB value on save.
             ->afterStateHydrated(function (FileUpload $component, mixed $state): void {
                 $component->state(self::temporaryOnly($state));
             })
-            // Filament runs saveUploadedFiles() before dehydrate, so state is
-            // already a stored path string — not TemporaryUploadedFile.
+            // saveUploadedFiles() runs before dehydrate and replaces TemporaryUploadedFile
+            // with a stored path — so we must dehydrate path strings too.
             ->dehydrated(fn (mixed $state): bool => self::shouldPersistUpload($state))
             ->helperText(function (FileUpload $component): HtmlString|string {
                 $record = $component->getRecord();
@@ -66,15 +68,21 @@ class MediaUploads
                     '</a>'
                 );
             })
-            ->saveUploadedFileUsing(function (TemporaryUploadedFile $file) use ($directory): string {
+            ->saveUploadedFileUsing(function (TemporaryUploadedFile $file) use ($name, $directory): string {
                 $stored = $file->store($directory, 'public');
 
                 try {
                     return OptimizeUploadedImage::optimize($stored);
                 } catch (Throwable $e) {
+                    if (Storage::disk('public')->exists($stored)) {
+                        Storage::disk('public')->delete($stored);
+                    }
+
                     Log::warning('Image optimize failed: '.$e->getMessage(), ['path' => $stored]);
 
-                    return $stored;
+                    throw ValidationException::withMessages([
+                        $name => $e->getMessage() ?: 'Could not process this image. Try JPEG or WebP.',
+                    ]);
                 }
             })
             ->deleteUploadedFileUsing(function (?string $file): void {

@@ -83,16 +83,18 @@ class SiteSettings
 
     /**
      * Image used for Open Graph / Twitter / messengers when sharing a link.
+     * Prefer a square logo so messengers show a compact left thumbnail (not a huge photo).
      */
     public static function ogImage(): string
     {
+        $default = 'images/logo/logo-stack-v1.png';
         $og = self::get('og_image');
 
         if (filled($og)) {
-            return self::imageUrl($og, 'images/hero.jpg');
+            return self::imageUrl($og, $default);
         }
 
-        return self::heroImage();
+        return self::imageUrl(null, $default);
     }
 
     public static function ogSiteName(): string

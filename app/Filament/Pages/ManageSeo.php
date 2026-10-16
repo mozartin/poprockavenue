@@ -5,7 +5,7 @@ namespace App\Filament\Pages;
 use App\Filament\Support\MediaUploads;
 use App\Filament\Support\TranslatableFields;
 use App\Models\SiteSetting;
-use App\Support\MediaPath;
+use App\Services\SiteSettings;
 use App\Support\SiteCopy;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -14,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\HtmlString;
 
 class ManageSeo extends Page implements HasForms
 {
@@ -69,10 +70,10 @@ class ManageSeo extends Page implements HasForms
         return $form
             ->schema([
                 Forms\Components\Section::make('Link preview (WhatsApp, Telegram, Facebook…)')
-                    ->description('Image and texts messengers/social networks show when someone pastes a site link. Recommended image ~1200×630.')
+                    ->description('Image and texts messengers show when someone pastes a site link. Square logos (~1024×1024) give a small left thumbnail; wide photos become a huge preview.')
                     ->schema([
                         MediaUploads::image('og_image', 'Share / preview image', 'uploads/site')
-                            ->helperText('If empty, the hero image is used as a fallback.'),
+                            ->helperText(fn (): HtmlString => $this->currentOgImageHelper()),
                         Forms\Components\TextInput::make('og_site_name')
                             ->label('Site name in previews')
                             ->helperText('Shown as the brand name above the title (og:site_name).')
@@ -135,8 +136,13 @@ class ManageSeo extends Page implements HasForms
     {
         $state = $this->form->getState();
 
-        if (array_key_exists('og_image', $state)) {
-            SiteSetting::set('og_image', (string) ($state['og_image'] ?? ''), 'text', 'media');
+        // Same pattern as ManageSiteMedia: FilePond stays empty; only persist a new upload.
+        $ogImage = $state['og_image'] ?? null;
+        if (is_array($ogImage)) {
+            $ogImage = $ogImage[0] ?? null;
+        }
+        if (filled($ogImage) && is_string($ogImage)) {
+            SiteSetting::set('og_image', $ogImage, 'text', 'media');
         }
 
         SiteSetting::set('og_site_name', (string) ($state['og_site_name'] ?? ''), 'text', 'seo');
@@ -163,12 +169,23 @@ class ManageSeo extends Page implements HasForms
             ->send();
     }
 
+    protected function currentOgImageHelper(): HtmlString
+    {
+        $url = SiteSettings::ogImage();
+
+        return new HtmlString(
+            '<span class="block text-sm text-gray-500 dark:text-gray-400">Current — upload a new file to replace. Square logo preferred; leave empty to keep this one. JPEG / WebP / HEIC, ideally 200–400KB.</span>'.
+            '<a href="'.e($url).'" target="_blank" rel="noopener" class="mt-2 inline-block">'.
+            '<img src="'.e($url).'" alt="" class="h-24 max-w-full rounded-lg object-cover" loading="lazy" />'.
+            '</a>'
+        );
+    }
+
     protected function loadFormData(): array
     {
         $data = [
-            'og_image' => MediaPath::uploadablePath(
-                SiteSetting::query()->where('key', 'og_image')->value('value')
-            ),
+            // Never hydrate FilePond with a stored path (hangs on size fetch).
+            'og_image' => null,
             'og_site_name' => (string) (SiteSetting::query()->where('key', 'og_site_name')->value('value')
                 ?: 'POP/ROCK AVENUE'),
             'instagram_url' => (string) (SiteSetting::query()->where('key', 'instagram_url')->value('value') ?? ''),

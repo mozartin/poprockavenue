@@ -7,7 +7,7 @@
 <section id="about" class="py-20 sm:py-28">
     <div class="container-site">
         <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <div class="relative">
+            <div class="relative mx-auto w-full max-w-[480px] sm:max-w-[520px] lg:mx-0 lg:max-w-[560px]">
                 <div class="absolute -left-3 -top-3 h-16 w-16 border-l-2 border-t-2 border-purple"></div>
                 <div class="absolute -bottom-3 -right-3 h-4 w-4 rounded-full bg-cyan shadow-[0_0_20px_rgba(34,211,238,0.6)]"></div>
                 <x-ui.parallax-image

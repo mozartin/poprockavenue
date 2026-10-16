@@ -65,10 +65,12 @@
         @endif
     @endforeach
 
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $ogImageUrl }}">
+    <meta property="og:image:width" content="1024">
+    <meta property="og:image:height" content="1024">
 
     @foreach (supported_locales() as $code => $label)
         <link rel="alternate" hreflang="{{ $code }}" href="{{ switch_locale_url($code) }}">
