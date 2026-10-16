@@ -61,12 +61,7 @@ class MediaUploads
                 $path = ltrim($path, '/');
                 $url = MediaPath::url($path, $path);
 
-                return new HtmlString(
-                    '<span class="block text-sm text-gray-500 dark:text-gray-400">Current file — upload a new one to replace.</span>'.
-                    '<a href="'.e($url).'" target="_blank" rel="noopener" class="mt-2 inline-block">'.
-                    '<img src="'.e($url).'" alt="" class="h-24 max-w-full rounded-lg object-cover" />'.
-                    '</a>'
-                );
+                return self::currentImageHelper($url, 'Current file — upload a new one to replace.');
             })
             ->saveUploadedFileUsing(function (TemporaryUploadedFile $file) use ($name, $directory): string {
                 $stored = $file->store($directory, 'public');
@@ -100,6 +95,20 @@ class MediaUploads
             ->label($label)
             ->directory($directory)
             ->helperText('MP4 / MOV / WebM up to 1GB (~10 min). Any orientation — preview cards stay vertical, the player opens at the video\'s own aspect ratio. Large files upload in small chunks.');
+    }
+
+    /**
+     * Small thumbnail under FilePond. Inline size so Filament/prose CSS cannot stretch it full-width.
+     */
+    public static function currentImageHelper(string $url, string $hint): HtmlString
+    {
+        return new HtmlString(
+            '<span class="block text-sm text-gray-500 dark:text-gray-400">'.e($hint).'</span>'.
+            '<a href="'.e($url).'" target="_blank" rel="noopener" class="mt-2 inline-block">'.
+            '<img src="'.e($url).'" alt="" loading="lazy" width="96" height="96" '.
+            'style="display:block;width:96px;height:96px;max-width:96px;max-height:96px;object-fit:contain;border-radius:0.5rem;background:#111;" />'.
+            '</a>'
+        );
     }
 
     protected static function temporaryOnly(mixed $state): mixed

@@ -73,7 +73,10 @@ class ManageSeo extends Page implements HasForms
                     ->description('Image and texts messengers show when someone pastes a site link. Square logos (~1024×1024) give a small left thumbnail; wide photos become a huge preview.')
                     ->schema([
                         MediaUploads::image('og_image', 'Share / preview image', 'uploads/site')
-                            ->helperText(fn (): HtmlString => $this->currentOgImageHelper()),
+                            ->helperText(fn (): HtmlString => MediaUploads::currentImageHelper(
+                                SiteSettings::ogImage(),
+                                'Current — upload a new file to replace. Square logo preferred; leave empty to keep this one. JPEG / WebP / HEIC, ideally 200–400KB.'
+                            )),
                         Forms\Components\TextInput::make('og_site_name')
                             ->label('Site name in previews')
                             ->helperText('Shown as the brand name above the title (og:site_name).')
@@ -167,18 +170,6 @@ class ManageSeo extends Page implements HasForms
             ->title('SEO & site basics saved')
             ->success()
             ->send();
-    }
-
-    protected function currentOgImageHelper(): HtmlString
-    {
-        $url = SiteSettings::ogImage();
-
-        return new HtmlString(
-            '<span class="block text-sm text-gray-500 dark:text-gray-400">Current — upload a new file to replace. Square logo preferred; leave empty to keep this one. JPEG / WebP / HEIC, ideally 200–400KB.</span>'.
-            '<a href="'.e($url).'" target="_blank" rel="noopener" class="mt-2 inline-block">'.
-            '<img src="'.e($url).'" alt="" class="h-24 max-w-full rounded-lg object-cover" loading="lazy" />'.
-            '</a>'
-        );
     }
 
     protected function loadFormData(): array

@@ -51,11 +51,20 @@ class ManageSiteMedia extends Page implements HasForms
                     ->description('About Us image is edited under Website → About Us. Leave a field empty to keep the current image.')
                     ->schema([
                         MediaUploads::image('hero_image', 'Hero image', 'uploads/site')
-                            ->helperText(fn (): HtmlString => $this->currentImageHelper(SiteSettings::heroImage())),
+                            ->helperText(fn (): HtmlString => MediaUploads::currentImageHelper(
+                                SiteSettings::heroImage(),
+                                'Current — upload a new file to replace. JPEG / WebP, ideally 200–400KB.'
+                            )),
                         MediaUploads::image('live_video_image', 'Live experience poster', 'uploads/site')
-                            ->helperText(fn (): HtmlString => $this->currentImageHelper(SiteSettings::liveVideoImage())),
+                            ->helperText(fn (): HtmlString => MediaUploads::currentImageHelper(
+                                SiteSettings::liveVideoImage(),
+                                'Current — upload a new file to replace. JPEG / WebP, ideally 200–400KB.'
+                            )),
                         MediaUploads::image('cta_background_image', 'Booking CTA background', 'uploads/site')
-                            ->helperText(fn (): HtmlString => $this->currentImageHelper(SiteSettings::ctaBackgroundImage())),
+                            ->helperText(fn (): HtmlString => MediaUploads::currentImageHelper(
+                                SiteSettings::ctaBackgroundImage(),
+                                'Current — upload a new file to replace. JPEG / WebP, ideally 200–400KB.'
+                            )),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Showreel')
@@ -67,16 +76,6 @@ class ManageSiteMedia extends Page implements HasForms
                     ]),
             ])
             ->statePath('data');
-    }
-
-    protected function currentImageHelper(string $url): HtmlString
-    {
-        return new HtmlString(
-            '<span class="block text-sm text-gray-500 dark:text-gray-400">Current — upload a new file to replace. JPEG / WebP, ideally 200–400KB.</span>'.
-            '<a href="'.e($url).'" target="_blank" rel="noopener" class="mt-2 inline-block">'.
-            '<img src="'.e($url).'" alt="" class="h-24 max-w-full rounded-lg object-cover" loading="lazy" />'.
-            '</a>'
-        );
     }
 
     public function save(): void
