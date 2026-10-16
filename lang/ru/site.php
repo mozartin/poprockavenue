@@ -14,7 +14,7 @@ return [
         'contact_title' => 'Контакт и Бронирование — Pop Rock Avenue',
         'contact_description' => 'Проверьте доступность Pop Rock Avenue. Ответ в течение 24 часов.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
-        'media_description' => 'Вертикальные live-клипы Pop Rock Avenue — свадьбы, корпоративы и вечеринки по всей Нидерландам.',
+        'media_description' => 'Live-клипы Pop Rock Avenue — свадьбы, корпоративы и вечеринки по всей Нидерландам.',
     ],
 
     'nav' => [
@@ -79,9 +79,9 @@ return [
     'live_moments' => [
         'eyebrow' => 'Live Moments',
         'title' => 'Снято на камеру. Создано для танцпола.',
-        'subtitle' => 'Вертикальные клипы с живых шоу — энергия, толпа, ночь.',
+        'subtitle' => 'Клипы с живых шоу — энергия, толпа, ночь.',
         'page_title' => 'Live Moments',
-        'page_subtitle' => 'Галерея вертикальных live-клипов со свадеб, корпоративов и вечеринок по всей Нидерландам.',
+        'page_subtitle' => 'Галерея live-клипов со свадеб, корпоративов и вечеринок по всей Нидерландам.',
         'empty' => 'Новые моменты уже скоро.',
     ],
 

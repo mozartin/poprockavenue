@@ -14,7 +14,7 @@ return [
         'contact_title' => 'Contact & Boeking — Pop Rock Avenue',
         'contact_description' => 'Controleer beschikbaarheid voor Pop Rock Avenue. Reactie binnen 24 uur.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
-        'media_description' => 'Verticale live clips van Pop Rock Avenue — bruiloften, bedrijfsevents en feesten in heel Nederland.',
+        'media_description' => 'Live clips van Pop Rock Avenue — bruiloften, bedrijfsevents en feesten in heel Nederland.',
     ],
 
     'nav' => [
@@ -79,9 +79,9 @@ return [
     'live_moments' => [
         'eyebrow' => 'Live Moments',
         'title' => 'Vastgelegd op camera. Gemaakt voor de dansvloer.',
-        'subtitle' => 'Verticale clips van echte shows — de energie, het publiek, de nacht.',
+        'subtitle' => 'Clips van echte shows — de energie, het publiek, de nacht.',
         'page_title' => 'Live Moments',
-        'page_subtitle' => 'Een galerij met verticale live clips van bruiloften, bedrijfsevents en feesten in heel Nederland.',
+        'page_subtitle' => 'Een galerij met live clips van bruiloften, bedrijfsevents en feesten in heel Nederland.',
         'empty' => 'Nieuwe moments komen eraan.',
     ],
 

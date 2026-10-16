@@ -102,7 +102,7 @@
                 x-transition:leave="transition ease-in duration-150"
                 x-transition:leave-start="opacity-100 scale-100"
                 x-transition:leave-end="opacity-0 scale-95"
-                class="relative z-10 w-full max-w-[min(100%,420px)] overflow-hidden rounded-2xl border border-white/10 bg-surface shadow-[0_0_60px_rgba(124,58,237,0.25)]"
+                class="relative z-10 mx-auto w-fit max-w-full overflow-hidden rounded-2xl border border-white/10 bg-surface shadow-[0_0_60px_rgba(124,58,237,0.25)]"
             >
                 <button
                     type="button"
@@ -115,8 +115,9 @@
                     </svg>
                 </button>
 
+                {{-- Keep preview cards 9:16; open player at the video's native aspect ratio. --}}
                 <video
-                    class="aspect-[9/16] w-full bg-black object-contain"
+                    class="block h-auto max-h-[min(85vh,900px)] w-auto max-w-[min(100vw-2rem,960px)] bg-black"
                     controls
                     playsinline
                     preload="metadata"

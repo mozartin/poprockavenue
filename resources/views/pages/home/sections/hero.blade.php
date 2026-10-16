@@ -11,7 +11,7 @@
             speed="hero"
             :lazy="false"
             priority
-            img-class="hero-photo object-[center_35%] sm:object-[72%_center]"
+            img-class="hero-photo object-center"
         />
         {{-- Softer left for copy on desktop; even wash on mobile --}}
         <div class="absolute inset-0 bg-gradient-to-r from-background/70 from-[0%] via-background/75 via-[42%] to-transparent to-[78%] max-sm:from-background/72 max-sm:via-background/65 max-sm:via-[55%] max-sm:to-background/45 max-sm:to-[100%]"></div>

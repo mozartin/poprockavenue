@@ -1,5 +1,7 @@
 *.log
 .DS_Store
+# Personal Herd DB sync tool (installs to ~/Herd/.db-sync)
+/.db-sync/
 .env
 .env.backup
 .env.production

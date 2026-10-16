@@ -14,7 +14,7 @@ return [
         'contact_title' => 'Contact & Booking — Pop Rock Avenue',
         'contact_description' => 'Check availability for Pop Rock Avenue — the Netherlands\' premier 8-piece live cover band. Response within 24 hours.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
-        'media_description' => 'Vertical live clips from Pop Rock Avenue shows — weddings, corporate events and parties across the Netherlands.',
+        'media_description' => 'Live clips from Pop Rock Avenue shows — weddings, corporate events and parties across the Netherlands.',
     ],
 
     'nav' => [
@@ -79,9 +79,9 @@ return [
     'live_moments' => [
         'eyebrow' => 'Live Moments',
         'title' => 'Caught on camera. Built for the dance floor.',
-        'subtitle' => 'Vertical clips from real shows — the energy, the crowd, the night.',
+        'subtitle' => 'Clips from real shows — the energy, the crowd, the night.',
         'page_title' => 'Live Moments',
-        'page_subtitle' => 'A gallery of vertical live clips from weddings, corporate events and parties across the Netherlands.',
+        'page_subtitle' => 'A gallery of live clips from weddings, corporate events and parties across the Netherlands.',
         'empty' => 'New moments coming soon.',
     ],
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Support;
 
+use App\Filament\Forms\Components\ChunkedVideoUpload;
 use App\Support\MediaPath;
 use App\Support\OptimizeUploadedImage;
 use Filament\Forms\Components\FileUpload;
@@ -19,7 +20,14 @@ class MediaUploads
             ->label($label)
             // Never use ->image(): FilePond's image size plugin hangs when it
             // cannot XHR-fetch the file (www vs apex APP_URL, bad MIME, etc.).
-            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/gif'])
+            ->acceptedFileTypes([
+                'image/jpeg',
+                'image/png',
+                'image/webp',
+                'image/gif',
+                'image/heic',
+                'image/heif',
+            ])
             ->disk('public')
             ->directory($directory)
             ->visibility('public')
@@ -45,7 +53,7 @@ class MediaUploads
                 }
 
                 if (! is_string($path) || $path === '') {
-                    return 'JPEG / WebP, ideally 200–400KB. Large files are auto-compressed on save.';
+                    return 'JPEG / WebP / HEIC, ideally 200–400KB. HEIC and large files are auto-converted/compressed on save.';
                 }
 
                 $path = ltrim($path, '/');
@@ -76,22 +84,14 @@ class MediaUploads
             });
     }
 
-    public static function video(string $name, string $label, string $directory): FileUpload
+    public static function video(string $name, string $label, string $directory): ChunkedVideoUpload
     {
-        return FileUpload::make($name)
+        // Chunked upload bypasses Livewire's single-request temp upload, which
+        // Coolify/Traefik kills at ~60s (502) for ~200MB+ files on typical links.
+        return ChunkedVideoUpload::make($name)
             ->label($label)
-            ->disk('public')
             ->directory($directory)
-            ->visibility('public')
-            ->fetchFileInformation(false)
-            ->previewable(false)
-            ->afterStateHydrated(function (FileUpload $component, mixed $state): void {
-                $component->state(self::temporaryOnly($state));
-            })
-            ->dehydrated(fn (mixed $state): bool => self::shouldPersistUpload($state))
-            ->maxSize(1048576)
-            ->rules(['file', 'max:1048576'])
-            ->helperText('Vertical MP4 / MOV / WebM up to 1GB (~10 min). Large files can take a few minutes.');
+            ->helperText('MP4 / MOV / WebM up to 1GB (~10 min). Any orientation — preview cards stay vertical, the player opens at the video\'s own aspect ratio. Large files upload in small chunks.');
     }
 
     protected static function temporaryOnly(mixed $state): mixed

@@ -38,7 +38,7 @@ class MediaMomentResource extends Resource
         return $form->schema([
             Forms\Components\Section::make('Video')
                 ->schema([
-                    MediaUploads::video('video_path', 'Vertical video', 'uploads/moments/videos')
+                    MediaUploads::video('video_path', 'Video', 'uploads/moments/videos')
                         ->required(),
                     MediaUploads::image('poster_path', 'Poster image (optional)', 'uploads/moments/posters'),
                     Forms\Components\TextInput::make('sort_order')->numeric()->default(0),
