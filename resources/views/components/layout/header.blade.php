@@ -29,7 +29,7 @@
                 <a
                     href="{{ $link['href'] }}"
                     @if ($link['new_tab']) target="_blank" rel="noopener noreferrer" @endif
-                    class="text-xs font-medium uppercase tracking-[0.15em] text-muted transition-colors hover:text-white"
+                    class="text-xs font-medium uppercase tracking-[0.15em] text-white/80 transition-colors hover:text-white"
                 >
                     {{ $link['label'] }}
                 </a>
@@ -70,7 +70,7 @@
                 <a
                     href="{{ $link['href'] }}"
                     @if ($link['new_tab']) target="_blank" rel="noopener noreferrer" @endif
-                    class="rounded-md px-3 py-3 text-sm font-medium uppercase tracking-wider text-muted transition-colors hover:bg-white/5 hover:text-white"
+                    class="rounded-md px-3 py-3 text-sm font-medium uppercase tracking-wider text-white/80 transition-colors hover:bg-white/5 hover:text-white"
                     @click="open = false"
                 >
                     {{ $link['label'] }}

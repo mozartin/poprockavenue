@@ -29,6 +29,13 @@ class MediaUploads
                 'image/heic',
                 'image/heif',
             ])
+            // Browsers (esp. Chrome on macOS) often report HEIC as empty /
+            // application/octet-stream, so FilePond rejects it unless we map
+            // the extension to a MIME type ourselves.
+            ->mimeTypeMap([
+                'heic' => 'image/heic',
+                'heif' => 'image/heif',
+            ])
             ->disk('public')
             ->directory($directory)
             ->visibility('public')
