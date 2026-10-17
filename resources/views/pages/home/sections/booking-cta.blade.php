@@ -13,7 +13,7 @@
             aria-hidden="true"
         />
         <div class="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.15),transparent_70%)]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(167,139,250,0.15),transparent_70%)]"></div>
     </div>
 
     <div class="container-site relative text-center">

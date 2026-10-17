@@ -6,41 +6,20 @@
 @php
     $poster = $moment->posterUrl();
     $title = $moment->title;
+    $videoUrl = $moment->videoUrl();
 @endphp
 
 <div
     {{ $attributes->class(['contents']) }}
     x-data="{
         open: false,
-        playPreview() {
-            const video = this.$refs.preview;
-            if (! video) return;
-            video.muted = true;
-            video.play().catch(() => {});
-        },
-        pausePreview() {
-            const video = this.$refs.preview;
-            if (! video) return;
-            video.pause();
-            video.currentTime = 0;
-        },
         openPlayer() {
-            this.pausePreview();
             this.open = true;
-            this.$nextTick(() => {
-                const player = this.$refs.player;
-                if (! player) return;
-                player.muted = false;
-                player.currentTime = 0;
-                player.play().catch(() => {});
-            });
+            document.documentElement.classList.add('media-moment-open');
         },
         closePlayer() {
             this.open = false;
-            const player = this.$refs.player;
-            if (! player) return;
-            player.pause();
-            player.currentTime = 0;
+            document.documentElement.classList.remove('media-moment-open');
         },
     }"
     @keydown.escape.window="if (open) closePlayer()"
@@ -48,33 +27,49 @@
     <button
         type="button"
         @click="openPlayer()"
-        @mouseenter="playPreview()"
-        @mouseleave="pausePreview()"
         class="{{ trim('group relative block w-full overflow-hidden rounded-2xl border border-white/10 bg-surface aspect-[9/16] text-left '.$class) }}"
         aria-label="{{ $title ? 'Play '.$title : 'Play video' }}"
     >
-        <video
-            class="pointer-events-none h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
-            playsinline
-            muted
-            loop
-            preload="metadata"
-            @if ($poster) poster="{{ $poster }}" @endif
-            x-ref="preview"
-        >
-            <source src="{{ $moment->videoUrl() }}" type="video/mp4">
-        </video>
+        @if ($poster)
+            <img
+                src="{{ $poster }}"
+                alt=""
+                class="pointer-events-none absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                loading="lazy"
+                decoding="async"
+                aria-hidden="true"
+            >
+        @else
+            {{-- No poster: show the video's first frame. Hidden while the modal player is open. --}}
+            <video
+                class="pointer-events-none absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                muted
+                playsinline
+                preload="metadata"
+                aria-hidden="true"
+                x-show="! open"
+                x-init="
+                    const seekFirstFrame = () => {
+                        try { $el.currentTime = 0.1; } catch (_) {}
+                    };
+                    $el.addEventListener('loadeddata', seekFirstFrame, { once: true });
+                    if ($el.readyState >= 2) seekFirstFrame();
+                "
+            >
+                <source src="{{ $videoUrl }}" type="video/mp4">
+            </video>
+        @endif
 
         <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
 
         @if ($title)
-            <span class="absolute inset-x-0 bottom-0 p-4 text-sm font-semibold text-white">
+            <span class="absolute inset-x-0 bottom-0 z-[1] p-4 text-sm font-semibold text-white">
                 {{ $title }}
             </span>
         @endif
 
-        <span class="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-purple to-cyan shadow-[0_0_30px_rgba(124,58,237,0.45)] transition-transform group-hover:scale-110">
+        <span class="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-purple to-cyan shadow-[0_0_30px_rgba(167,139,250,0.45)] transition-transform group-hover:scale-110">
                 <svg class="ml-0.5 h-5 w-5 fill-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
             </span>
         </span>
@@ -84,29 +79,17 @@
         <div
             x-show="open"
             x-cloak
-            class="fixed inset-0 z-[100000] flex items-center justify-center p-4 sm:p-8"
+            class="fixed inset-0 z-[100000] flex items-center justify-center bg-background/95 p-4 sm:p-8"
             role="dialog"
             aria-modal="true"
             :aria-label="{{ Js::from($title ?: 'Video player') }}"
+            @click.self="closePlayer()"
         >
-            <div
-                class="absolute inset-0 bg-background/90 backdrop-blur-md"
-                @click="closePlayer()"
-            ></div>
-
-            <div
-                x-show="open"
-                x-transition:enter="transition ease-out duration-200"
-                x-transition:enter-start="opacity-0 scale-95"
-                x-transition:enter-end="opacity-100 scale-100"
-                x-transition:leave="transition ease-in duration-150"
-                x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-95"
-                class="relative z-10 mx-auto w-fit max-w-full overflow-hidden rounded-2xl border border-white/10 bg-surface shadow-[0_0_60px_rgba(124,58,237,0.25)]"
-            >
+            {{-- No overflow:hidden / transform around <video>: Chromium paints a ghost frame otherwise. --}}
+            <div class="relative w-full max-w-[min(100vw-2rem,960px)] rounded-2xl border border-white/10 bg-black shadow-[0_0_60px_rgba(167,139,250,0.25)]" @click.stop>
                 <button
                     type="button"
-                    class="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-background/70 text-white backdrop-blur hover:bg-background"
+                    class="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-background/80 text-white hover:bg-background"
                     @click="closePlayer()"
                     aria-label="Close"
                 >
@@ -115,20 +98,28 @@
                     </svg>
                 </button>
 
-                {{-- Keep preview cards 9:16; open player at the video's native aspect ratio. --}}
-                <video
-                    class="block h-auto max-h-[min(85vh,900px)] w-auto max-w-[min(100vw-2rem,960px)] bg-black"
-                    controls
-                    playsinline
-                    preload="metadata"
-                    @if ($poster) poster="{{ $poster }}" @endif
-                    x-ref="player"
-                >
-                    <source src="{{ $moment->videoUrl() }}" type="video/mp4">
-                </video>
+                <template x-if="open">
+                    <video
+                        data-moment-player
+                        @class([
+                            'block max-h-[min(85vh,900px)] w-full bg-black',
+                            'rounded-t-2xl' => filled($title),
+                            'rounded-2xl' => blank($title),
+                        ])
+                        controls
+                        playsinline
+                        preload="metadata"
+                        disablepictureinpicture
+                        controlslist="nodownload"
+                        @if ($poster) poster="{{ $poster }}" @endif
+                        x-init="$nextTick(() => { $el.play().catch(() => {}) })"
+                    >
+                        <source src="{{ $videoUrl }}" type="video/mp4">
+                    </video>
+                </template>
 
                 @if ($title)
-                    <div class="border-t border-white/10 px-4 py-3">
+                    <div class="rounded-b-2xl border-t border-white/10 bg-surface px-4 py-3">
                         <p class="text-sm font-semibold text-white">{{ $title }}</p>
                     </div>
                 @endif

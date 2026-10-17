@@ -75,7 +75,7 @@
 
     <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 8px;">
         <tr>
-            <td bgcolor="#7C3AED" style="border-radius:8px;background-color:#7C3AED;">
+            <td bgcolor="#A78BFA" style="border-radius:8px;background-color:#A78BFA;">
                 <a href="{{ url('/admin/bookings/'.$booking->id.'/edit') }}" style="display:inline-block;padding:14px 22px;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;color:#FFFFFF;">
                     Open in admin
                 </a>

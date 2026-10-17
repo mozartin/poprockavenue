@@ -2,15 +2,15 @@
 
 return [
     'meta' => [
-        'default_title' => 'Pop Rock Avenue — 8-koppig Live Coverband',
-        'default_description' => '8-koppig live coverband voor bruiloften, bedrijfsevents en feesten in heel Nederland. Premium live entertainment dat de dansvloer vult.',
-        'home_title' => 'Pop Rock Avenue — 8-koppig Live Coverband Nederland',
+        'default_title' => 'Pop Rock Avenue — Live Coverband',
+        'default_description' => 'Live coverband voor bruiloften, bedrijfsevents en feesten in heel Nederland. Premium live entertainment dat de dansvloer vult.',
+        'home_title' => 'Pop Rock Avenue — Live Coverband Nederland',
         'band_title' => 'Over ons — Pop Rock Avenue',
-        'band_description' => 'Maak kennis met de acht muzikanten van Pop Rock Avenue — Nederlands toonaangevende live coverband voor bruiloften, bedrijfsevents en feesten.',
+        'band_description' => 'Maak kennis met de mensen achter Pop Rock Avenue — Nederlands toonaangevende live coverband voor bruiloften, bedrijfsevents en feesten.',
         'repertoire_title' => 'Repertoire — Pop Rock Avenue',
         'repertoire_description' => '200+ nummers uit zes decennia. Pop, rock, dance, jaren 80, jaren 90 en klassiekers — setlists op maat voor jouw event.',
         'testimonials_title' => 'Referenties — Pop Rock Avenue',
-        'testimonials_description' => 'Lees wat klanten zeggen over Pop Rock Avenue — Nederlands toonaangevende 8-koppig live coverband.',
+        'testimonials_description' => 'Lees wat klanten zeggen over Pop Rock Avenue — Nederlands toonaangevende live coverband.',
         'contact_title' => 'Contact & Boeking — Pop Rock Avenue',
         'contact_description' => 'Controleer beschikbaarheid voor Pop Rock Avenue. Reactie binnen 24 uur.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
@@ -18,7 +18,7 @@ return [
     ],
 
     'nav' => [
-        'about' => 'Over ons',
+        'about' => 'Ontmoet ons',
         'services' => 'Diensten',
         'events' => 'Events',
         'media' => 'Live Moments',
@@ -40,12 +40,12 @@ return [
     ],
 
     'hero' => [
-        'badge' => '8-koppig Live Coverband · Nederland',
+        'badge' => 'Live Coverband · Nederland',
         'line_1' => 'Wij maken van events',
         'line_2' => '',
         'line_3' => 'onvergetelijke',
         'line_4' => 'avonden.',
-        'subtitle' => '8-koppig live coverband voor bruiloften, bedrijfsevents & feesten in heel Nederland.',
+        'subtitle' => 'Live coverband voor bruiloften, bedrijfsevents & feesten in heel Nederland.',
         'scroll' => 'Scroll',
         'image_alt' => 'Live optreden van Pop Rock Avenue',
     ],
@@ -62,9 +62,9 @@ return [
     ],
 
     'stats' => [
-        'musicians' => 'Muzikanten',
+        'musicians' => 'Live Band',
         'events' => 'Events Gespeeld',
-        'experience' => 'Jaar Ervaring',
+        'experience' => 'Nummers Klaar',
         'guarantee' => 'Dansvloer Garantie',
     ],
 
@@ -79,18 +79,18 @@ return [
     'live_moments' => [
         'eyebrow' => 'Live Moments',
         'title' => 'Vastgelegd op camera. Gemaakt voor de dansvloer.',
-        'subtitle' => 'Clips van echte shows — de energie, het publiek, de nacht.',
+        'subtitle' => 'Live beelden van echte shows — de energie, het publiek, de nacht.',
         'page_title' => 'Live Moments',
-        'page_subtitle' => 'Een galerij met live clips van bruiloften, bedrijfsevents en feesten in heel Nederland.',
+        'page_subtitle' => 'Een galerij met live moments van bruiloften, bedrijfsevents en feesten in heel Nederland.',
         'empty' => 'Nieuwe moments komen eraan.',
     ],
 
     'about' => [
-        'eyebrow' => 'Over de Band',
-        'title' => 'Acht muzikanten. Eén onstuitbare kracht.',
+        'eyebrow' => 'Ontmoet de band',
+        'title' => 'Dit zijn wij — live, luid en all-in.',
         'image_alt' => 'Pop Rock Avenue live optreden',
-        'page_title' => 'Acht muzikanten. Eén onstuitbare kracht.',
-        'page_subtitle' => 'Al meer dan 15 jaar vult Pop Rock Avenue dansvloeren in heel Nederland met onvergetelijke live optredens.',
+        'page_title' => 'Dit zijn wij — live, luid en all-in.',
+        'page_subtitle' => 'Goede muziek. Veel energie. Live.',
         'members_empty' => 'Line-up volgt binnenkort.',
     ],
 
@@ -158,6 +158,7 @@ return [
         'message_placeholder' => 'Vertel ons over je event...',
         'other' => 'Anders',
         'aside_title' => 'Neem direct contact op',
+        'social' => 'Volg ons',
         'aside_note' => 'Wij reageren op alle aanvragen binnen :hours uur. Voor urgente boekingen, bel ons direct.',
         'honeypot' => 'Website',
     ],
@@ -170,11 +171,12 @@ return [
     ],
 
     'footer' => [
-        'description' => '8-koppig live coverband dat onvergetelijke optredens levert op bruiloften, bedrijfsevents en feesten in heel Nederland.',
+        'description' => 'Live coverband dat onvergetelijke optredens levert op bruiloften, bedrijfsevents en feesten in heel Nederland.',
         'navigate' => 'Navigatie',
         'events' => 'Events',
         'services' => 'Diensten',
         'contact' => 'Contact',
+        'phones' => 'Bel ons',
         'christmas_short' => 'Kerst & Oud & Nieuw',
         'rights' => 'Alle rechten voorbehouden.',
         'based_in' => 'Gevestigd in Nederland',

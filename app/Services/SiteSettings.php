@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\SiteSetting;
+use App\Support\MediaPath;
 
 class SiteSettings
 {
@@ -38,12 +39,66 @@ class SiteSettings
 
     public static function phone(): string
     {
-        return (string) self::get('phone', '+31 6 12 345 678');
+        $contacts = self::phoneContacts();
+
+        if ($contacts !== []) {
+            return $contacts[0]['phone'] ?: $contacts[0]['label'];
+        }
+
+        return (string) self::get('phone', '+31 6 47 773 616');
     }
 
     public static function phoneLink(): string
     {
-        return 'tel:'.preg_replace('/\s+/', '', self::phone());
+        $contacts = self::phoneContacts();
+
+        if ($contacts !== [] && filled($contacts[0]['href'])) {
+            return $contacts[0]['href'];
+        }
+
+        return 'tel:'.preg_replace('/[^\d+]/', '', self::phone());
+    }
+
+    /**
+     * Contact phone lines from the multiline `contact_phones` setting.
+     * One line per contact, e.g. "+31 6 86 07 84 11 Max – 🇬🇧 English".
+     *
+     * @return list<array{label: string, phone: ?string, href: ?string}>
+     */
+    public static function phoneContacts(): array
+    {
+        $raw = self::get('contact_phones');
+
+        if (! filled($raw)) {
+            $fallback = (string) self::get('phone', '');
+
+            if ($fallback === '') {
+                return [];
+            }
+
+            $raw = $fallback;
+        }
+
+        return collect(preg_split("/\r\n|\n|\r/", (string) $raw) ?: [])
+            ->map(fn (string $line): string => trim($line))
+            ->filter()
+            ->map(function (string $line): array {
+                $phone = null;
+
+                if (preg_match('/\+?\d[\d\s\-()]{6,}\d/', $line, $matches)) {
+                    $phone = trim($matches[0]);
+                }
+
+                return [
+                    'label' => $line,
+                    'phone' => $phone,
+                    'href' => $phone
+                        ? 'tel:'.preg_replace('/[^\d+]/', '', $phone)
+                        : null,
+                ];
+            })
+            ->values()
+            ->all();
     }
 
     public static function email(): string
@@ -71,9 +126,31 @@ class SiteSettings
         return self::get('showreel_url');
     }
 
+    /**
+     * Extract a YouTube video ID from the showreel URL (watch / youtu.be / embed / shorts).
+     */
+    public static function showreelYoutubeId(): ?string
+    {
+        $url = self::showreelUrl();
+
+        if (! filled($url)) {
+            return null;
+        }
+
+        if (preg_match(
+            '~(?:youtube\.com/(?:watch\?v=|embed/|shorts/|live/)|youtu\.be/)([A-Za-z0-9_-]{11})~',
+            $url,
+            $matches,
+        )) {
+            return $matches[1];
+        }
+
+        return null;
+    }
+
     public static function imageUrl(?string $path, string $default): string
     {
-        return \App\Support\MediaPath::url($path, $default);
+        return MediaPath::url($path, $default);
     }
 
     public static function heroImage(): string
@@ -124,7 +201,7 @@ class SiteSettings
     {
         $items = [
             'musicians' => [
-                'value' => site_t('stats_values.musicians', [], '8'),
+                'value' => site_t('stats_values.musicians', [], 'Full'),
                 'label' => site_t('stats.musicians'),
             ],
             'events' => [
@@ -132,7 +209,7 @@ class SiteSettings
                 'label' => site_t('stats.events'),
             ],
             'experience' => [
-                'value' => site_t('stats_values.experience', [], '15+'),
+                'value' => site_t('stats_values.experience', [], '200+'),
                 'label' => site_t('stats.experience'),
             ],
             'guarantee' => [

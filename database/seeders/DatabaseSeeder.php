@@ -44,7 +44,8 @@ class DatabaseSeeder extends Seeder
         $settings = [
             ['key' => 'booking_email', 'value' => 'booking@poprockavenue.nl', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'email', 'value' => 'booking@poprockavenue.nl', 'type' => 'text', 'group' => 'contact'],
-            ['key' => 'phone', 'value' => '+31 6 12 345 678', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'phone', 'value' => '+31647773616', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'contact_phones', 'value' => "+31636546306 Alex – 🇳🇱 Nederlands\n+31 6 86 07 84 11 Max – 🇬🇧 English\nOleg +31647773616 – 🇺🇦 Українська • 🇷🇺 Русский • 🇵🇱 Polski", 'type' => 'text', 'group' => 'contact'],
             ['key' => 'location', 'value' => json_encode($this->t('Netherlands', 'Nederland', 'Нідерланди', 'Нидерланды')), 'type' => 'translatable', 'group' => 'contact'],
             ['key' => 'instagram_url', 'value' => 'https://instagram.com/poprockavenue', 'type' => 'text', 'group' => 'social'],
             ['key' => 'tiktok_url', 'value' => 'https://www.tiktok.com/@poprock.avenue', 'type' => 'text', 'group' => 'social'],
@@ -61,9 +62,9 @@ class DatabaseSeeder extends Seeder
                 'Ми не просто граємо музику — ми створюємо атмосферу, в якій народжуються спогади.'
             )), 'type' => 'translatable', 'group' => 'content'],
             ['key' => 'about_paragraph_1', 'value' => json_encode($this->t(
-                'For over 15 years, Pop Rock Avenue has been the go-to live cover band for unforgettable events across the Netherlands. Seven seasoned musicians, one mission: fill your dance floor.',
-                'Al meer dan 15 jaar is Pop Rock Avenue dé live coverband voor onvergetelijke events in heel Nederland. Zeven ervaren muzikanten, één missie: jouw dansvloer vullen.',
-                'Понад 15 років Pop Rock Avenue — це live cover band для незабутніх подій у Нідерландах. Сім досвідчених музикантів, одна місія: заповнити ваш танцпол.'
+                'We’re a young, energetic band with a passion for great music and unforgettable live moments. We love playing together, connecting with the crowd and turning every event into a real celebration.',
+                'Wij zijn een jonge, energieke band met een passie voor goede muziek en onvergetelijke live-momenten. We spelen graag samen, zoeken de connectie met het publiek en maken van ieder optreden een echt feest.',
+                'Ми — молода та енергійна група, яку об’єднує любов до хорошої музики та незабутніх живих виступів. Ми любимо грати разом, відчувати публіку та перетворювати кожен виступ на справжнє свято.'
             )), 'type' => 'translatable', 'group' => 'content'],
             ['key' => 'about_paragraph_2', 'value' => json_encode($this->t(
                 'From intimate wedding receptions to large-scale corporate galas and festival stages, we bring the energy, professionalism and setlist versatility that keeps guests dancing all night.',

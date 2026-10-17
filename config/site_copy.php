@@ -25,7 +25,7 @@ return [
             'description' => 'Labels for header and footer links — one item per menu entry.',
             'admin' => ['layout' => 'items'],
             'fields' => [
-                'about' => ['label' => 'About Us', 'input_label' => 'Menu label', 'type' => 'text'],
+                'about' => ['label' => 'Meet Us', 'input_label' => 'Menu label', 'type' => 'text'],
                 'services' => ['label' => 'Services (legacy)', 'input_label' => 'Menu label', 'type' => 'text'],
                 'events' => ['label' => 'Events', 'input_label' => 'Menu label', 'type' => 'text'],
                 'media' => ['label' => 'Live Moments', 'input_label' => 'Menu label', 'type' => 'text'],
@@ -266,9 +266,9 @@ return [
     ],
 
     'stats_value_defaults' => [
-        'musicians' => '8',
+        'musicians' => 'Full',
         'events' => '500+',
-        'experience' => '15+',
+        'experience' => '200+',
         'guarantee' => '100%',
     ],
 

@@ -2,15 +2,15 @@
 
 return [
     'meta' => [
-        'default_title' => 'Pop Rock Avenue — 8-участный Live Cover Band',
-        'default_description' => '8-участный live cover band для свадеб, корпоративов и вечеринок в Нидерландах. Премиальное живое шоу, которое заполняет танцпол.',
-        'home_title' => 'Pop Rock Avenue — 8-участный Live Cover Band Нидерланды',
+        'default_title' => 'Pop Rock Avenue — Live Cover Band',
+        'default_description' => 'Live cover band для свадеб, корпоративов и вечеринок в Нидерландах. Премиальное живое шоу, которое заполняет танцпол.',
+        'home_title' => 'Pop Rock Avenue — Live Cover Band Нидерланды',
         'band_title' => 'О нас — Pop Rock Avenue',
-        'band_description' => 'Познакомьтесь с семью музыкантами Pop Rock Avenue — ведущего live cover band Нидерландов для свадеб, корпоративов и вечеринок.',
+        'band_description' => 'Познакомьтесь с людьми за Pop Rock Avenue — ведущего live cover band Нидерландов для свадеб, корпоративов и вечеринок.',
         'repertoire_title' => 'Репертуар — Pop Rock Avenue',
         'repertoire_description' => '200+ песен за шесть десятилетий. Поп, рок, дэнс, 80-е, 90-е и классика — сет-листы под ваше мероприятие.',
         'testimonials_title' => 'Отзывы — Pop Rock Avenue',
-        'testimonials_description' => 'Что говорят клиенты о Pop Rock Avenue — ведущем 8-участном live cover band Нидерландов.',
+        'testimonials_description' => 'Что говорят клиенты о Pop Rock Avenue — ведущем live cover band Нидерландов.',
         'contact_title' => 'Контакт и Бронирование — Pop Rock Avenue',
         'contact_description' => 'Проверьте доступность Pop Rock Avenue. Ответ в течение 24 часов.',
         'media_title' => 'Live Moments — Pop Rock Avenue',
@@ -18,7 +18,7 @@ return [
     ],
 
     'nav' => [
-        'about' => 'О нас',
+        'about' => 'Знакомьтесь',
         'services' => 'Услуги',
         'events' => 'Афиша',
         'media' => 'Live Moments',
@@ -40,12 +40,12 @@ return [
     ],
 
     'hero' => [
-        'badge' => '8-участный Live Cover Band · Нидерланды',
+        'badge' => 'Live Cover Band · Нидерланды',
         'line_1' => 'Мы превращаем',
         'line_2' => 'события в',
         'line_3' => 'незабываемые',
         'line_4' => 'вечера.',
-        'subtitle' => '8-участный live cover band для свадеб, корпоративов и вечеринок в Нидерландах.',
+        'subtitle' => 'Live cover band для свадеб, корпоративов и вечеринок в Нидерландах.',
         'scroll' => 'Дальше',
         'image_alt' => 'Живое выступление Pop Rock Avenue',
     ],
@@ -62,9 +62,9 @@ return [
     ],
 
     'stats' => [
-        'musicians' => 'Музыкантов',
+        'musicians' => 'Live Band',
         'events' => 'Выступлений',
-        'experience' => 'Лет опыта',
+        'experience' => 'Песен в сете',
         'guarantee' => 'Гарантия танцпола',
     ],
 
@@ -79,18 +79,18 @@ return [
     'live_moments' => [
         'eyebrow' => 'Live Moments',
         'title' => 'Снято на камеру. Создано для танцпола.',
-        'subtitle' => 'Клипы с живых шоу — энергия, толпа, ночь.',
+        'subtitle' => 'Живые кадры с реальных шоу — энергия, зал, ночь.',
         'page_title' => 'Live Moments',
-        'page_subtitle' => 'Галерея live-клипов со свадеб, корпоративов и вечеринок по всей Нидерландам.',
+        'page_subtitle' => 'Галерея live-моментов со свадеб, корпоративов и вечеринок по всей Нидерландам.',
         'empty' => 'Новые моменты уже скоро.',
     ],
 
     'about' => [
-        'eyebrow' => 'О группе',
-        'title' => 'Восемь музыкантов. Одна неудержимая сила.',
+        'eyebrow' => 'Знакомьтесь',
+        'title' => 'Это мы — вживую, громко и на полную.',
         'image_alt' => 'Pop Rock Avenue на сцене',
-        'page_title' => 'Восемь музыкантов. Одна неудержимая сила.',
-        'page_subtitle' => 'Более 15 лет Pop Rock Avenue заполняет танцполы по всей Нидерландам незабываемыми живыми выступлениями.',
+        'page_title' => 'Это мы — вживую, громко и на полную.',
+        'page_subtitle' => 'Хорошая музыка. Мощная энергия. Вживую.',
         'members_empty' => 'Состав группы появится скоро.',
     ],
 
@@ -158,6 +158,7 @@ return [
         'message_placeholder' => 'Расскажите о вашем мероприятии...',
         'other' => 'Другое',
         'aside_title' => 'Свяжитесь напрямую',
+        'social' => 'Мы в соцсетях',
         'aside_note' => 'Мы отвечаем на все запросы в течение :hours часов. Для срочных бронирований — позвоните.',
         'honeypot' => 'Website',
     ],
@@ -170,11 +171,12 @@ return [
     ],
 
     'footer' => [
-        'description' => '8-участный live cover band с незабываемыми выступлениями на свадьбах, корпоративах и вечеринках по всей Нидерландам.',
+        'description' => 'Live cover band с незабываемыми выступлениями на свадьбах, корпоративах и вечеринках по всей Нидерландам.',
         'navigate' => 'Навигация',
         'events' => 'Афиша',
         'services' => 'Услуги',
         'contact' => 'Контакт',
+        'phones' => 'Позвонить',
         'christmas_short' => 'Рождество и Новый год',
         'rights' => 'Все права защищены.',
         'based_in' => 'Базируемся в Нидерландах',

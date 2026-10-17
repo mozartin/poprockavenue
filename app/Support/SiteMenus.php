@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Models\MenuItem;
 use App\Models\MenuSection;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Collection;
@@ -50,7 +51,7 @@ class SiteMenus
     /**
      * Flat header links from all active header sections.
      *
-     * @return Collection<int, \App\Models\MenuItem>
+     * @return Collection<int, MenuItem>
      */
     public static function headerItems(): Collection
     {
@@ -120,6 +121,7 @@ class SiteMenus
             }
 
             self::ensureLiveMomentsInMenus();
+            self::ensureServicesInMenus();
         } catch (Throwable $e) {
             Log::warning('SiteMenus ensureReady failed', ['message' => $e->getMessage()]);
         }
@@ -189,6 +191,99 @@ class SiteMenus
         }
     }
 
+    /**
+     * Keep Services in header/footer navigate menus if an older seed omitted it.
+     */
+    protected static function ensureServicesInMenus(): void
+    {
+        if (! self::tablesReady()) {
+            return;
+        }
+
+        $t = fn (string $en, string $nl, string $uk, string $ru) => json_encode([
+            'en' => $en,
+            'nl' => $nl,
+            'uk' => $uk,
+            'ru' => $ru,
+        ], JSON_UNESCAPED_UNICODE);
+
+        $label = $t('Services', 'Diensten', 'Послуги', 'Услуги');
+        $added = false;
+
+        $sectionIds = DB::table('menu_sections')
+            ->whereIn('location', ['header', 'footer'])
+            ->where('is_active', true)
+            ->pluck('id');
+
+        foreach ($sectionIds as $sectionId) {
+            $exists = DB::table('menu_items')
+                ->where('menu_section_id', $sectionId)
+                ->where('link_type', 'route')
+                ->where('link_value', 'home')
+                ->where('anchor', '#services')
+                ->exists();
+
+            if ($exists) {
+                continue;
+            }
+
+            // Footer "Services" section already lists event types with #services — skip.
+            $sectionHasEventTypeLinks = DB::table('menu_items')
+                ->where('menu_section_id', $sectionId)
+                ->where('anchor', '#services')
+                ->exists();
+
+            if ($sectionHasEventTypeLinks) {
+                continue;
+            }
+
+            $events = DB::table('menu_items')
+                ->where('menu_section_id', $sectionId)
+                ->where('link_value', 'home')
+                ->where('anchor', '#events')
+                ->first();
+
+            $about = DB::table('menu_items')
+                ->where('menu_section_id', $sectionId)
+                ->where('link_value', 'about')
+                ->first();
+
+            $maxSort = (int) DB::table('menu_items')->where('menu_section_id', $sectionId)->max('sort_order');
+
+            if ($about) {
+                $sortOrder = ((int) $about->sort_order) + 1;
+            } elseif ($events) {
+                $sortOrder = (int) $events->sort_order;
+            } else {
+                $sortOrder = $maxSort + 1;
+            }
+
+            DB::table('menu_items')
+                ->where('menu_section_id', $sectionId)
+                ->where('sort_order', '>=', $sortOrder)
+                ->increment('sort_order');
+
+            DB::table('menu_items')->insert([
+                'menu_section_id' => $sectionId,
+                'label' => $label,
+                'link_type' => 'route',
+                'link_value' => 'home',
+                'anchor' => '#services',
+                'open_in_new_tab' => false,
+                'sort_order' => $sortOrder,
+                'is_active' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            $added = true;
+        }
+
+        if ($added) {
+            self::forgetCache();
+        }
+    }
+
     protected static function seedDefaults(): void
     {
         $t = fn (string $en, string $nl, string $uk, string $ru) => json_encode([
@@ -209,10 +304,11 @@ class SiteMenus
         ]);
 
         foreach ([
-            [0, $t('About Us', 'Over ons', 'Про нас', 'О нас'), 'about', null],
-            [1, $t('Events', 'Events', 'Афіша', 'Афиша'), 'home', '#events'],
-            [2, $t('Live Moments', 'Live Moments', 'Live Moments', 'Live Moments'), 'media', null],
-            [3, $t('Contact', 'Contact', 'Контакт', 'Контакт'), 'contact', null],
+            [0, $t('Meet Us', 'Ontmoet ons', 'Знайомтесь', 'Знакомьтесь'), 'about', null],
+            [1, $t('Services', 'Diensten', 'Послуги', 'Услуги'), 'home', '#services'],
+            [2, $t('Events', 'Events', 'Афіша', 'Афиша'), 'home', '#events'],
+            [3, $t('Live Moments', 'Live Moments', 'Live Moments', 'Live Moments'), 'media', null],
+            [4, $t('Contact', 'Contact', 'Контакт', 'Контакт'), 'contact', null],
         ] as [$sort, $label, $value, $anchor]) {
             DB::table('menu_items')->insert([
                 'menu_section_id' => $headerId,
@@ -239,10 +335,11 @@ class SiteMenus
         ]);
 
         foreach ([
-            [0, $t('About Us', 'Over ons', 'Про нас', 'О нас'), 'about', null],
-            [1, $t('Events', 'Events', 'Афіша', 'Афиша'), 'home', '#events'],
-            [2, $t('Live Moments', 'Live Moments', 'Live Moments', 'Live Moments'), 'media', null],
-            [3, $t('Repertoire', 'Repertoire', 'Репертуар', 'Репертуар'), 'repertoire', null],
+            [0, $t('Meet Us', 'Ontmoet ons', 'Знайомтесь', 'Знакомьтесь'), 'about', null],
+            [1, $t('Services', 'Diensten', 'Послуги', 'Услуги'), 'home', '#services'],
+            [2, $t('Events', 'Events', 'Афіша', 'Афиша'), 'home', '#events'],
+            [3, $t('Live Moments', 'Live Moments', 'Live Moments', 'Live Moments'), 'media', null],
+            [4, $t('Repertoire', 'Repertoire', 'Репертуар', 'Репертуар'), 'repertoire', null],
         ] as [$sort, $label, $value, $anchor]) {
             DB::table('menu_items')->insert([
                 'menu_section_id' => $navigateId,

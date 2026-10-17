@@ -39,7 +39,7 @@
                             </a>
                             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:12px;">
                                 <tr>
-                                    <td width="36" height="3" bgcolor="#7C3AED" style="font-size:0;line-height:0;background-color:#7C3AED;">&nbsp;</td>
+                                    <td width="36" height="3" bgcolor="#A78BFA" style="font-size:0;line-height:0;background-color:#A78BFA;">&nbsp;</td>
                                     <td width="36" height="3" bgcolor="#22D3EE" style="font-size:0;line-height:0;background-color:#22D3EE;">&nbsp;</td>
                                 </tr>
                             </table>

@@ -11,7 +11,7 @@ class MenuLinkOptions
     {
         return [
             'home' => 'Home',
-            'about' => 'About Us',
+            'about' => 'Meet Us',
             'media' => 'Live Moments',
             'repertoire' => 'Repertoire',
             'testimonials' => 'Testimonials',

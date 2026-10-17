@@ -11,14 +11,41 @@
         ])
         : collect([
             ['label' => site_t('nav.about'), 'href' => localized_route('about'), 'new_tab' => false],
+            ['label' => site_t('nav.services'), 'href' => localized_route('home').'#services', 'new_tab' => false],
             ['label' => site_t('nav.events'), 'href' => localized_route('home').'#events', 'new_tab' => false],
             ['label' => site_t('nav.media'), 'href' => localized_route('media'), 'new_tab' => false],
             ['label' => site_t('nav.contact'), 'href' => localized_route('contact'), 'new_tab' => false],
         ]);
+
+    $currentUrl = rtrim(url()->current(), '/');
 @endphp
 
 <header
-    x-data="{ open: false }"
+    x-data="{
+        open: false,
+        hash: window.location.hash || '',
+        init() {
+            const syncHash = () => { this.hash = window.location.hash || ''; };
+            window.addEventListener('hashchange', syncHash);
+            window.addEventListener('popstate', syncHash);
+        },
+        isActive(href) {
+            try {
+                const url = new URL(href, window.location.origin);
+                const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+                const linkPath = url.pathname.replace(/\/$/, '') || '/';
+                if (linkPath !== currentPath) {
+                    return false;
+                }
+                if (url.hash) {
+                    return this.hash === url.hash;
+                }
+                return ! this.hash;
+            } catch (_) {
+                return false;
+            }
+        },
+    }"
     class="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-background/80 backdrop-blur-xl"
 >
     <div class="container-site flex h-16 items-center justify-between gap-4 lg:h-20">
@@ -26,10 +53,22 @@
 
         <nav class="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
             @foreach ($links as $link)
+                @php
+                    $linkPath = rtrim(strtok($link['href'], '#'), '/');
+                    $hasHash = str_contains($link['href'], '#');
+                    $serverActive = ! $hasHash && $linkPath === $currentUrl;
+                @endphp
                 <a
                     href="{{ $link['href'] }}"
                     @if ($link['new_tab']) target="_blank" rel="noopener noreferrer" @endif
-                    class="text-xs font-medium uppercase tracking-[0.15em] text-white/80 transition-colors hover:text-white"
+                    @class([
+                        'text-xs font-medium uppercase tracking-[0.15em] transition-colors hover:text-white',
+                        'text-cyan' => $serverActive,
+                        'text-white/80' => ! $serverActive,
+                    ])
+                    :class="isActive(@js($link['href'])) ? 'text-cyan' : 'text-white/80'"
+                    :aria-current="isActive(@js($link['href'])) ? 'page' : null"
+                    @click="hash = new URL($event.currentTarget.href, window.location.origin).hash || ''"
                 >
                     {{ $link['label'] }}
                 </a>
@@ -67,11 +106,22 @@
     >
         <nav class="container-site flex flex-col gap-1 py-4" aria-label="Mobile navigation">
             @foreach ($links as $link)
+                @php
+                    $linkPath = rtrim(strtok($link['href'], '#'), '/');
+                    $hasHash = str_contains($link['href'], '#');
+                    $serverActive = ! $hasHash && $linkPath === $currentUrl;
+                @endphp
                 <a
                     href="{{ $link['href'] }}"
                     @if ($link['new_tab']) target="_blank" rel="noopener noreferrer" @endif
-                    class="rounded-md px-3 py-3 text-sm font-medium uppercase tracking-wider text-white/80 transition-colors hover:bg-white/5 hover:text-white"
-                    @click="open = false"
+                    @class([
+                        'rounded-md px-3 py-3 text-sm font-medium uppercase tracking-wider transition-colors hover:bg-white/5 hover:text-white',
+                        'bg-white/5 text-cyan' => $serverActive,
+                        'text-white/80' => ! $serverActive,
+                    ])
+                    :class="isActive(@js($link['href'])) ? 'bg-white/5 text-cyan' : 'text-white/80'"
+                    :aria-current="isActive(@js($link['href'])) ? 'page' : null"
+                    @click="open = false; hash = new URL($event.currentTarget.href).hash || ''"
                 >
                     {{ $link['label'] }}
                 </a>

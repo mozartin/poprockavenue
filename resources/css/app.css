@@ -10,7 +10,8 @@
 
     --color-background: #08090D;
     --color-surface: #11131A;
-    --color-purple: #7C3AED;
+    --color-surface-raised: #1A1E2A;
+    --color-purple: #A78BFA;
     --color-cyan: #22D3EE;
     --color-pink: #F43F5E;
     --color-white: #F8FAFC;
@@ -42,15 +43,15 @@
     }
 
     .btn-gradient {
-        @apply inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-purple to-cyan px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan/50;
+        @apply inline-flex items-center justify-center gap-2 rounded-md bg-gradient-to-r from-[#be123c] via-pink to-[#db2777] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink/50;
         box-shadow: 0 0 0 0 transparent;
     }
 
     .btn-gradient:hover {
         box-shadow:
-            0 0 18px rgba(124, 58, 237, 0.75),
-            0 0 36px rgba(34, 211, 238, 0.55),
-            0 0 64px rgba(124, 58, 237, 0.4);
+            0 0 18px rgba(244, 63, 94, 0.7),
+            0 0 36px rgba(219, 39, 119, 0.4),
+            0 0 56px rgba(190, 18, 60, 0.3);
     }
 
     .btn-outline {
@@ -62,7 +63,11 @@
         @apply border-cyan/50 bg-white/5;
         box-shadow:
             0 0 16px rgba(34, 211, 238, 0.45),
-            0 0 32px rgba(124, 58, 237, 0.35);
+            0 0 32px rgba(167, 139, 250, 0.35);
+    }
+
+    .form-field {
+        @apply w-full rounded-xl border border-white/15 bg-white/[0.07] px-4 py-3.5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors placeholder:text-muted/55 focus:border-cyan/50 focus:outline-none focus:ring-1 focus:ring-cyan/40;
     }
 
     .section-eyebrow {
@@ -75,14 +80,14 @@
     }
 
     .glow-purple {
-        box-shadow: 0 0 60px rgba(124, 58, 237, 0.22);
+        box-shadow: 0 0 60px rgba(244, 63, 94, 0.22);
     }
 
     .glow-purple:hover {
         box-shadow:
-            0 0 22px rgba(124, 58, 237, 0.8),
-            0 0 42px rgba(34, 211, 238, 0.55),
-            0 0 72px rgba(124, 58, 237, 0.45);
+            0 0 22px rgba(244, 63, 94, 0.75),
+            0 0 42px rgba(244, 63, 94, 0.4),
+            0 0 72px rgba(244, 63, 94, 0.3);
     }
 
     .glow-cyan {
@@ -94,12 +99,56 @@
     }
 
     .hero-photo {
-        filter: brightness(1.04) contrast(1.03) saturate(1.04);
+        filter: brightness(1.02) contrast(1.02) saturate(1.03);
     }
 
-    @media (min-width: 640px) {
-        .hero-photo {
-            filter: brightness(1.02) contrast(1.02) saturate(1.03);
+    /*
+     * Hero photo stage: smaller, shifted right, soft black fade on all edges.
+     * Left side of the section stays solid background for copy — no photo edit needed.
+     */
+    .hero-stage {
+        top: 1%;
+        right: 0;
+        bottom: 1%;
+        left: 10%;
+        width: auto;
+    }
+
+    /* Soft edge fade only — center of the photo stays bright */
+    .hero-stage-fade {
+        background:
+            linear-gradient(90deg, #08090d 0%, rgba(8, 9, 13, 0.75) 6%, rgba(8, 9, 13, 0.2) 14%, transparent 24%),
+            linear-gradient(270deg, #08090d 0%, rgba(8, 9, 13, 0.35) 5%, transparent 14%),
+            linear-gradient(180deg, #08090d 0%, rgba(8, 9, 13, 0.25) 6%, transparent 16%),
+            linear-gradient(0deg, #08090d 0%, rgba(8, 9, 13, 0.3) 7%, transparent 18%);
+        pointer-events: none;
+    }
+
+    @media (min-width: 1024px) {
+        .hero-stage {
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 18%;
+        }
+    }
+
+    @media (min-width: 1280px) {
+        .hero-stage {
+            left: 20%;
+        }
+    }
+
+    @media (max-width: 639px) {
+        .hero-stage {
+            inset: 0;
+            left: 0;
+        }
+
+        .hero-stage-fade {
+            background:
+                linear-gradient(90deg, rgba(8, 9, 13, 0.9) 0%, rgba(8, 9, 13, 0.55) 38%, transparent 72%),
+                linear-gradient(180deg, rgba(8, 9, 13, 0.35) 0%, transparent 22%, transparent 70%, rgba(8, 9, 13, 0.75) 100%);
         }
     }
 }
@@ -113,13 +162,29 @@
     animation: marquee 40s linear infinite;
 }
 
+/* While a Live Moment player is open, hide neon cursor and any stray video layers. */
+html.media-moment-open,
+html.media-moment-open * {
+    cursor: auto !important;
+}
+
+html.media-moment-open #neon-cursor,
+html.media-moment-open #neon-cursor-ring {
+    display: none !important;
+}
+
+html.media-moment-open video:not([data-moment-player]) {
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
 /* Neon cursor follower */
 @media (hover: hover) and (pointer: fine) {
     body { cursor: none; }
 
     #neon-cursor {
         position: fixed;
-        z-index: 99999;
+        z-index: 100010;
         top: 0;
         left: 0;
         pointer-events: none;
@@ -130,14 +195,14 @@
         box-shadow:
             0 0 6px  2px rgba(34, 211, 238, 0.9),
             0 0 18px 4px rgba(34, 211, 238, 0.5),
-            0 0 36px 8px rgba(124, 58, 237, 0.35);
+            0 0 36px 8px rgba(167, 139, 250, 0.35);
         transform: translate(-50%, -50%);
         will-change: transform;
     }
 
     #neon-cursor-ring {
         position: fixed;
-        z-index: 99998;
+        z-index: 100009;
         top: 0;
         left: 0;
         pointer-events: none;
@@ -147,7 +212,7 @@
         border: 1px solid rgba(34, 211, 238, 0.35);
         box-shadow:
             0 0 10px 2px rgba(34, 211, 238, 0.15),
-            inset 0 0 8px 1px rgba(124, 58, 237, 0.1);
+            inset 0 0 8px 1px rgba(167, 139, 250, 0.1);
         transform: translate(-50%, -50%);
         will-change: transform;
         transition: width 180ms ease, height 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
@@ -157,9 +222,9 @@
     body:has(button:hover) #neon-cursor-ring {
         width: 52px;
         height: 52px;
-        border-color: rgba(124, 58, 237, 0.6);
+        border-color: rgba(167, 139, 250, 0.6);
         box-shadow:
-            0 0 14px 4px rgba(124, 58, 237, 0.3),
+            0 0 14px 4px rgba(167, 139, 250, 0.3),
             inset 0 0 12px 2px rgba(34, 211, 238, 0.15);
     }
 }

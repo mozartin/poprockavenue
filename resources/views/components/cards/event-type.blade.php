@@ -4,13 +4,14 @@
     $sizeClasses = match ($size) {
         'large' => 'md:row-span-2 min-h-[420px]',
         'wide' => 'md:col-span-2 min-h-[280px]',
+        'slider' => 'h-full min-h-[360px] sm:min-h-[420px] lg:min-h-[480px]',
         default => 'min-h-[220px]',
     };
 @endphp
 
 <a
-    href="{{ localized_route('contact', ['event_type' => $event->name]) }}#event_type"
-    class="group relative flex overflow-hidden rounded-2xl {{ $sizeClasses }}"
+    href="{{ localized_route('contact', ['event_type' => $event->name]) }}#booking-form"
+    {{ $attributes->class(['group relative flex overflow-hidden rounded-2xl', $sizeClasses]) }}
 >
     <x-ui.parallax-image
         :src="$event->imageUrl()"
