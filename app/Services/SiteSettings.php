@@ -160,12 +160,24 @@ class SiteSettings
 
     /**
      * Image used for Open Graph / Twitter / messengers when sharing a link.
-     * Prefer a square logo so messengers show a compact left thumbnail (not a huge photo).
+     *
+     * LinkedIn / Facebook / X get the wide card (1200×627).
+     * Telegram / WhatsApp / others get a square card so the preview stays compact with text beside it.
      */
     public static function ogImage(): string
     {
-        // Brighter slate share card (black logo stack reads as a void in WhatsApp).
-        $default = 'images/logo/og-share-v1.jpg';
+        if (self::crawlerPrefersLargeOgImage()) {
+            $large = self::get('og_image_large');
+            $defaultLarge = 'images/logo/og-share-linkedin-v1.jpg';
+
+            if (filled($large)) {
+                return self::imageUrl($large, $defaultLarge);
+            }
+
+            return self::imageUrl(null, $defaultLarge);
+        }
+
+        $default = 'images/logo/og-share-v2.jpg';
         $og = self::get('og_image');
 
         if (filled($og)) {
@@ -173,6 +185,41 @@ class SiteSettings
         }
 
         return self::imageUrl(null, $default);
+    }
+
+    /**
+     * @return array{width: int, height: int}
+     */
+    public static function ogImageDimensions(): array
+    {
+        return self::crawlerPrefersLargeOgImage()
+            ? ['width' => 1200, 'height' => 627]
+            : ['width' => 1200, 'height' => 1200];
+    }
+
+    public static function ogTwitterCard(): string
+    {
+        return self::crawlerPrefersLargeOgImage()
+            ? 'summary_large_image'
+            : 'summary';
+    }
+
+    /**
+     * Platforms that render a large landscape share card well.
+     * Telegram's UA contains "like TwitterBot" — exclude messengers first.
+     */
+    public static function crawlerPrefersLargeOgImage(?string $userAgent = null): bool
+    {
+        $ua = $userAgent ?? (string) request()->userAgent();
+
+        if (preg_match('/TelegramBot|WhatsApp|Slackbot|Discordbot|Viber/i', $ua)) {
+            return false;
+        }
+
+        return (bool) preg_match(
+            '/LinkedInBot|LinkedInApp|facebookexternalhit|Facebot|Twitterbot|Quora Link Preview/i',
+            $ua
+        );
     }
 
     public static function ogSiteName(): string

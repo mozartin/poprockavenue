@@ -4,6 +4,8 @@
     $canonicalUrl = url()->current();
     $ogImage = \App\Services\SiteSettings::ogImage();
     $ogImageUrl = str_starts_with($ogImage, 'http') ? $ogImage : url($ogImage);
+    $ogImageSize = \App\Services\SiteSettings::ogImageDimensions();
+    $ogTwitterCard = \App\Services\SiteSettings::ogTwitterCard();
     $ogSiteName = \App\Services\SiteSettings::ogSiteName();
     $locale = app()->getLocale();
     $ogLocale = match ($locale) {
@@ -65,12 +67,12 @@
         @endif
     @endforeach
 
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="{{ $ogTwitterCard }}">
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDescription }}">
     <meta name="twitter:image" content="{{ $ogImageUrl }}">
-    <meta property="og:image:width" content="1024">
-    <meta property="og:image:height" content="1024">
+    <meta property="og:image:width" content="{{ $ogImageSize['width'] }}">
+    <meta property="og:image:height" content="{{ $ogImageSize['height'] }}">
 
     @foreach (supported_locales() as $code => $label)
         <link rel="alternate" hreflang="{{ $code }}" href="{{ switch_locale_url($code) }}">
